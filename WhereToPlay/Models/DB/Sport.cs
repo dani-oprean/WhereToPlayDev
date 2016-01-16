@@ -8,7 +8,6 @@ namespace WhereToPlay.Models.DB
 {
     public class Sport
     {
-        //comentariu Dani
         public Sport()
         {
             this.Courts = new List<Court>();
