@@ -1,0 +1,69 @@
+﻿@model IEnumerable<WhereToPlay.Models.DB.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserGroup.UserGroupName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserPassword)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserFullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hidden)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserGroup.UserGroupName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserPassword)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserFullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hidden)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDUser }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDUser }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDUser })
+        </td>
+    </tr>
+}
+
+</table>
