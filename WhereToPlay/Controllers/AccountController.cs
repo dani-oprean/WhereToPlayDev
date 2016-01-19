@@ -26,24 +26,23 @@ namespace WhereToPlay.Controllers
         }
 
         // GET: Account/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    User user = db.Users.Find(id);
+        //    if (user == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(user);
+        //}
 
         // GET: Account/Create
         public ActionResult Register()
         {
-            //ViewBag.UserGroupID = new SelectList(db.UserGroups, "IDUserGroup", "UserGroupName");
             return View();
         }
 
@@ -97,13 +96,14 @@ namespace WhereToPlay.Controllers
         }
 
         // GET: Account/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit()
         {
-            if (id == null)
+            string usrName = User.Identity.Name;
+            if (usrName == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = db.Users.Where(e=>e.UserName == usrName).FirstOrDefault();
             if (user == null)
             {
                 return HttpNotFound();
