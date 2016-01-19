@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using WhereToPlay.Models;
 using WhereToPlay.Models.DB;
+using SimpleCrypto;
+using System.Diagnostics;
+using System.Web.Security;
 
 namespace WhereToPlay.Controllers
 {
@@ -38,9 +41,9 @@ namespace WhereToPlay.Controllers
         }
 
         // GET: Account/Create
-        public ActionResult Create()
+        public ActionResult Register()
         {
-            ViewBag.UserGroupID = new SelectList(db.UserGroups, "IDUserGroup", "UserGroupName");
+            //ViewBag.UserGroupID = new SelectList(db.UserGroups, "IDUserGroup", "UserGroupName");
             return View();
         }
 
@@ -49,17 +52,48 @@ namespace WhereToPlay.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDUser,UserName,UserPhone,UserEmail,UserPassword,UserFullName,UserGroupID,Hidden")] User user)
+        public ActionResult Create([Bind(Include = "UserName,UserPhone,UserEmail,UserPassword,UserPasswordConfirm,UserFullName,IAmOwner")] User user)
         {
+            ModelState.Remove("UserGroupId");
+            ModelState.Remove("UserPasswordSalt");
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
+                var crypto = new SimpleCrypto.PBKDF2();
+
+                User suser = new User();
+                suser.UserName = user.UserName;
+                suser.UserPhone = user.UserPhone;
+                suser.UserEmail = user.UserEmail;
+                suser.UserFullName = user.UserFullName;
+                suser.UserPassword = crypto.Compute(user.UserPassword);
+                suser.UserPasswordConfirm = suser.UserPassword;
+                suser.UserPasswordSalt = crypto.Salt;
+                string owner = user.IAmOwner ? "Proprietar" : "Jucator";
+                suser.UserGroupID = db.UserGroups.Where(e => e.UserGroupName == owner).FirstOrDefault().IDUserGroup;
+                suser.UserGroup = db.UserGroups.Where(e => e.IDUserGroup == suser.UserGroupID).FirstOrDefault();
+
+                try
+                {
+                    db.Users.Add(suser);
+                    db.SaveChanges();
+                }
+                catch(System.Data.Entity.Validation.DbEntityValidationException er)
+                {
+                    foreach (var validationErrors in er.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Trace.TraceInformation("Property: {0} Error: {1}",
+                                                    validationError.PropertyName,
+                                                    validationError.ErrorMessage);
+                        }
+                    }
+                }
                 return RedirectToAction("Index");
             }
 
             ViewBag.UserGroupID = new SelectList(db.UserGroups, "IDUserGroup", "UserGroupName", user.UserGroupID);
-            return View(user);
+            return View("Register",user);
         }
 
         // GET: Account/Edit/5
@@ -128,6 +162,49 @@ namespace WhereToPlay.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(User usr)
+        {
+            if(ValidateLogin(usr.UserName, usr.UserPassword))
+            {
+                FormsAuthentication.SetAuthCookie(usr.UserName, false);
+                return RedirectToAction("Index","Home");
+            }
+            else
+            {
+                ModelState.AddModelError("","Userul sau parola sunt gresite!");
+            }
+            return View(usr);
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("");
+        }
+
+        [NonAction]
+        public bool ValidateLogin(string usrName, string pass)
+        {
+            var crypto = new SimpleCrypto.PBKDF2();
+            var usr = db.Users.Where(e => e.UserName == usrName).FirstOrDefault();
+            bool isValid = false;
+
+            if (usr!=null)
+            {
+                if (usr.UserPassword == crypto.Compute(pass, usr.UserPasswordSalt))
+                {
+                    isValid = true;
+                }
+            }
+            return isValid;
         }
     }
 }

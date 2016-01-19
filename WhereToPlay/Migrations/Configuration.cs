@@ -4,6 +4,7 @@ namespace WhereToPlay.Migrations
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Diagnostics;
     using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<WhereToPlay.Models.WhereToPlayDb>
@@ -39,17 +40,20 @@ namespace WhereToPlay.Migrations
               new ReservationTime { Hours = "20-22" }
             );
 
+
             context.Users.AddOrUpdate(
               p => p.UserName,
               new User
               {
-                  UserName ="admin",
-                  UserEmail ="oidldb@gmail.com",
+                  UserName = "admin",
+                  UserEmail = "oidldb@gmail.com",
                   UserPassword = "8ueosSTqRqEoeSO0qddj0u/8duNF2iee0b99LKOOlJgiHmN88FEUZ/Lre45kOqGD3Wl1iPKr/hSfWvBGkPNjvQ==",
+                  UserPasswordConfirm = "8ueosSTqRqEoeSO0qddj0u/8duNF2iee0b99LKOOlJgiHmN88FEUZ/Lre45kOqGD3Wl1iPKr/hSfWvBGkPNjvQ==",
                   UserPasswordSalt = "100000.hCkNVNm/n2ElkChtHnS2me1VywTjxpjAoxnyYLLoWKisAg==",
-                  UserGroupID = 1
-              }
-            );
+                  UserGroupID = context.UserGroups.Where(e => e.UserGroupName == "Administrator").FirstOrDefault().IDUserGroup,
+                  UserGroup = context.UserGroups.Where(e=>e.UserGroupName=="Administrator").FirstOrDefault()
+                  }
+                );
         }
     }
 }
