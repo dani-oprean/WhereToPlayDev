@@ -1,0 +1,98 @@
+﻿@model WhereToPlay.Models.DB.Court
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Court</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Address.AddressStreet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address.AddressStreet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sport.SportName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sport.SportName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourtName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourtName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Length)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Length)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Width)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Width)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SessionPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SessionPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hidden)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hidden)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDCourt }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

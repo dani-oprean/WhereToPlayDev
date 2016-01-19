@@ -13,17 +13,20 @@ namespace WhereToPlay.Models.DB
         {
             this.Reservations = new List<Reservation>();
             this.Hidden = false;
+            this.Length = 50;
+            this.Width = 25;
         }
 
         [Key]
         public int IDCourt { get; set; }
 
         [StringLength(50)]
-        [Required]
+        [Required(ErrorMessage = "Campul Denumire trebuie completat!")]
+        [Display(Name = "Denumire")]
         public string CourtName { get; set; }
 
         [ForeignKey("Sport")]
-        [Required]
+        [Required(ErrorMessage = "Campul Sport trebuie completat!")]
         public int SportID { get; set; }
         public virtual Sport Sport { get; set; }
 
@@ -32,16 +35,20 @@ namespace WhereToPlay.Models.DB
         public int AddressID { get; set; }
         public virtual Address Address { get; set; }
 
-        [Range(0,300)]
+        [Range(0, 300, ErrorMessage = "Campul Lungime trebuie sa fie intre 0 si 300")]
+        [Display(Name = "Lungime")]
         public int Length { get; set; }
 
-        [Range(0, 300)]
+        [Range(0, 300, ErrorMessage = "Campul Latime trebuie sa fie intre 0 si 300")]
+        [Display(Name = "Latime")]
         public int Width { get; set; }
 
         [StringLength(50)]
+        [Display(Name = "Numar telefon")]
         public string PhoneNumber { get; set; }
 
         [StringLength(50)]
+        [Display(Name = "Adresa email")]
         public string EmailAddress { get; set; }
 
         [ForeignKey("User")]
@@ -49,7 +56,8 @@ namespace WhereToPlay.Models.DB
         public int CreateUserID { get; set; }
         public virtual User User { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campul Pret/Sesiune trebuie completat!")]
+        [Display(Name = "Pret/Sesiune")]
         public int SessionPrice { get; set; }
 
         public bool Hidden { get; set; }

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<WhereToPlay.Models.DB.Court>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Address.AddressStreet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sport.SportName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourtName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Length)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Width)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SessionPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hidden)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address.AddressStreet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sport.SportName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourtName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Length)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Width)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SessionPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hidden)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDCourt }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDCourt }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDCourt })
+        </td>
+    </tr>
+}
+
+</table>
