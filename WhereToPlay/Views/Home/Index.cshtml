@@ -5,3 +5,20 @@
 }
 
 <h2>Index</h2>
+<ul>
+@foreach(WhereToPlay.Models.DB.Court court in Model)
+{
+    <li>
+        <p>
+            @court.CourtName
+        </p>
+        <p>
+            @court.Address
+        </p>
+        <p>
+            @court.EmailAddress
+        </p>
+    </li>     
+ 
+}
+</ul>
