@@ -19,7 +19,9 @@ namespace WhereToPlay.Controllers
         // GET: Courts
         public ActionResult Index()
         {
-            var courts = db.Courts.Include(c => c.Address).Include(c => c.Sport).Include(c => c.User);
+            int loggedUserID=db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault().IDUser;
+
+            var courts = db.Courts.Where(c=>c.CreateUserID==loggedUserID).Include(c => c.Address).Include(c => c.Sport).Include(c => c.User);
             return View(courts.ToList());
         }
 
