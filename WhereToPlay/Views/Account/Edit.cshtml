@@ -6,7 +6,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Account", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
@@ -43,7 +43,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.UserPassword, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.Password("PasswordChange", "", new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,7 +51,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.UserPasswordConfirm, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.UserPasswordConfirm, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.Password("PasswordChangeConfirm","", new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.UserPasswordConfirm, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -62,5 +62,9 @@
             </div>
         </div>
     </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 }
 
