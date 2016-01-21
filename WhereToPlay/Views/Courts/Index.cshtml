@@ -73,13 +73,22 @@
         <td>
             @Html.DisplayFor(modelItem => item.SessionPrice)
         </td>
+       @if (item.Hidden == false)
+       {
+         <td>
+            @Html.DisplayFor(modelItem => item.Hidden)
+            @Html.ActionLink("Inactiveaza", "Delete", new { id = item.IDCourt })
+        </td>
+       }
+       else
+       {
         <td>
             @Html.DisplayFor(modelItem => item.Hidden)
+            @Html.ActionLink("Activeaza", "Delete", new { id = item.IDCourt })
         </td>
+       }
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDCourt }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDCourt }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDCourt })
+            @Html.ActionLink("Details", "Details", new { id=item.IDCourt })
         </td>
     </tr>
 }
