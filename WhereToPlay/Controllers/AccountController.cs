@@ -158,7 +158,16 @@ namespace WhereToPlay.Controllers
             {
                 return HttpNotFound();
             }
-            return View(user);
+            else
+            {
+                //aici schimb statusul lui Hidden
+                user.Hidden = !(user.Hidden);
+                user.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == user.UserGroupID).FirstOrDefault();
+                user.UserPasswordConfirm = user.UserPassword;
+                db.SaveChanges();
+                
+            }
+            return View("Index",db.Users);
         }
 
         // POST: Account/Delete/5
@@ -214,11 +223,14 @@ namespace WhereToPlay.Controllers
             var usr = db.Users.Where(e => e.UserName == usrName).FirstOrDefault();
             bool isValid = false;
 
-            if (usr!=null)
-            {
-                if (usr.UserPassword == crypto.Compute(pass, usr.UserPasswordSalt))
+            if(usr.Hidden==false)
+            { 
+                if (usr!=null)
                 {
-                    isValid = true;
+                    if (usr.UserPassword == crypto.Compute(pass, usr.UserPasswordSalt))
+                    {
+                        isValid = true;
+                    }
                 }
             }
             return isValid;
