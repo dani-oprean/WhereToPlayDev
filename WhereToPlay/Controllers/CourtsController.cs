@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -51,12 +52,58 @@ namespace WhereToPlay.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDCourt,CourtName,SportID,AddressID,Length,Width,PhoneNumber,EmailAddress,CreateUserID,SessionPrice,Hidden")] Court court)
+        public ActionResult Create([Bind(Include = "Address,CourtName,SportID,AddressID,Length,Width,PhoneNumber,EmailAddress,CreateUserID,SessionPrice")] Court court)
+        //,AddressStreet,AddressNumber,AddressCity,AddressCounty
         {
+            //ModelState.Remove("AddressID");
+            //ModelState.Remove("IDCourt");
             if (ModelState.IsValid)
             {
-                db.Courts.Add(court);
+
+                Court myCourt = new Court();
+                myCourt.CourtName = court.CourtName;
+                myCourt.Length = court.Length;
+                myCourt.Width = court.Width;
+                myCourt.PhoneNumber = court.PhoneNumber;
+                myCourt.EmailAddress = court.EmailAddress;
+                myCourt.CreateUserID = court.CreateUserID;
+                myCourt.SessionPrice = court.SessionPrice;
+                //myCourt.Hidden = court.Hidden;
+
+                Address myAdd = new Address();
+                myAdd.AddressStreet = court.Address.AddressStreet;
+                myAdd.AddressNumber = court.Address.AddressNumber;
+                myAdd.AddressCity = court.Address.AddressCity;
+                myAdd.AddressCounty = court.Address.AddressCounty;
+                db.Addresses.Add(myAdd);
                 db.SaveChanges();
+
+                myCourt.AddressID = myAdd.IDAddress;
+                myCourt.Address = db.Addresses.Where(a => a.IDAddress == myCourt.AddressID).FirstOrDefault();
+
+                myCourt.SportID = court.SportID;
+                myCourt.Sport = db.Sports.Where(s => s.IDSport == myCourt.SportID).FirstOrDefault();
+
+                myCourt.CreateUserID = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault().IDUser;
+                myCourt.User = db.Users.Where(u => u.IDUser == myCourt.CreateUserID).FirstOrDefault();
+                myCourt.User.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == myCourt.User.UserGroupID).FirstOrDefault();
+                myCourt.User.UserPasswordConfirm = myCourt.User.UserPassword;
+
+                try
+                {
+                    db.Courts.Add(myCourt);
+                    db.SaveChanges();
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException er)
+                {
+                    foreach (var validationErrors in er.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Trace.TraceInformation("Property: {0} Error: {1}",validationError.PropertyName,validationError.ErrorMessage);
+                        }
+                    }
+                }
                 return RedirectToAction("Index");
             }
 
