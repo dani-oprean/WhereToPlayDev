@@ -23,10 +23,27 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Acasa", "Index", "Home")</li>
 
-                    @if(Request.IsAuthenticated) 
+                    @if(Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink(User.Identity.Name, "Edit", "Account")</li>
-                        <li>@Html.ActionLink("Log Out", "Logout", "Account")</li>
+                        { WhereToPlay.Models.WhereToPlayDb db = new WhereToPlay.Models.WhereToPlayDb();
+                        WhereToPlay.Models.DB.User loggedUser = db.Users.Where(u => u.UserName == HttpContext.Current.User.Identity.Name).FirstOrDefault();
+                        WhereToPlay.Models.DB.UserGroup UsrGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+
+                            if (UsrGroup.UserGroupName == "Proprietar")
+                            {
+                                <li>@Html.ActionLink("Adauga Teren", "Create", "Courts")</li>
+                                <li>@Html.ActionLink("Terenurile Mele", "Index", "Courts")</li>
+                            }
+                            if (UsrGroup.UserGroupName == "Administrator")
+                            {
+                                <li>@Html.ActionLink("Lista Utilizatori", "Index", "Account")</li>
+                            }
+
+                            <li>@Html.ActionLink(loggedUser.UserName, "Edit", "Account")</li>
+                            <li>@Html.ActionLink("Log Out", "Logout", "Account")</li>
+                        }
+
+
                     }
                     else
                     {

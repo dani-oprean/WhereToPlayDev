@@ -5,3 +5,65 @@
 }
 
 <h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserGroup.UserGroupName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserFullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hidden)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserGroup.UserGroupName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserFullName)
+        </td>
+       @if (item.Hidden == false)
+       {
+         <td>
+            @Html.CheckBoxFor(modelItem => item.Hidden, new { @disabled = "disabled" })
+            @Html.ActionLink("Inactiveaza", "Delete", new { id = item.IDUser })
+        </td>
+       }
+       else
+       {
+        <td>
+            @Html.CheckBoxFor(modelItem => item.Hidden, new { @disabled = "disabled" })
+            @Html.ActionLink("Activeaza", "Delete", new { id = item.IDUser })
+        </td>
+       }
+    </tr>
+}
+
+</table>
