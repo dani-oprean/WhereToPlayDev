@@ -12,6 +12,8 @@ using SimpleCrypto;
 using System.Diagnostics;
 using System.Web.Security;
 using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations;
+using System.Web.UI;
 
 namespace WhereToPlay.Controllers
 {
@@ -121,6 +123,7 @@ namespace WhereToPlay.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             User user = db.Users.Where(e=>e.UserName == usrName).FirstOrDefault();
+            user.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == user.UserGroupID).FirstOrDefault();
             if (user == null)
             {
                 return HttpNotFound();
@@ -134,16 +137,49 @@ namespace WhereToPlay.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDUser,UserName,UserPhone,UserEmail,UserPassword,UserFullName,UserGroupID,Hidden")] User user)
+        public ActionResult Edit([Bind(Include = "IDUser,UserName,UserPhone,UserEmail,PasswordChange,PasswordChangeConfirm,UserFullName")] User user)
         {
-            if (ModelState.IsValid)
+            User editedUser = db.Users.Where(u=>u.IDUser == user.IDUser).FirstOrDefault();
+            if (user.UserPhone != null)
+                if (IsPhoneNumber(user.UserPhone))
+                {
+                    editedUser.UserPhone = user.UserPhone;
+                }
+                else
+                {
+                    ModelState.AddModelError("UserPhone", "Campul Numar de telefon trebuie sa respecte formatul unui numar de telefon!");
+                    return View("Edit", user);
+                }
+            editedUser.UserEmail = user.UserEmail;
+            editedUser.UserFullName = user.UserFullName;
+            editedUser.UserGroup = db.UserGroups.Where(u=>u.IDUserGroup == editedUser.UserGroupID).FirstOrDefault();
+
+            
+            
+            editedUser.UserPasswordConfirm = editedUser.UserPassword;
+            
+            if (db.GetValidationErrors().ToList().Count==0)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(db.Entry(editedUser).State == EntityState.Modified)
+                {
+                    db.SaveChanges();
+                }
             }
-            ViewBag.UserGroupID = new SelectList(db.UserGroups, "IDUserGroup", "UserGroupName", user.UserGroupID);
-            return View(user);
+            else
+            {
+                foreach (var validationResults in db.GetValidationErrors())
+                {
+                    foreach (var error in validationResults.ValidationErrors)
+                    {
+                        Debug.WriteLine(
+                                          "Entity Property: {0}, Error {1}",
+                                          error.PropertyName,
+                                          error.ErrorMessage);
+                    }
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Account/Delete/5
@@ -204,7 +240,7 @@ namespace WhereToPlay.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("");
+            return RedirectToAction("Index","Home");
         }
 
         [NonAction]
