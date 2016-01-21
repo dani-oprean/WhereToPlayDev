@@ -196,10 +196,19 @@ namespace WhereToPlay.Controllers
             }
             else
             {
-                //aici schimb statusul lui Hidden
+                //aici schimb statusul lui Hidden pentru user
                 user.Hidden = !(user.Hidden);
                 user.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == user.UserGroupID).FirstOrDefault();
                 user.UserPasswordConfirm = user.UserPassword;
+
+                //tre sa ii dam hidden si la terenurile lui daca il inactivam si daca e proprietar
+                if (user.UserGroup.UserGroupName == "Proprietar" && user.Hidden==true)
+                {
+                    foreach (Court item in db.Courts.Where(c=>c.CreateUserID==user.IDUser))
+                    {
+                        item.Hidden = true;
+                    }
+                }
                 db.SaveChanges();
                 
             }

@@ -19,10 +19,14 @@ namespace WhereToPlay.Controllers
         // GET: Courts
         public ActionResult Index()
         {
-            int loggedUserID=db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault().IDUser;
+            if (Request.IsAuthenticated)
+            {
+                int loggedUserID = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault().IDUser;
+                var courts = db.Courts.Where(c => c.CreateUserID == loggedUserID).Include(c => c.Address).Include(c => c.Sport).Include(c => c.User);
+                return View(courts.ToList());
+            }
 
-            var courts = db.Courts.Where(c=>c.CreateUserID==loggedUserID).Include(c => c.Address).Include(c => c.Sport).Include(c => c.User);
-            return View(courts.ToList());
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Courts/Details/5
@@ -164,7 +168,13 @@ namespace WhereToPlay.Controllers
             {
                 return HttpNotFound();
             }
-            return View(court);
+            else
+            {
+                //aici schimb statusul lui Hidden pentru court
+                court.Hidden = !(court.Hidden);
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index", "Courts");
         }
 
         // POST: Courts/Delete/5
