@@ -16,6 +16,8 @@ namespace WhereToPlay.Models.DB
             this.Reservations = new List<Reservation>();
             this.Courts = new List<Court>();
             this.UserGroup = new UserGroup();
+            this.PasswordChange = "";
+            this.PasswordChangeConfirm = "";
         }
 
         [Key]
@@ -47,6 +49,17 @@ namespace WhereToPlay.Models.DB
         [NotMapped]
         [System.ComponentModel.DataAnnotations.Compare("UserPassword", ErrorMessage = "Valoarea din campul Confirmati Parola trebuie sa fie egala cu valoarea din campul Parola!")]
         public string UserPasswordConfirm { get; set; }
+
+        [Display(Name = "Parola*")]
+        [DataType(DataType.Password)]
+        [NotMapped]
+        public string PasswordChange { get; set; }
+
+        [Display(Name = "Confirma Parola*")]
+        [DataType(DataType.Password)]
+        [NotMapped]
+        [System.ComponentModel.DataAnnotations.Compare("PasswordChange", ErrorMessage = "Valoarea din campul Confirmati Parola trebuie sa fie egala cu valoarea din campul Parola!")]
+        public string PasswordChangeConfirm { get; set; }
 
         [Required]
         public string UserPasswordSalt { get; set; }

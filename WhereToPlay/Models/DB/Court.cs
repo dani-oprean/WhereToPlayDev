@@ -49,6 +49,7 @@ namespace WhereToPlay.Models.DB
 
         [StringLength(50)]
         [Display(Name = "Adresa email")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Acest camp trebuie sa aiba forma unei adrese de email!")]
         public string EmailAddress { get; set; }
 
         [ForeignKey("User")]

@@ -71,7 +71,7 @@ namespace WhereToPlay.Controllers
                 } 
                 suser.UserName = user.UserName;
                 if (user.UserPhone != null)
-                    if(IsPhoneNumber(user.UserPhone))
+                    if (IsPhoneNumber(user.UserPhone))
                     {
                         suser.UserPhone = user.UserPhone;
                     }
@@ -150,31 +150,37 @@ namespace WhereToPlay.Controllers
                     ModelState.AddModelError("UserPhone", "Campul Numar de telefon trebuie sa respecte formatul unui numar de telefon!");
                     return View("Edit", user);
                 }
-            editedUser.UserEmail = user.UserEmail;
+    editedUser.UserEmail = user.UserEmail;
             editedUser.UserFullName = user.UserFullName;
             editedUser.UserGroup = db.UserGroups.Where(u=>u.IDUserGroup == editedUser.UserGroupID).FirstOrDefault();
 
-            
-            
-            editedUser.UserPasswordConfirm = editedUser.UserPassword;
-            
-            if (db.GetValidationErrors().ToList().Count==0)
+            if (user.PasswordChange!="" && user.PasswordChange != null)
             {
-                if(db.Entry(editedUser).State == EntityState.Modified)
+                var crypto = new SimpleCrypto.PBKDF2();
+                editedUser.UserPassword = crypto.Compute(user.PasswordChange);
+                editedUser.UserPasswordConfirm = editedUser.UserPassword;
+                editedUser.UserPasswordSalt = crypto.Salt;
+            }
+            else
+            {
+                editedUser.UserPasswordConfirm = editedUser.UserPassword;
+            }
+
+            try
+            {
+                if (db.Entry(editedUser).State == EntityState.Modified)
                 {
                     db.SaveChanges();
                 }
             }
-            else
+            catch
             {
                 foreach (var validationResults in db.GetValidationErrors())
                 {
                     foreach (var error in validationResults.ValidationErrors)
                     {
-                        Debug.WriteLine(
-                                          "Entity Property: {0}, Error {1}",
-                                          error.PropertyName,
-                                          error.ErrorMessage);
+                        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                        return View("Edit", user);
                     }
                 }
             }
@@ -207,15 +213,15 @@ namespace WhereToPlay.Controllers
         }
 
         // POST: Account/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    User user = db.Users.Find(id);
+        //    db.Users.Remove(user);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
@@ -275,7 +281,7 @@ namespace WhereToPlay.Controllers
         [NonAction]
         public static bool IsPhoneNumber(string number)
         {
-            return Regex.Match(number, @"\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}").Success;
+            return Regex.Match(number, @"/^[0-9]+$/").Success;
         }
     }
 }
