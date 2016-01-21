@@ -33,6 +33,7 @@ namespace WhereToPlay.Models.DB
         [StringLength(50)]
         [Required(ErrorMessage = "Campul Adresa de email trebuie completat!")]
         [Display(Name = "Adresa de email*")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Acest camp trebuie sa aiba forma unei adrese de email!")]
         public string UserEmail { get; set; }
 
         [Required(ErrorMessage = "Campul Parola trebuie completat!")]

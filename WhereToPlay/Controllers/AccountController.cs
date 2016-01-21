@@ -11,6 +11,7 @@ using WhereToPlay.Models.DB;
 using SimpleCrypto;
 using System.Diagnostics;
 using System.Web.Security;
+using System.Text.RegularExpressions;
 
 namespace WhereToPlay.Controllers
 {
@@ -60,8 +61,23 @@ namespace WhereToPlay.Controllers
                 var crypto = new SimpleCrypto.PBKDF2();
 
                 User suser = new User();
+                User vusr = db.Users.Where(u=>u.UserName == user.UserName).FirstOrDefault();
+                if(vusr!=null)
+                {
+                    ModelState.AddModelError("UserName", "Acest nume de utilizator exista deja. Va rog alegeti altul!");
+                    return View("Register", user);
+                } 
                 suser.UserName = user.UserName;
-                suser.UserPhone = user.UserPhone;
+                if (user.UserPhone != null)
+                    if(IsPhoneNumber(user.UserPhone))
+                    {
+                        suser.UserPhone = user.UserPhone;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("UserPhone", "Campul Numar de telefon trebuie sa respecte formatul unui numar de telefon!");
+                        return View("Register", user);
+                    }
                 suser.UserEmail = user.UserEmail;
                 suser.UserFullName = user.UserFullName;
                 suser.UserPassword = crypto.Compute(user.UserPassword);
@@ -75,6 +91,7 @@ namespace WhereToPlay.Controllers
                 {
                     db.Users.Add(suser);
                     db.SaveChanges();
+                    FormsAuthentication.SetAuthCookie(suser.UserName, false);
                 }
                 catch(System.Data.Entity.Validation.DbEntityValidationException er)
                 {
@@ -88,7 +105,7 @@ namespace WhereToPlay.Controllers
                         }
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.UserGroupID = new SelectList(db.UserGroups, "IDUserGroup", "UserGroupName", user.UserGroupID);
@@ -205,6 +222,12 @@ namespace WhereToPlay.Controllers
                 }
             }
             return isValid;
+        }
+
+        [NonAction]
+        public static bool IsPhoneNumber(string number)
+        {
+            return Regex.Match(number, @"\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}").Success;
         }
     }
 }
