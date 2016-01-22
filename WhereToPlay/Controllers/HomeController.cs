@@ -13,7 +13,8 @@ namespace WhereToPlay.Controllers
         // GET: Home
         public ActionResult Index()
         {
-
+           // Utilities.SmsSend("0764199999", "test din utilities");
+           // Utilities.EmailSend("oidldb@gmail.com", "test din utilities", "test din utilities body");
             return View(db.Courts.Where(e=>e.Hidden==false).ToList());
         }
 
