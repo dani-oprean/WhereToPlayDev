@@ -11,24 +11,27 @@
         @{
             WhereToPlay.Models.WhereToPlayDb db = new WhereToPlay.Models.WhereToPlayDb();
             int spIDF = db.Sports.Where(s => s.SportName == "Fotbal").FirstOrDefault().IDSport;
-            <td>
-                @Html.ActionLink("Fotbal", "IndexSports", new { id = spIDF })
-            </td>
         }
+        <td>
+            @Html.ActionLink("Fotbal", "IndexSports", new { id = spIDF })
+        </td>
 
         @{
             int spIDT = db.Sports.Where(s => s.SportName == "Tenis").FirstOrDefault().IDSport;
-            <td>
-                @Html.ActionLink("Tenis", "IndexSports", new { id = spIDT })
-            </td>
         }
+        <td>
+            @Html.ActionLink("Tenis", "IndexSports", new { id = spIDT })
+        </td>
 
         @{
             int spIDB = db.Sports.Where(s => s.SportName == "Baschet").FirstOrDefault().IDSport;
-            <td>
-                @Html.ActionLink("Baschet", "IndexSports", new { id = spIDB })
-            </td>
         }
+        <td>
+            @Html.ActionLink("Baschet", "IndexSports", new { id = spIDB })
+        </td>
+        <td>
+            @Html.ActionLink("Toate", "Index")
+        </td>
     </tr>
 
     <tr>
@@ -95,23 +98,26 @@
             <td>
                 @Html.DisplayFor(modelItem => item.SessionPrice)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hidden)
-            </td>
-            @if (Request.IsAuthenticated)
+            @if (item.Hidden == false)
             {
                 <td>
-                    @Html.ActionLink("Inchiriaza", "Details","Courts", new {id = item.IDCourt}, null)
+                    @Html.DisplayFor(modelItem => item.Hidden)
+                    @Html.ActionLink("Inactiveaza", "Delete", new { id = item.IDCourt })
                 </td>
             }
             else
             {
                 <td>
-                    @Html.ActionLink("Inchiriaza","Login","Account")
+                    @Html.DisplayFor(modelItem => item.Hidden)
+                    @Html.ActionLink("Activeaza", "Delete", new { id = item.IDCourt })
                 </td>
             }
+            <td>
+                @Html.ActionLink("Inchiriaza", "Details", new { id = item.IDCourt })
+            </td>
         </tr>
-        //Aici e index-ul din Home
+
+        //Aici e index-ul din Courts
     }
 
 </table>
