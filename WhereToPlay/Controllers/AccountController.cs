@@ -24,6 +24,20 @@ namespace WhereToPlay.Controllers
         // GET: Account
         public ActionResult Index()
         {
+
+            if (Request.IsAuthenticated)
+            {
+                int loggedUserGroupID = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault().UserGroupID;
+                if (loggedUserGroupID != 1)
+                {
+                    return RedirectToAction("NotAllowed", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("NotAllowed", "Home");
+            }
+
             var users = db.Users.ToList();
             foreach(User item in users)
             {
@@ -206,6 +220,20 @@ namespace WhereToPlay.Controllers
         // GET: Account/Delete/5
         public ActionResult Delete(int? id)
         {
+
+            if (Request.IsAuthenticated)
+            {
+                int loggedUserGroupID = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault().UserGroupID;
+                if (loggedUserGroupID != 1)
+                {
+                    return RedirectToAction("NotAllowed", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("NotAllowed", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -22,5 +22,10 @@ namespace WhereToPlay.Controllers
         {
             return View(db.Courts.Where(e => e.Hidden == false).Where(s=>s.SportID==id).ToList());
         }
+
+        public ActionResult NotAllowed()
+        {
+            return View();
+        }
     }
 }
