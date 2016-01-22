@@ -196,6 +196,7 @@
     <Compile Include="Models\DB\Sport.cs" />
     <Compile Include="Models\DB\User.cs" />
     <Compile Include="Models\DB\UserGroup.cs" />
+    <Compile Include="Models\Utilities.cs" />
     <Compile Include="Models\WhereToPlayDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
