@@ -24,7 +24,7 @@ namespace WhereToPlay.Controllers
         // GET: Account
         public ActionResult Index()
         {
-            var users = db.Users;
+            var users = db.Users.ToList();
             foreach(User item in users)
             {
                 try

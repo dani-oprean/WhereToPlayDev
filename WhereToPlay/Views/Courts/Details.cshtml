@@ -1,5 +1,8 @@
 ﻿@model WhereToPlay.Models.DB.Court
-
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/jqueryFoo.js")"></script>
+}
 @{
     ViewBag.Title = "Details";
 }
@@ -92,7 +95,22 @@
 
     </dl>
 </div>
+
+<div>
+    <dl>
+        <dt>
+            @Html.Label("", "Data rezervarii")
+        </dt>
+        <dd>
+            @Html.TextBox("ResDate", "", new { @class = "date-picker" })
+        </dd>
+    </dl>
+</div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.IDCourt }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
