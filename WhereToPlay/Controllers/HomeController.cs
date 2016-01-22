@@ -16,5 +16,10 @@ namespace WhereToPlay.Controllers
 
             return View(db.Courts.Where(e=>e.Hidden==false).ToList());
         }
+
+        public ActionResult IndexSports(int id)
+        {
+            return View(db.Courts.Where(e => e.Hidden == false).Where(s=>s.SportID==id).ToList());
+        }
     }
 }

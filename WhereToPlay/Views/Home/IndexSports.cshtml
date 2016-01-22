@@ -1,34 +1,38 @@
 ﻿@model IEnumerable<WhereToPlay.Models.DB.Court>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "IndexSports";
 }
 
 <h2>Index</h2>
+
 
 <table class="table">
     <tr>
         @{
             WhereToPlay.Models.WhereToPlayDb db = new WhereToPlay.Models.WhereToPlayDb();
             int spIDF = db.Sports.Where(s => s.SportName == "Fotbal").FirstOrDefault().IDSport;
-            <td>
-                @Html.ActionLink("Fotbal", "IndexSports", new { id = spIDF })
-            </td>
         }
+        <td>
+            @Html.ActionLink("Fotbal", "IndexSports", new { id = spIDF })
+        </td>
 
         @{
             int spIDT = db.Sports.Where(s => s.SportName == "Tenis").FirstOrDefault().IDSport;
-            <td>
-                @Html.ActionLink("Tenis", "IndexSports", new { id = spIDT })
-            </td>
         }
+        <td>
+            @Html.ActionLink("Tenis", "IndexSports", new { id = spIDT })
+        </td>
 
         @{
             int spIDB = db.Sports.Where(s => s.SportName == "Baschet").FirstOrDefault().IDSport;
-            <td>
-                @Html.ActionLink("Baschet", "IndexSports", new { id = spIDB })
-            </td>
         }
+        <td>
+            @Html.ActionLink("Baschet", "IndexSports", new { id = spIDB })
+        </td>
+        <td>
+            @Html.ActionLink("Toate", "Index")
+        </td>
     </tr>
 
     <tr>
@@ -101,13 +105,13 @@
             @if (Request.IsAuthenticated)
             {
                 <td>
-                    @Html.ActionLink("Inchiriaza", "Details","Courts", new {id = item.IDCourt}, null)
+                    @Html.ActionLink("Inchiriaza", "Details", "Courts", new { id = item.IDCourt }, null)
                 </td>
             }
             else
             {
                 <td>
-                    @Html.ActionLink("Inchiriaza","Login","Account")
+                    @Html.ActionLink("Inchiriaza", "Login", "Account")
                 </td>
             }
         </tr>

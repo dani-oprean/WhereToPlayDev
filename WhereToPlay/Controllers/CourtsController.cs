@@ -29,6 +29,19 @@ namespace WhereToPlay.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult IndexSports(int id)
+        {
+            if (Request.IsAuthenticated)
+            {
+                int loggedUserID = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault().IDUser;
+                var courts = db.Courts.Where(c => c.CreateUserID == loggedUserID).Where(s=>s.SportID==id).Include(c => c.Address).Include(c => c.Sport).Include(c => c.User);
+                return View(courts.ToList());
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
         // GET: Courts/Details/5
         public ActionResult Details(int? id)
         {

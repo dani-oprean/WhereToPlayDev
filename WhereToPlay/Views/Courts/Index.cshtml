@@ -8,6 +8,29 @@
 
 <table class="table">
     <tr>
+        @{
+            WhereToPlay.Models.WhereToPlayDb db = new WhereToPlay.Models.WhereToPlayDb();
+            int spIDF = db.Sports.Where(s => s.SportName == "Fotbal").FirstOrDefault().IDSport;
+            <td>
+                @Html.ActionLink("Fotbal", "IndexSports", new { id = spIDF })
+            </td>
+        }
+
+        @{
+            int spIDT = db.Sports.Where(s => s.SportName == "Tenis").FirstOrDefault().IDSport;
+            <td>
+                @Html.ActionLink("Tenis", "IndexSports", new { id = spIDT })
+            </td>
+        }
+
+        @{
+            int spIDB = db.Sports.Where(s => s.SportName == "Baschet").FirstOrDefault().IDSport;
+            <td>
+                @Html.ActionLink("Baschet", "IndexSports", new { id = spIDB })
+            </td>
+        }
+    </tr>
+    <tr>
         <th>
             @Html.DisplayNameFor(model => model.Address.AddressStreet)
         </th>
