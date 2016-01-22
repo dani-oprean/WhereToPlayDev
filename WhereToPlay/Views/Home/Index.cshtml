@@ -6,9 +6,6 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -77,12 +74,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Hidden)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.IDCourt }) |
-                @Html.ActionLink("Details", "Details", new { id = item.IDCourt }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.IDCourt })
-            </td>
+            @if (Request.IsAuthenticated)
+            {
+                <td>
+                    @Html.ActionLink("Inchiriaza", "Details","Courts", new {id = item.IDCourt}, null)
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.ActionLink("Inchiriaza","Login","Account")
+                </td>
+            }
         </tr>
+        //Aici e index-ul din Home
     }
 
 </table>

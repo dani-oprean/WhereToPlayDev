@@ -6,9 +6,6 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -88,9 +85,11 @@
         </td>
        }
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.IDCourt })
+            @Html.ActionLink("Inchiriaza", "Details", new { id = item.IDCourt }) 
         </td>
     </tr>
+
+    //Aici e index-ul din Courts
 }
 
 </table>
