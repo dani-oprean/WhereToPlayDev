@@ -12,6 +12,7 @@ namespace WhereToPlay.Models
     {
         public WhereToPlayDb():base("name=WhereToPlayDb")
         {
+            //this.Configuration.LazyLoadingEnabled = true;
         }
 
         public DbSet<Sport> Sports { get; set; }

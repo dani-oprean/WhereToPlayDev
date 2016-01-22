@@ -24,7 +24,19 @@ namespace WhereToPlay.Controllers
         // GET: Account
         public ActionResult Index()
         {
-            var users = db.Users.Include(u => u.UserGroup);
+            var users = db.Users;
+            foreach(User item in users)
+            {
+                try
+                {
+                    item.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == item.UserGroupID).FirstOrDefault();
+                }
+                catch(System.Data.Entity.Core.EntityCommandExecutionException er)
+                {
+                    
+                }
+            }
+            
             return View(users.ToList());
         }
 
@@ -101,11 +113,11 @@ namespace WhereToPlay.Controllers
                     {
                         foreach (var validationError in validationErrors.ValidationErrors)
                         {
-                            Trace.TraceInformation("Property: {0} Error: {1}",
-                                                    validationError.PropertyName,
-                                                    validationError.ErrorMessage);
+                            ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+                            
                         }
                     }
+                    return View("Edit", user);
                 }
                 return RedirectToAction("Index", "Home");
             }
@@ -150,7 +162,7 @@ namespace WhereToPlay.Controllers
                     ModelState.AddModelError("UserPhone", "Campul Numar de telefon trebuie sa respecte formatul unui numar de telefon!");
                     return View("Edit", user);
                 }
-    editedUser.UserEmail = user.UserEmail;
+            editedUser.UserEmail = user.UserEmail;
             editedUser.UserFullName = user.UserFullName;
             editedUser.UserGroup = db.UserGroups.Where(u=>u.IDUserGroup == editedUser.UserGroupID).FirstOrDefault();
 
@@ -164,6 +176,8 @@ namespace WhereToPlay.Controllers
             else
             {
                 editedUser.UserPasswordConfirm = editedUser.UserPassword;
+                ModelState.Remove("PasswordChange");
+                ModelState.Remove("PasswordChangeConfirm");
             }
 
             try
@@ -173,16 +187,17 @@ namespace WhereToPlay.Controllers
                     db.SaveChanges();
                 }
             }
-            catch
+            catch (System.Data.Entity.Validation.DbEntityValidationException er)
             {
-                foreach (var validationResults in db.GetValidationErrors())
+                foreach (var validationErrors in er.EntityValidationErrors)
                 {
-                    foreach (var error in validationResults.ValidationErrors)
+                    foreach (var validationError in validationErrors.ValidationErrors)
                     {
-                        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-                        return View("Edit", user);
+                        ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+
                     }
                 }
+                return View("Edit", user);
             }
 
             return RedirectToAction("Index", "Home");
@@ -290,7 +305,7 @@ namespace WhereToPlay.Controllers
         [NonAction]
         public static bool IsPhoneNumber(string number)
         {
-            return Regex.Match(number, @"/^[0-9]+$/").Success;
+            return Regex.Match(number, @"^[0-9]+$").Success;
         }
     }
 }
