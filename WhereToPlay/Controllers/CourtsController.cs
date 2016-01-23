@@ -60,6 +60,20 @@ namespace WhereToPlay.Controllers
         // GET: Courts/Create
         public ActionResult Create()
         {
+            if (Request.IsAuthenticated)
+            {
+                User loggedUser = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
+                UserGroup UsrGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+                if (UsrGroup.UserGroupName != "Proprietar")
+                {
+                    return RedirectToAction("NotAllowed", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("NotAllowed", "Home");
+            }
+
             ViewBag.AddressID = new SelectList(db.Addresses, "IDAddress", "AddressStreet");
             ViewBag.SportID = new SelectList(db.Sports, "IDSport", "SportName");
             ViewBag.CreateUserID = new SelectList(db.Users, "IDUser", "UserName");

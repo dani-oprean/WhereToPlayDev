@@ -24,6 +24,21 @@ namespace WhereToPlay.Controllers
         // GET: Account
         public ActionResult Index()
         {
+
+            if (Request.IsAuthenticated)
+            {
+                User loggedUser = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
+                UserGroup UsrGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+                if (UsrGroup.UserGroupName != "Administrator")
+                {
+                    return RedirectToAction("NotAllowed", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("NotAllowed", "Home");
+            }
+
             var users = db.Users.ToList();
             foreach(User item in users)
             {
@@ -206,6 +221,19 @@ namespace WhereToPlay.Controllers
         // GET: Account/Delete/5
         public ActionResult Delete(int? id)
         {
+
+            if (Request.IsAuthenticated)
+            {
+                //if (!Allowed())
+                //{
+                //    return RedirectToAction("NotAllowed", "Home");
+                //}
+            }
+            else
+            {
+                return RedirectToAction("NotAllowed", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -306,6 +334,19 @@ namespace WhereToPlay.Controllers
         public static bool IsPhoneNumber(string number)
         {
             return Regex.Match(number, @"^[0-9]+$").Success;
+        }
+
+        public bool Allowed()
+        {
+            bool allowed = true;
+
+            User loggedUser = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
+            UserGroup UsrGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+            if (UsrGroup.UserGroupName != "Administrator")
+            {
+                allowed = false;
+            }
+            return allowed;
         }
     }
 }
