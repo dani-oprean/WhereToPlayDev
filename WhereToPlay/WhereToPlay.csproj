@@ -237,7 +237,7 @@
       <DependentUpon>201601160916278_3CreateAdmin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <PropertyGroup>txtDatepicker
+  <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
