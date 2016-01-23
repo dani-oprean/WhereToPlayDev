@@ -27,8 +27,9 @@ namespace WhereToPlay.Controllers
 
             if (Request.IsAuthenticated)
             {
-                int loggedUserGroupID = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault().UserGroupID;
-                if (loggedUserGroupID != 1)
+                User loggedUser = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
+                UserGroup UsrGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+                if (UsrGroup.UserGroupName != "Administrator")
                 {
                     return RedirectToAction("NotAllowed", "Home");
                 }
@@ -223,11 +224,10 @@ namespace WhereToPlay.Controllers
 
             if (Request.IsAuthenticated)
             {
-                int loggedUserGroupID = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault().UserGroupID;
-                if (loggedUserGroupID != 1)
-                {
-                    return RedirectToAction("NotAllowed", "Home");
-                }
+                //if (!Allowed())
+                //{
+                //    return RedirectToAction("NotAllowed", "Home");
+                //}
             }
             else
             {
@@ -334,6 +334,19 @@ namespace WhereToPlay.Controllers
         public static bool IsPhoneNumber(string number)
         {
             return Regex.Match(number, @"^[0-9]+$").Success;
+        }
+
+        public bool Allowed()
+        {
+            bool allowed = true;
+
+            User loggedUser = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
+            UserGroup UsrGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+            if (UsrGroup.UserGroupName != "Administrator")
+            {
+                allowed = false;
+            }
+            return allowed;
         }
     }
 }
