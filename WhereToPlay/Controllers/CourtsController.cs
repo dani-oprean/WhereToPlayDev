@@ -62,9 +62,7 @@ namespace WhereToPlay.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                User loggedUser = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
-                UserGroup UsrGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
-                if (UsrGroup.UserGroupName != "Proprietar")
+                if (!Allowed())
                 {
                     return RedirectToAction("NotAllowed", "Home");
                 }
@@ -223,5 +221,21 @@ namespace WhereToPlay.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public bool Allowed()
+        {
+            bool allowed = true;
+
+            User loggedUser = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
+            UserGroup UsrGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+            loggedUser.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+            loggedUser.UserPasswordConfirm = loggedUser.UserPassword;
+            if (UsrGroup.UserGroupName != "Proprietar")
+            {
+                allowed = false;
+            }
+            return allowed;
+        }
+
     }
 }
