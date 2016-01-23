@@ -27,9 +27,7 @@ namespace WhereToPlay.Controllers
 
             if (Request.IsAuthenticated)
             {
-                User loggedUser = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
-                UserGroup UsrGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
-                if (UsrGroup.UserGroupName != "Administrator")
+                if (!Allowed())
                 {
                     return RedirectToAction("NotAllowed", "Home");
                 }
@@ -224,10 +222,10 @@ namespace WhereToPlay.Controllers
 
             if (Request.IsAuthenticated)
             {
-                //if (!Allowed())
-                //{
-                //    return RedirectToAction("NotAllowed", "Home");
-                //}
+                if (!Allowed())
+                {
+                    return RedirectToAction("NotAllowed", "Home");
+                }
             }
             else
             {
@@ -292,14 +290,22 @@ namespace WhereToPlay.Controllers
         [HttpPost]
         public ActionResult Login(User usr)
         {
-            if(ValidateLogin(usr.UserName, usr.UserPassword))
+
+            if (usr.UserName == null || usr.UserPassword == null)
             {
-                FormsAuthentication.SetAuthCookie(usr.UserName, false);
-                return RedirectToAction("Index","Home");
+               // ModelState.AddModelError("", "USerul si parola sunt obligatorii!");
             }
             else
             {
-                ModelState.AddModelError("","Userul sau parola sunt gresite!");
+                if (ValidateLogin(usr.UserName, usr.UserPassword))
+                {
+                    FormsAuthentication.SetAuthCookie(usr.UserName, false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Userul sau parola sunt gresite!");
+                }
             }
             return View(usr);
         }
@@ -342,11 +348,53 @@ namespace WhereToPlay.Controllers
 
             User loggedUser = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
             UserGroup UsrGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+            loggedUser.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+            loggedUser.UserPasswordConfirm = loggedUser.UserPassword;
             if (UsrGroup.UserGroupName != "Administrator")
             {
                 allowed = false;
             }
             return allowed;
+        }
+
+        public ActionResult ForgotPass()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPass(String adresademail)
+        {
+            User usr = db.Users.Where(u => u.UserEmail == adresademail).FirstOrDefault();
+            if (usr!=null)
+            {
+                String newPass = usr.UserName;
+                var crypto = new SimpleCrypto.PBKDF2();
+                usr.UserPassword = crypto.Compute(newPass);
+                usr.UserPasswordConfirm = usr.UserPassword;
+                usr.UserPasswordSalt = crypto.Salt;
+
+                usr.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == usr.UserGroupID).FirstOrDefault();
+                Utilities.EmailSend(adresademail, "Schimbare parola WhereToPLay", "Noua ta parola este: "+ newPass);
+            }
+
+            try
+            {
+               db.SaveChanges(); 
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException er)
+            {
+                foreach (var validationErrors in er.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+
+                    }
+                }
+            }
+
+            return View();
         }
     }
 }

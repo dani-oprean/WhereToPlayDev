@@ -217,6 +217,7 @@
     <Content Include="Views\Courts\IndexSports.cshtml" />
     <Content Include="Views\Home\NotAllowed.cshtml" />
     <Content Include="Views\Courts\_Reservations.cshtml" />
+    <Content Include="Views\Account\ForgotPass.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -236,7 +237,7 @@
       <DependentUpon>201601160916278_3CreateAdmin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <PropertyGroup>
+  <PropertyGroup>txtDatepicker
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>

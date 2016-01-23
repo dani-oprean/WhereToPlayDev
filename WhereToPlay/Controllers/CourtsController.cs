@@ -63,9 +63,7 @@ namespace WhereToPlay.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                User loggedUser = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
-                UserGroup UsrGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
-                if (UsrGroup.UserGroupName != "Proprietar")
+                if (!Allowed())
                 {
                     return RedirectToAction("NotAllowed", "Home");
                 }
@@ -86,11 +84,9 @@ namespace WhereToPlay.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Address,CourtName,SportID,AddressID,Length,Width,PhoneNumber,EmailAddress,CreateUserID,SessionPrice")] Court court)
+        public ActionResult Create([Bind(Include = "Address,CourtName,Length,Width,PhoneNumber,EmailAddress,SessionPrice")] Court court)
         //,AddressStreet,AddressNumber,AddressCity,AddressCounty
         {
-            //ModelState.Remove("AddressID");
-            //ModelState.Remove("IDCourt");
             if (ModelState.IsValid)
             {
 
@@ -102,7 +98,6 @@ namespace WhereToPlay.Controllers
                 myCourt.EmailAddress = court.EmailAddress;
                 myCourt.CreateUserID = court.CreateUserID;
                 myCourt.SessionPrice = court.SessionPrice;
-                //myCourt.Hidden = court.Hidden;
 
                 Address myAdd = new Address();
                 myAdd.AddressStreet = court.Address.AddressStreet;
@@ -150,6 +145,18 @@ namespace WhereToPlay.Controllers
         // GET: Courts/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Request.IsAuthenticated)
+            {
+                if (!AllowedEditCourts(id))
+                {
+                    return RedirectToAction("NotAllowed", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("NotAllowed", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -170,7 +177,7 @@ namespace WhereToPlay.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDCourt,CourtName,SportID,AddressID,Length,Width,PhoneNumber,EmailAddress,CreateUserID,SessionPrice,Hidden")] Court court)
+        public ActionResult Edit([Bind(Include = "IDCourt,CourtName,SportID,AddressID,Length,Width,PhoneNumber,EmailAddress,CreateUserID,SessionPrice")] Court court)
         {
             if (ModelState.IsValid)
             {
@@ -230,5 +237,37 @@ namespace WhereToPlay.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public bool Allowed()
+        {
+            bool allowed = true;
+
+            User loggedUser = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
+            UserGroup UsrGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+            loggedUser.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+            loggedUser.UserPasswordConfirm = loggedUser.UserPassword;
+            if (UsrGroup.UserGroupName != "Proprietar")
+            {
+                allowed = false;
+            }
+            return allowed;
+        }
+
+        public bool AllowedEditCourts(int? id)
+        {
+            bool allowed = true;
+
+            User loggedUser = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault();
+            Court CourtLoggedUser = db.Courts.Where(c => (c.User.IDUser == loggedUser.IDUser && c.IDCourt == id)).FirstOrDefault();
+
+            loggedUser.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+            loggedUser.UserPasswordConfirm = loggedUser.UserPassword;
+            if (CourtLoggedUser==null)
+            {
+                allowed = false;
+            }
+            return allowed;
+        }
+
     }
 }
