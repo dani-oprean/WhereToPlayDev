@@ -214,6 +214,7 @@
     <Content Include="Views\Home\IndexSports.cshtml" />
     <Content Include="Views\Courts\IndexSports.cshtml" />
     <Content Include="Views\Home\NotAllowed.cshtml" />
+    <Content Include="Views\Account\ForgotPass.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -356,5 +356,45 @@ namespace WhereToPlay.Controllers
             }
             return allowed;
         }
+
+        public ActionResult ForgotPass()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPass(String adresademail)
+        {
+            User usr = db.Users.Where(u => u.UserEmail == adresademail).FirstOrDefault();
+            if (usr!=null)
+            {
+                String newPass = usr.UserName;
+                var crypto = new SimpleCrypto.PBKDF2();
+                usr.UserPassword = crypto.Compute(newPass);
+                usr.UserPasswordConfirm = usr.UserPassword;
+                usr.UserPasswordSalt = crypto.Salt;
+
+                usr.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == usr.UserGroupID).FirstOrDefault();
+                Utilities.EmailSend(adresademail, "Schimbare parola WhereToPLay", "Noua ta parola este: "+ newPass);
+            }
+
+            try
+            {
+               db.SaveChanges(); 
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException er)
+            {
+                foreach (var validationErrors in er.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+
+                    }
+                }
+            }
+
+            return View();
+        }
     }
 }

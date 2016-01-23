@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "ForgotPass";
+}
+
+<h2>ForgotPass</h2>
+
+@using (Html.BeginForm("ForgotPass", "Account", FormMethod.Post))
+{
+ <div>
+    @Html.Label("Adresa de email:") 
+    @Html.TextBox("adresademail")
+     <div class="form-group">
+         <div class="col-md-offset-2 col-md-10">
+             <input type="submit" value="Reseteaza Parola" class="btn btn-default" />
+         </div>
+     </div>
+ </div>
+}
+
