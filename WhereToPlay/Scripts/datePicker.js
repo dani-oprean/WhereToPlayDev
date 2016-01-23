@@ -8,7 +8,6 @@
         nextText: '&rarr;',        prevText: '&larr;',
         dateFormat: "dd.MM.yy",
         onSelect: function (date) {
-            alert("tada");
         }
     });
 })

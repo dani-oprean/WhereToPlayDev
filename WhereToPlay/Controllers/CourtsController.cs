@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using WhereToPlay.Models;
 using WhereToPlay.Models.DB;
+using WhereToPlay.Models.ViewModel;
 
 namespace WhereToPlay.Controllers
 {
@@ -49,7 +50,7 @@ namespace WhereToPlay.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Court court = db.Courts.Find(id);
+            CourtReservation court = new CourtReservation(id);
             if (court == null)
             {
                 return HttpNotFound();
@@ -222,6 +223,12 @@ namespace WhereToPlay.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Rent(string txtDatepicker, List<CourtReservationTimes> res)
+        {
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
