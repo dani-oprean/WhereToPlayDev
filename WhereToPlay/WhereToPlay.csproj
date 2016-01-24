@@ -146,6 +146,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Properties\PublishProfiles\Dani.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -198,7 +199,7 @@
     <Compile Include="Models\DB\UserGroup.cs" />
     <Compile Include="Models\Utilities.cs" />
     <Compile Include="Models\ViewModel\CourtReservation.cs" />
-    <Compile Include="Models\ViewModel\CourtReservationTimes.cs" />
+    <Compile Include="Models\ViewModel\CourtReservationTime.cs" />
     <Compile Include="Models\WhereToPlayDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -216,7 +217,7 @@
     <Content Include="Views\Home\IndexSports.cshtml" />
     <Content Include="Views\Courts\IndexSports.cshtml" />
     <Content Include="Views\Home\NotAllowed.cshtml" />
-    <Content Include="Views\Courts\_Reservations.cshtml" />
+    <Content Include="Views\Courts\CourtReservationTime.cshtml" />
     <Content Include="Views\Account\ForgotPass.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

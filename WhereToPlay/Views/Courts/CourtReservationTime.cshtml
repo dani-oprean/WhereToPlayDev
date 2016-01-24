@@ -1,0 +1,10 @@
+﻿@model WhereToPlay.Models.ViewModel.CourtReservationTime
+
+
+    
+                <li>
+                    @Html.CheckBoxFor(model=>model.Taken)
+                    @Html.DisplayFor(model => model.ReservationTime.Hours)
+                </li>
+    
+

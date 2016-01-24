@@ -259,7 +259,11 @@ namespace WhereToPlay.Controllers
                 db.SaveChanges();
                 
             }
-            return View("Index",db.Users);
+
+            var users = db.Users.ToList();
+            foreach (User item in users)
+                item.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == item.UserGroupID).FirstOrDefault();
+            return View("Index",users);
         }
 
         // POST: Account/Delete/5
@@ -323,7 +327,7 @@ namespace WhereToPlay.Controllers
             var usr = db.Users.Where(e => e.UserName == usrName).FirstOrDefault();
             bool isValid = false;
 
-            if(usr.Hidden==false)
+            if( usr != null && usr.Hidden==false)
             { 
                 if (usr!=null)
                 {

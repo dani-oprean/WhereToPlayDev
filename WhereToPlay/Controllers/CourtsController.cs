@@ -84,7 +84,7 @@ namespace WhereToPlay.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Address,CourtName,Length,Width,PhoneNumber,EmailAddress,SessionPrice")] Court court)
+        public ActionResult Create([Bind(Include = "Address,CourtName,Length,Width,PhoneNumber,EmailAddress,SessionPrice, SportID")] Court court)
         //,AddressStreet,AddressNumber,AddressCity,AddressCounty
         {
             if (ModelState.IsValid)
@@ -232,7 +232,7 @@ namespace WhereToPlay.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult Rent(string txtDatepicker, List<CourtReservationTimes> res)
+        public ActionResult Rent([Bind(Include = "Court, Date, CourtReservationTimes")]CourtReservation _reservations)
         {
 
             return RedirectToAction("Index", "Home");

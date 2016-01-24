@@ -11,10 +11,17 @@
 
 <h2>Details</h2>
 
+@using (Html.BeginForm("Rent", "Courts", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
 <div>
     <h4>Court</h4>
     <hr />
+    
+
             <p>@Html.DisplayFor(model => model.Court.CourtName) / @Html.DisplayFor(model => model.Court.Sport.SportName)</p>
+            <p>@Html.HiddenFor(model=>model.Court.IDCourt)</p>
             <dl class="dl-horizontal">
                 <dt>
                     @Html.DisplayNameFor(model => model.Court.Address)
@@ -79,26 +86,29 @@
     </div>
     <hr />
 
-    @using (Html.BeginForm("Rent", "Courts", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-
+    
         <dl class="dl-horizontal">
 
             <dt>
-                @Html.Label("", "Data rezervarii")
+                @Html.LabelFor(model=>model.Date, "Data rezervarii")
             </dt>
 
             <dd>
-                @Html.TextBox("txtDatepicker",null, new { @class = "date-picker" })
+                @Html.TextBoxFor(model=>model.Date, new { @class = "date-picker" })
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Court.Reservations)
+                @Html.LabelFor(model => model.CourtReservationTimes)
             </dt>
 
             <dd>
-                @Html.Partial("_Reservations", new WhereToPlay.Models.ViewModel.CourtReservationTimes(Model.Times, Model.GetTakenHours(DateTime.Now)))
+                <ul class="nav navbar-nav">
+                    @{foreach (WhereToPlay.Models.ViewModel.CourtReservationTime item in Model.CourtReservationTimes)
+                        {
+                            @Html.Partial("CourtReservationTime", item)
+                        }
+                    }
+                </ul>
             </dd>
         </dl>
 
