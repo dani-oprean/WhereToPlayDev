@@ -1,10 +1,16 @@
-﻿@model WhereToPlay.Models.ViewModel.CourtReservationTime
+﻿@model WhereToPlay.Models.ViewModel.CourtReservation
+
+<ul class="nav navbar-nav">
+    @{foreach (WhereToPlay.Models.ViewModel.CourtReservationTime item in Model.CourtReservationTimes)
+        {
+            <li>
+                @Html.EditorFor(modelItem=>item.ReservationTime.Hours)
+            </li>
+        }
+    }
+</ul>
 
 
-    
-                <li>
-                    @Html.CheckBoxFor(model=>model.Taken)
-                    @Html.DisplayFor(model => model.ReservationTime.Hours)
-                </li>
-    
+
+
 

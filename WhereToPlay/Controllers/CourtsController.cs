@@ -213,15 +213,15 @@ namespace WhereToPlay.Controllers
         }
 
         // POST: Courts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Court court = db.Courts.Find(id);
-            db.Courts.Remove(court);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Court court = db.Courts.Find(id);
+        //    db.Courts.Remove(court);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
