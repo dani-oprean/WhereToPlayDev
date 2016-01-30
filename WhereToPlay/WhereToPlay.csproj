@@ -188,6 +188,10 @@
     <Compile Include="Migrations\201601160916278_3CreateAdmin.Designer.cs">
       <DependentUpon>201601160916278_3CreateAdmin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601300827167_imagini.cs" />
+    <Compile Include="Migrations\201601300827167_imagini.Designer.cs">
+      <DependentUpon>201601300827167_imagini.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB\Address.cs" />
     <Compile Include="Models\DB\Court.cs" />
@@ -236,6 +240,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601160916278_3CreateAdmin.resx">
       <DependentUpon>201601160916278_3CreateAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601300827167_imagini.resx">
+      <DependentUpon>201601300827167_imagini.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

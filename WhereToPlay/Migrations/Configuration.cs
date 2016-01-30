@@ -41,19 +41,19 @@ namespace WhereToPlay.Migrations
             );
 
 
-            context.Users.AddOrUpdate(
-              p => p.UserName,
-              new User
-              {
-                  UserName = "admin",
-                  UserEmail = "oidldb@gmail.com",
-                  UserPassword = "8ueosSTqRqEoeSO0qddj0u/8duNF2iee0b99LKOOlJgiHmN88FEUZ/Lre45kOqGD3Wl1iPKr/hSfWvBGkPNjvQ==",
-                  UserPasswordConfirm = "8ueosSTqRqEoeSO0qddj0u/8duNF2iee0b99LKOOlJgiHmN88FEUZ/Lre45kOqGD3Wl1iPKr/hSfWvBGkPNjvQ==",
-                  UserPasswordSalt = "100000.hCkNVNm/n2ElkChtHnS2me1VywTjxpjAoxnyYLLoWKisAg==",
-                  UserGroupID = context.UserGroups.Where(e => e.UserGroupName == "Administrator").FirstOrDefault().IDUserGroup,
-                  UserGroup = context.UserGroups.Where(e=>e.UserGroupName=="Administrator").FirstOrDefault()
-                  }
-                );
+            //context.Users.AddOrUpdate(
+            //  p => p.UserName,
+            //  new User
+            //  {
+            //      UserName = "admin",
+            //      UserEmail = "oidldb@gmail.com",
+            //      UserPassword = "8ueosSTqRqEoeSO0qddj0u/8duNF2iee0b99LKOOlJgiHmN88FEUZ/Lre45kOqGD3Wl1iPKr/hSfWvBGkPNjvQ==",
+            //      UserPasswordConfirm = "8ueosSTqRqEoeSO0qddj0u/8duNF2iee0b99LKOOlJgiHmN88FEUZ/Lre45kOqGD3Wl1iPKr/hSfWvBGkPNjvQ==",
+            //      UserPasswordSalt = "100000.hCkNVNm/n2ElkChtHnS2me1VywTjxpjAoxnyYLLoWKisAg==",
+            //      UserGroupID = context.UserGroups.Where(e => e.UserGroupName == "Administrator").FirstOrDefault().IDUserGroup,
+            //      UserGroup = context.UserGroups.Where(e=>e.UserGroupName=="Administrator").FirstOrDefault()
+            //      }
+            //    );
         }
     }
 }
