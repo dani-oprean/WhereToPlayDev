@@ -84,7 +84,7 @@ namespace WhereToPlay.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Address,CourtName,Length,Width,PhoneNumber,EmailAddress,SessionPrice, SportID")] Court court)
+        public ActionResult Create([Bind(Include = "Address,CourtName,Length,Width,PhoneNumber,EmailAddress,SessionPrice, SportID")] Court court, HttpPostedFileBase Content1, HttpPostedFileBase Content2, HttpPostedFileBase Content3)
         //,AddressStreet,AddressNumber,AddressCity,AddressCounty
         {
             if (ModelState.IsValid)
@@ -98,6 +98,32 @@ namespace WhereToPlay.Controllers
                 myCourt.EmailAddress = court.EmailAddress;
                 myCourt.CreateUserID = court.CreateUserID;
                 myCourt.SessionPrice = court.SessionPrice;
+
+                if (Content1 != null && Content1.ContentLength > 0)
+                {
+                    byte[] tempFile = new byte[Content1.ContentLength];
+                    Content1.InputStream.Read(tempFile, 0, Content1.ContentLength);
+                    myCourt.Content1 = tempFile;
+                    myCourt.FileName1 = Content1.FileName;
+                }
+
+
+                if (Content2 != null && Content2.ContentLength > 0)
+                {
+                    byte[] tempFile = new byte[Content2.ContentLength];
+                    Content2.InputStream.Read(tempFile, 0, Content2.ContentLength);
+                    myCourt.Content2 = tempFile;
+                    myCourt.FileName2 = Content2.FileName;
+                }
+
+
+                if (Content3 != null && Content3.ContentLength > 0)
+                {
+                    byte[] tempFile = new byte[Content3.ContentLength];
+                    Content3.InputStream.Read(tempFile, 0, Content3.ContentLength);
+                    myCourt.Content3 = tempFile;
+                    myCourt.FileName3 = Content3.FileName;
+                }
 
                 Address myAdd = new Address();
                 myAdd.AddressStreet = court.Address.AddressStreet;

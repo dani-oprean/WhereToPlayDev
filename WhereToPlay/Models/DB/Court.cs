@@ -65,5 +65,14 @@ namespace WhereToPlay.Models.DB
         public bool Hidden { get; set; }
 
         public virtual List<Reservation> Reservations { get; set; }
+
+        public string FileName1 { get; set; }
+        public byte[] Content1 { get; set; }
+
+        public string FileName2 { get; set; }
+        public byte[] Content2 { get; set; }
+
+        public string FileName3 { get; set; }
+        public byte[] Content3 { get; set; }
     }
 }

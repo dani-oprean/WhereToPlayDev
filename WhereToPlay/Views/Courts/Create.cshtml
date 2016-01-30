@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm("Create", "Courts", FormMethod.Post))
+@using (Html.BeginForm("Create", "Courts", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -92,6 +92,27 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SessionPrice, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SessionPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Poza 1", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="Poza2" name="Content1" accept="image/*" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Poza 2", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="Poza2" name="Content2" accept="image/*"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Poza 3", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="Poza3" name="Content3" accept="image/*"/>
             </div>
         </div>
 
