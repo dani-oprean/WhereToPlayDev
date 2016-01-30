@@ -7,6 +7,7 @@ using System.Web;
 
 namespace WhereToPlay.Models.DB
 {
+    [Serializable]
     public class Reservation
     {
         public Reservation()

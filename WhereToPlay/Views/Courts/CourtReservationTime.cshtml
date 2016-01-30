@@ -1,13 +1,30 @@
 ﻿@model WhereToPlay.Models.ViewModel.CourtReservation
 
 <ul class="nav navbar-nav">
-    @{foreach (WhereToPlay.Models.ViewModel.CourtReservationTime item in Model.CourtReservationTimes)
-        {
-            <li>
-                @Html.EditorFor(modelItem=>item.ReservationTime.Hours)
-            </li>
-        }
-    }
+    <li>
+        @Html.Label("LZeceDoispe","10-12")
+        @Html.EditorFor(model=>model.TZeceDoispe)
+    </li>
+    <li>
+        @Html.Label("LDoispePaispe", "12-14")
+        @Html.EditorFor(model => model.TDoispePaispe)
+    </li>
+    <li>
+        @Html.Label("LPaispeSaispe", "14-16")
+        @Html.EditorFor(model => model.TPaispeSaispe)
+    </li>
+    <li>
+        @Html.Label("LSaispeOptspe", "16-18")
+        @Html.EditorFor(model => model.TSaispeOptspe)
+    </li>
+    <li>
+        @Html.Label("LOptspeDouazeci", "18-20")
+        @Html.EditorFor(model => model.TOptspeDouazeci)
+    </li>
+    <li>
+        @Html.Label("LDouazeciDouajdoi", "20-22")
+        @Html.EditorFor(model => model.TDouazeciDouajdoi)
+    </li>
 </ul>
 
 

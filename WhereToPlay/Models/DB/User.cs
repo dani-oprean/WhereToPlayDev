@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace WhereToPlay.Models.DB
 {
+    [Serializable]
     public class User
     {
         public User()

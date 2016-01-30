@@ -6,6 +6,7 @@ using System.Web;
 
 namespace WhereToPlay.Models.DB
 {
+    [Serializable]
     public class Sport
     {
         public Sport()
