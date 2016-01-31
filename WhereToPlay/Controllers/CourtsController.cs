@@ -308,7 +308,7 @@ namespace WhereToPlay.Controllers
             //Reservation hours
             if (_reservations.TZeceDoispe)
             {
-                if (forToday && _reservations.Date.Hour < 9)
+                if ((forToday && _reservations.Date.Hour < 9) || !forToday)
                 {
                     Reservation res1012 = Utilities.Clone(res);
                     res1012.ReservationTime = db.ReservationTimes.Where(r => r.Hours == "10-12").First();
@@ -326,7 +326,7 @@ namespace WhereToPlay.Controllers
 
             if (_reservations.TDoispePaispe)
             {
-                if (forToday && _reservations.Date.Hour < 11)
+                if ((forToday && _reservations.Date.Hour < 11) || !forToday)
                 {
                     Reservation res1214 = Utilities.Clone(res);
                     res1214.ReservationTime = db.ReservationTimes.Where(r => r.Hours == "12-14").First();
@@ -344,7 +344,7 @@ namespace WhereToPlay.Controllers
 
             if (_reservations.TPaispeSaispe)
             {
-                if (forToday && _reservations.Date.Hour < 13)
+                if ((forToday && _reservations.Date.Hour < 13) || !forToday)
                 {
                     Reservation res1416 = Utilities.Clone(res);
                     res1416.ReservationTime = db.ReservationTimes.Where(r => r.Hours == "14-16").First();
@@ -362,7 +362,7 @@ namespace WhereToPlay.Controllers
 
             if (_reservations.TSaispeOptspe)
             {
-                if (forToday && _reservations.Date.Hour < 15)
+                if ((forToday && _reservations.Date.Hour < 15) || !forToday)
                 {
                     Reservation res1618 = Utilities.Clone(res);
                     res1618.ReservationTime = db.ReservationTimes.Where(r => r.Hours == "16-18").First();
@@ -380,7 +380,7 @@ namespace WhereToPlay.Controllers
 
             if (_reservations.TOptspeDouazeci)
             {
-                if (forToday && _reservations.Date.Hour < 17)
+                if ((forToday && _reservations.Date.Hour < 17) || !forToday)
                 {
                     Reservation res1820 = Utilities.Clone(res);
                     res1820.ReservationTime = db.ReservationTimes.Where(r => r.Hours == "18-20").First();
@@ -398,7 +398,7 @@ namespace WhereToPlay.Controllers
 
             if (_reservations.TDouazeciDouajdoi)
             {
-                if (forToday && _reservations.Date.Hour < 19)
+                if ((forToday && _reservations.Date.Hour < 19) || !forToday)
                 {
                     Reservation res2022 = Utilities.Clone(res);
                     res2022.ReservationTime = db.ReservationTimes.Where(r => r.Hours == "20-22").First();
