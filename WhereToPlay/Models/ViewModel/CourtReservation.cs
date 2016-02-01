@@ -20,7 +20,8 @@ namespace WhereToPlay.Models.ViewModel
             set
             {
                 date = value;
-                List<String> res = db.Reservations.Where(r => r.ReservationDate == date).Select(t => t.ReservationTime.Hours).ToList();
+                List<String> res = db.Reservations.Where(r => (r.ReservationDate.Year == date.Year)&& (r.ReservationDate.Month == date.Month)&& (r.ReservationDate.Day == date.Day))
+                                    .Select(t => t.ReservationTime.Hours).ToList();
 
                 NZeceDoispe = res.Contains("10-12");
                 NDoispePaispe = res.Contains("12-14");
@@ -48,7 +49,7 @@ namespace WhereToPlay.Models.ViewModel
         public CourtReservation(int? id)
         {
             this.Court = db.Courts.Find(id);
-            this.Date = DateTime.Now.AddDays(1);
+            this.Date = DateTime.Now;
         }
     }
 }

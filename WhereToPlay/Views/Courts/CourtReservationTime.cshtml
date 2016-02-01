@@ -2,28 +2,70 @@
 
 <ul class="nav navbar-nav">
     <li>
-        @Html.Label("LZeceDoispe","10-12")
-        @Html.EditorFor(model=>model.TZeceDoispe)
+        @Html.Label("LZeceDoispe", "10-12")
+        @if (Model.NZeceDoispe)
+        {
+            @Html.CheckBoxFor(model => model.NZeceDoispe, new { @disabled = "disabled"})
+        }
+        else
+        {
+            @Html.EditorFor(model => model.TZeceDoispe)
+        }
     </li>
     <li>
         @Html.Label("LDoispePaispe", "12-14")
-        @Html.EditorFor(model => model.TDoispePaispe)
+        @if (Model.NDoispePaispe)
+        {
+            @Html.CheckBoxFor(model => model.NDoispePaispe, new { @disabled = "disabled"})
+        }
+        else
+        {
+            @Html.EditorFor(model => model.TDoispePaispe)
+        }
     </li>
     <li>
         @Html.Label("LPaispeSaispe", "14-16")
-        @Html.EditorFor(model => model.TPaispeSaispe)
+        @if (Model.NPaispeSaispe)
+        {
+            @Html.CheckBoxFor(model => model.NPaispeSaispe, new { @disabled = "disabled"})
+        }
+        else
+        {
+            @Html.EditorFor(model => model.TPaispeSaispe)
+        }
     </li>
     <li>
         @Html.Label("LSaispeOptspe", "16-18")
-        @Html.EditorFor(model => model.TSaispeOptspe)
+        @if (Model.NSaispeOptspe)
+        {
+            @Html.CheckBoxFor(model => model.NSaispeOptspe, new { @disabled = "disabled"})
+        }
+        else
+        {
+            @Html.EditorFor(model => model.TSaispeOptspe)
+        }
     </li>
     <li>
         @Html.Label("LOptspeDouazeci", "18-20")
-        @Html.EditorFor(model => model.TOptspeDouazeci)
+        @if (Model.NOptspeDouazeci)
+        {
+            @Html.CheckBoxFor(model => model.NOptspeDouazeci, new { @disabled = "disabled"})
+        }
+        else
+        {
+            @Html.EditorFor(model => model.TOptspeDouazeci)
+        }
     </li>
     <li>
         @Html.Label("LDouazeciDouajdoi", "20-22")
-        @Html.EditorFor(model => model.TDouazeciDouajdoi)
+        @if (Model.NDouazeciDouajdoi)
+        {
+            @Html.CheckBoxFor(model => model.NDouazeciDouajdoi, new { @disabled = "disabled"})
+        }
+        else
+        {
+            @Html.EditorFor(model => model.TDouazeciDouajdoi)
+        }
     </li>
 </ul>
 
