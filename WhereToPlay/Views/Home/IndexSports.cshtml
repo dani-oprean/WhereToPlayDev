@@ -1,121 +1,180 @@
 ﻿@model IEnumerable<WhereToPlay.Models.DB.Court>
 
-@{
-    ViewBag.Title = "IndexSports";
-}
+<link href="~/Content/HomeIndex.css" rel="stylesheet" type="text/css" />
 
-<h2>Index</h2>
-
-
-<table class="table">
-    <tr>
+<div class="divTableRow">
+    <ul class="nav navbar-nav">
         @{
             WhereToPlay.Models.WhereToPlayDb db = new WhereToPlay.Models.WhereToPlayDb();
             int spIDF = db.Sports.Where(s => s.SportName == "Fotbal").FirstOrDefault().IDSport;
+            <li>
+                @Html.ActionLink("Fotbal", "IndexSports", new { id = spIDF })
+            </li>
         }
-        <td>
-            @Html.ActionLink("Fotbal", "IndexSports", new { id = spIDF })
-        </td>
 
         @{
             int spIDT = db.Sports.Where(s => s.SportName == "Tenis").FirstOrDefault().IDSport;
+            <li>
+                @Html.ActionLink("Tenis", "IndexSports", new { id = spIDT })
+            </li>
         }
-        <td>
-            @Html.ActionLink("Tenis", "IndexSports", new { id = spIDT })
-        </td>
 
         @{
             int spIDB = db.Sports.Where(s => s.SportName == "Baschet").FirstOrDefault().IDSport;
+            <li>
+                @Html.ActionLink("Baschet", "IndexSports", new { id = spIDB })
+            </li>
         }
-        <td>
-            @Html.ActionLink("Baschet", "IndexSports", new { id = spIDB })
-        </td>
-        <td>
-            @Html.ActionLink("Toate", "Index")
-        </td>
-    </tr>
+            <li>
+                @Html.ActionLink("Toate", "Index")
+            </li>
+    </ul>
+</div>
 
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Address.AddressStreet)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sport.SportName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CourtName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Length)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Width)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SessionPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hidden)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+<div class="divTable">
+    @for (int i = 0; i < Model.ToList().Count; i += 3)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address.AddressStreet)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sport.SportName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourtName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Length)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Width)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SessionPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hidden)
-            </td>
-            @if (Request.IsAuthenticated)
-            {
-                <td>
-                    @Html.ActionLink("Inchiriaza", "Details", "Courts", new { id = item.IDCourt }, null)
-                </td>
+        <div class="divTableRow">
+            @*coloana 1 *@
+            <div class="divTableCell">
+                <div class="divGol">
+                    <p>@Model.ToList()[i].Sport.SportName / @Model.ToList()[i].CourtName</p>
+                    @{
+                        if (Model.ToList()[i].FileName1 != null)
+                        {
+                            string imageBase64 = Convert.ToBase64String(Model.ToList()[i].Content1);
+                            string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                            <img src="@imageSrc" style="height:200px;width:300px;" />
+                        }
+                        else
+                        {
+                            if (Model.ToList()[i].FileName2 != null)
+                            {
+                                string imageBase64 = Convert.ToBase64String(Model.ToList()[i].Content2);
+                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                <img src="@imageSrc" style="height:200px;width:300px;" />
+                            }
+                            else
+                            {
+                                if (Model.ToList()[i].FileName3 != null)
+                                {
+                                    string imageBase64 = Convert.ToBase64String(Model.ToList()[i].Content3);
+                                    string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                    <img src="@imageSrc" style="height:200px;width:300px;" />
+                                }
+                                else
+                                {
+                                    <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                }
+                            }
+                        }
+                    }
+                    @if (Request.IsAuthenticated)
+                    {
+                        <p>@Html.ActionLink("Inchiriaza", "Details", "Courts", new { id = Model.ToList()[i].IDCourt }, null)</p>
+                    }
+                    else
+                    {
+                        <p>@Html.ActionLink("Inchiriaza", "Login", "Account")</p>
+                    }
+                </div>
+            </div>
+            @if (i + 1 < Model.ToList().Count)
+                {
+                @*coloana 2 *@
+                <div class="divTableCell">
+                    <div class="divGol">
+                        <p>@Model.ToList()[i + 1].Sport.SportName / @Model.ToList()[i + 1].CourtName</p>
+                        @{
+                            if (Model.ToList()[i + 1].FileName1 != null)
+                            {
+                                string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 1].Content1);
+                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                <img src="@imageSrc" style="height:200px;width:300px;" />
+                            }
+                            else
+                            {
+                                if (Model.ToList()[i + 1].FileName2 != null)
+                                {
+                                    string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 1].Content2);
+                                    string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                    <img src="@imageSrc" style="height:200px;width:300px;" />
+                                }
+                                else
+                                {
+                                    if (Model.ToList()[i + 1].FileName3 != null)
+                                    {
+                                        string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 1].Content3);
+                                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                    }
+                                }
+                            }
+                        }
+                        @if (Request.IsAuthenticated)
+                    {
+                            <p>@Html.ActionLink("Inchiriaza", "Details", "Courts", new { id = Model.ToList()[i + 1].IDCourt }, null)</p>
+                        }
+                        else
+                        {
+                            <p>@Html.ActionLink("Inchiriaza", "Login", "Account")</p>
+                        }
+                    </div>
+                </div>
             }
-            else
+            @*coloana 3 *@
+            @if (i + 2 < Model.ToList().Count)
             {
-                <td>
-                    @Html.ActionLink("Inchiriaza", "Login", "Account")
-                </td>
-            }
-        </tr>
-        //Aici e index-ul din Home
-    }
+                <div class="divTableCell">
+                    <div class="divGol">
+                        <p>@Model.ToList()[i + 2].Sport.SportName / @Model.ToList()[i + 2].CourtName</p>
+                        @{
+                            if (Model.ToList()[i + 2].FileName1 != null)
+                            {
+                                string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content1);
+                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                <img src="@imageSrc" style="height:200px;width:300px;" />
+                            }
+                            else
+                            {
+                                if (Model.ToList()[i + 2].FileName2 != null)
+                                {
+                                    string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content2);
+                                    string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                    <img src="@imageSrc" style="height:200px;width:300px;" />
+                                }
+                                else
+                                {
+                                    if (Model.ToList()[i + 2].FileName3 != null)
+                                    {
+                                        string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content3);
+                                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                    }
+                                }
+                            }
+                        }
+                       @if (Request.IsAuthenticated)
+                    {
+                                            <p>@Html.ActionLink("Inchiriaza", "Details", "Courts", new { id = Model.ToList()[i + 2].IDCourt }, null)</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@Html.ActionLink("Inchiriaza", "Login", "Account")</p>
+                                        }
+                                    </div>
+                                </div>
+                                            }
+                        </div>
+                                                //Aici e index-ul din Home
+                                            }
 
-</table>
+</div>

@@ -122,44 +122,44 @@
                         }
                     </div>
                 </div>
-                            }
-                            @*coloana 3 *@
-                            @if (i + 1 < Model.ToList().Count)
-                            {
-                                <div class="divTableCell">
-                                    <div class="divGol">
-                                        <p>@Model.ToList()[i + 2].Sport.SportName / @Model.ToList()[i + 2].CourtName</p>
-                                        @{
-                                            if (Model.ToList()[i + 2].FileName1 != null)
-                                            {
-                                                string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content1);
-                                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                                <img src="@imageSrc" style="height:200px;width:300px;" />
-                                            }
-                                            else
-                                            {
-                                                if (Model.ToList()[i + 2].FileName2 != null)
-                                                {
-                                                    string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content2);
-                                                    string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                                    <img src="@imageSrc" style="height:200px;width:300px;" />
-                                                }
-                                                else
-                                                {
-                                                    if (Model.ToList()[i + 2].FileName3 != null)
-                                                    {
-                                                        string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content3);
-                                                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                                        <img src="@imageSrc" style="height:200px;width:300px;" />
-                                                    }
-                                                    else
-                                                    {
-                                                        <img src = "~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
-                                                    }
-                                                }
-                                            }
+                        }
+                @*coloana 3 *@
+                @if (i + 2 < Model.ToList().Count)
+                {
+                    <div class="divTableCell">
+                        <div class="divGol">
+                            <p>@Model.ToList()[i + 2].Sport.SportName / @Model.ToList()[i + 2].CourtName</p>
+                            @{
+                                if (Model.ToList()[i + 2].FileName1 != null)
+                                {
+                                    string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content1);
+                                    string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                    <img src="@imageSrc" style="height:200px;width:300px;" />
+                                }
+                                else
+                                {
+                                    if (Model.ToList()[i + 2].FileName2 != null)
+                                    {
+                                        string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content2);
+                                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                                    }
+                                    else
+                                    {
+                                        if (Model.ToList()[i + 2].FileName3 != null)
+                                        {
+                                            string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content3);
+                                            string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                            <img src="@imageSrc" style="height:200px;width:300px;" />
                                         }
-                   @if (Request.IsAuthenticated)
+                                        else
+                                        {
+                                            <img src = "~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                        }
+                                    }
+                                }
+                            }
+                    @if (Request.IsAuthenticated)
                     {
                                             <p>@Html.ActionLink("Inchiriaza", "Details", "Courts", new { id = Model.ToList()[i + 2].IDCourt }, null)</p>
                                         }
@@ -169,8 +169,8 @@
                                         }
                                     </div>
                                 </div>
-                     }
-                        </div>
+                        }
+         </div>
                                                 //Aici e index-ul din Home
         }
 
