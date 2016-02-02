@@ -112,6 +112,7 @@
     <Content Include="Content\Images\back-logare.png" />
     <Content Include="Content\Images\logo-mihai35_02.gif" />
     <Content Include="Content\Images\logo-mihai35_02_H275.gif" />
+    <Content Include="Content\Images\no_image-500x500.png" />
     <Content Include="Content\Layout.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
