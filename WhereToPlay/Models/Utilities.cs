@@ -9,9 +9,9 @@ using System.IO;
 
 namespace WhereToPlay.Models
 {
-    internal static class Utilities
+    public static class Utilities
     {
-        internal static void  SmsSend (String smsTo,String smsBody)
+        public static void  SmsSend (String smsTo,String smsBody)
         {
             MailMessage mail = new MailMessage();
             mail.To.Add("online.programare@gmail.com");
@@ -29,7 +29,7 @@ namespace WhereToPlay.Models
             smtp.Send(mail);
         }
 
-        internal static void EmailSend(String emailTo, String emailSubject, String emailBody)
+        public static void EmailSend(String emailTo, String emailSubject, String emailBody)
         {
             MailMessage mail = new MailMessage();
             mail.To.Add(emailTo);
@@ -69,5 +69,45 @@ namespace WhereToPlay.Models
                 return (T)formatter.Deserialize(stream);
             }
         }
+
+        public static LoggedStatus GetLoggedStatus(string userName)
+        {
+            LoggedStatus status = new LoggedStatus();
+            WhereToPlay.Models.WhereToPlayDb db = new WhereToPlay.Models.WhereToPlayDb();
+            WhereToPlay.Models.DB.User loggedUser = db.Users.Where(u => u.UserName == HttpContext.Current.User.Identity.Name).FirstOrDefault();
+            if (loggedUser == null)
+            {
+                status = LoggedStatus.NotLogged;
+            }
+            else
+            {
+                WhereToPlay.Models.DB.UserGroup UsrGroup = db.UserGroups.Where(u => u.IDUserGroup == loggedUser.UserGroupID).FirstOrDefault();
+                switch (UsrGroup.UserGroupName)
+                {
+                    case "Proprietar":
+                        status = LoggedStatus.LoggedOwner;
+                        break;
+                    case "Administrator":
+                        status = LoggedStatus.LoggedAdmin;
+                        break;
+                    case "Jucator":
+                        status = LoggedStatus.LoggedPlayer;
+                        break;
+                    default:
+                        status = LoggedStatus.NotLogged;
+                        break;
+                }
+            }
+            return status;
+        }
+    }
+
+
+    public enum LoggedStatus
+    {
+        NotLogged = 1,
+        LoggedAdmin = 2,
+        LoggedOwner = 3,
+        LoggedPlayer = 4
     }
 }

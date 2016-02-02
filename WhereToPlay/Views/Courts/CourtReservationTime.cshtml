@@ -5,7 +5,7 @@
         @Html.Label("LZeceDoispe", "10-12")
         @if (Model.NZeceDoispe)
         {
-            @Html.CheckBoxFor(model => model.NZeceDoispe, new { @disabled = "disabled"})
+            @Html.EditorFor(model => model.NZeceDoispe, new { htmlAttributes = new { @readonly = "readonly" } })
         }
         else
         {
@@ -16,7 +16,7 @@
         @Html.Label("LDoispePaispe", "12-14")
         @if (Model.NDoispePaispe)
         {
-            @Html.CheckBoxFor(model => model.NDoispePaispe, new { @disabled = "disabled"})
+            @Html.EditorFor(model => model.NDoispePaispe, new { htmlAttributes = new { @readonly = "readonly" } })
         }
         else
         {
@@ -27,7 +27,7 @@
         @Html.Label("LPaispeSaispe", "14-16")
         @if (Model.NPaispeSaispe)
         {
-            @Html.CheckBoxFor(model => model.NPaispeSaispe, new { @disabled = "disabled"})
+            @Html.EditorFor(model => model.NPaispeSaispe, new { htmlAttributes = new { @readonly = "readonly" } })
         }
         else
         {
@@ -38,7 +38,7 @@
         @Html.Label("LSaispeOptspe", "16-18")
         @if (Model.NSaispeOptspe)
         {
-            @Html.CheckBoxFor(model => model.NSaispeOptspe, new { @disabled = "disabled"})
+            @Html.EditorFor(model => model.NSaispeOptspe, new { htmlAttributes = new { @readonly = "readonly" } })
         }
         else
         {
@@ -49,7 +49,7 @@
         @Html.Label("LOptspeDouazeci", "18-20")
         @if (Model.NOptspeDouazeci)
         {
-            @Html.CheckBoxFor(model => model.NOptspeDouazeci, new { @disabled = "disabled"})
+            @Html.EditorFor(model => model.NOptspeDouazeci, new { htmlAttributes = new { @readonly = "readonly" } })
         }
         else
         {
@@ -60,7 +60,7 @@
         @Html.Label("LDouazeciDouajdoi", "20-22")
         @if (Model.NDouazeciDouajdoi)
         {
-            @Html.CheckBoxFor(model => model.NDouazeciDouajdoi, new { @disabled = "disabled"})
+            @Html.EditorFor(model => model.NDouazeciDouajdoi, new { htmlAttributes = new { @readonly = "readonly" } })
         }
         else
         {
