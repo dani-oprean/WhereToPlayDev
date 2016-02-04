@@ -5,12 +5,6 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/datePicker.js"></script>
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h2>Details</h2>
-
 @using (Html.BeginForm("Rent", "Courts", FormMethod.Post))
 {
     @Html.AntiForgeryToken()

@@ -1,12 +1,5 @@
 ﻿@model WhereToPlay.Models.DB.User
 
-@{
-    ViewBag.Title = "Register";
-}
-
-<h2>Register</h2>
-
-
 @using (Html.BeginForm("Create", "Account", FormMethod.Post))
 {
     @Html.AntiForgeryToken()

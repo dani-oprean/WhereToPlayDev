@@ -1,12 +1,5 @@
 ﻿@model WhereToPlay.Models.DB.Court
 
-@{
-    ViewBag.Title = "Create";
-}
-
-<h2>Create</h2>
-
-
 @using (Html.BeginForm("Create", "Courts", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
