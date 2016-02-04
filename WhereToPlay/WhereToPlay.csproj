@@ -230,6 +230,8 @@
     <Content Include="Views\Courts\CourtReservationTime.cshtml" />
     <Content Include="Views\Account\ForgotPass.cshtml" />
     <Content Include="Views\Shared\_Layout - Copy.cshtml" />
+    <Content Include="Views\Home\IndexBKP.cshtml" />
+    <Content Include="Views\Home\_IndexSport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

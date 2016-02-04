@@ -1,0 +1,177 @@
+﻿@model IEnumerable<WhereToPlay.Models.DB.Court>
+
+<link href="~/Content/HomeIndex.css" rel="stylesheet" type="text/css" />
+
+<div class="divTableRow">
+    <ul class="nav navbar-nav">
+        @{
+            WhereToPlay.Models.WhereToPlayDb db = new WhereToPlay.Models.WhereToPlayDb();
+            int spIDF = db.Sports.Where(s => s.SportName == "Fotbal").FirstOrDefault().IDSport;
+            <li>
+                @Html.ActionLink("Fotbal", "IndexSports", new { id = spIDF })
+            </li>
+        }
+
+        @{
+            int spIDT = db.Sports.Where(s => s.SportName == "Tenis").FirstOrDefault().IDSport;
+            <li>
+                @Html.ActionLink("Tenis", "IndexSports", new { id = spIDT })
+            </li>
+        }
+
+        @{
+            int spIDB = db.Sports.Where(s => s.SportName == "Baschet").FirstOrDefault().IDSport;
+            <li>
+                @Html.ActionLink("Baschet", "IndexSports", new { id = spIDB })
+            </li>
+        }
+    </ul>
+</div>
+
+<div class="divTable">
+    @for (int i = 0; i < Model.ToList().Count; i += 3)
+    {
+        <div class="divTableRow">
+            @*coloana 1 *@
+            <div class="divTableCell">
+                <div class="divGol">
+                    <p>@Model.ToList()[i].Sport.SportName / @Model.ToList()[i].CourtName</p>
+                    @{
+                        if (Model.ToList()[i].FileName1 != null)
+                        {
+                            string imageBase64 = Convert.ToBase64String(Model.ToList()[i].Content1);
+                            string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                            <img src="@imageSrc" style="height:200px;width:300px;" />
+                        }
+                        else
+                        {
+                            if (Model.ToList()[i].FileName2 != null)
+                            {
+                                string imageBase64 = Convert.ToBase64String(Model.ToList()[i].Content2);
+                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                <img src="@imageSrc" style="height:200px;width:300px;" />
+                            }
+                            else
+                            {
+                                if (Model.ToList()[i].FileName3 != null)
+                                {
+                                    string imageBase64 = Convert.ToBase64String(Model.ToList()[i].Content3);
+                                    string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                    <img src="@imageSrc" style="height:200px;width:300px;" />
+                                }
+                                else
+                                {
+                                    <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                }
+                            }
+                        }
+                    }
+                    @if (Request.IsAuthenticated)
+                    {
+                        <p>@Html.ActionLink("Inchiriaza", "Details", "Courts", new { id = Model.ToList()[i].IDCourt }, null)</p>
+                    }
+                    else
+                    {
+                        <p>@Html.ActionLink("Inchiriaza", "Login", "Account")</p>
+                    }
+                </div>
+            </div>
+            @if (i + 1 < Model.ToList().Count)
+                {
+                @*coloana 2 *@
+                <div class="divTableCell">
+                    <div class="divGol">
+                        <p>@Model.ToList()[i + 1].Sport.SportName / @Model.ToList()[i + 1].CourtName</p>
+                        @{
+                            if (Model.ToList()[i + 1].FileName1 != null)
+                            {
+                                string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 1].Content1);
+                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                <img src="@imageSrc" style="height:200px;width:300px;" />
+                            }
+                            else
+                            {
+                                if (Model.ToList()[i + 1].FileName2 != null)
+                                {
+                                    string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 1].Content2);
+                                    string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                    <img src="@imageSrc" style="height:200px;width:300px;" />
+                                }
+                                else
+                                {
+                                    if (Model.ToList()[i + 1].FileName3 != null)
+                                    {
+                                        string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 1].Content3);
+                                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                    }
+                                }
+                            }
+                        }
+                        @if (Request.IsAuthenticated)
+                    {
+                            <p>@Html.ActionLink("Inchiriaza", "Details", "Courts", new { id = Model.ToList()[i + 1].IDCourt }, null)</p>
+                        }
+                        else
+                        {
+                            <p>@Html.ActionLink("Inchiriaza", "Login", "Account")</p>
+                        }
+                    </div>
+                </div>
+                            }
+                            @*coloana 3 *@
+                            @if (i + 2 < Model.ToList().Count)
+                {
+                                <div class="divTableCell">
+                                    <div class="divGol">
+                                        <p>@Model.ToList()[i + 2].Sport.SportName / @Model.ToList()[i + 2].CourtName</p>
+                                        @{
+                                            if (Model.ToList()[i + 2].FileName1 != null)
+                                            {
+                                                string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content1);
+                                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                                <img src="@imageSrc" style="height:200px;width:300px;" />
+                                            }
+                                            else
+                                            {
+                                                if (Model.ToList()[i + 2].FileName2 != null)
+                                                {
+                                                    string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content2);
+                                                    string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                                    <img src="@imageSrc" style="height:200px;width:300px;" />
+                                                }
+                                                else
+                                                {
+                                                    if (Model.ToList()[i + 2].FileName3 != null)
+                                                    {
+                                                        string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content3);
+                                                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        @if (Request.IsAuthenticated)
+                    {
+                                            <p>@Html.ActionLink("Inchiriaza", "Details", "Courts", new { id = Model.ToList()[i + 2].IDCourt }, null)</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@Html.ActionLink("Inchiriaza", "Login", "Account")</p>
+                                        }
+                                    </div>
+                                </div>
+                                            }
+                        </div>
+                                                //Aici e index-ul din Home
+                                            }
+
+</div>
