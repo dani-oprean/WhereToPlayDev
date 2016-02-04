@@ -5,7 +5,8 @@
         inline: true,
         showOtherMonths: true,
         dayNamesMin: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sa'],
-        nextText: '&rarr;',        prevText: '&larr;',
+        nextText: '&rarr;',
+        prevText: '&larr;',
         dateFormat: "dd.MM.yy",
         onSelect: function (date) {
         }

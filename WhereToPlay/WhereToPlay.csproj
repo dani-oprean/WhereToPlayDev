@@ -113,7 +113,6 @@
     <Content Include="Content\Images\logo-mihai35_02.gif" />
     <Content Include="Content\Images\logo-mihai35_02_H275.gif" />
     <Content Include="Content\Images\no_image-500x500.png" />
-    <Content Include="Content\Layout.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -230,7 +229,6 @@
     <Content Include="Views\Home\NotAllowed.cshtml" />
     <Content Include="Views\Courts\CourtReservationTime.cshtml" />
     <Content Include="Views\Account\ForgotPass.cshtml" />
-    <Content Include="Views\Shared\_Layout - Copy.cshtml" />
     <Content Include="Views\Home\IndexBKP.cshtml" />
     <Content Include="Views\Home\_IndexSport.cshtml" />
     <Content Include="Views\Home\DespreNoi.cshtml" />
