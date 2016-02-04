@@ -48,6 +48,9 @@
                 <li> @Html.ActionLink("Inregistrare", "Register", "Account") </li>
                 <li> @Html.ActionLink("Logare", "Login", "Account") </li>
              }
+            <li> @Html.ActionLink("Contacteaza-ne", "ContactUs", "Home") </li>
+            <li> @Html.ActionLink("Despre Noi", "DespreNoi", "Home") </li>
+            <li> @Html.ActionLink("Termeni si Conditii", "TermeniSiConditii", "Home") </li>
         </ul>
     </div>
 
@@ -57,7 +60,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - The challengers</p>
+            <p>&copy; @DateTime.Now.Year - The Challengers   @Html.ActionLink("Despre Noi", "DespreNoi", "Home")  @Html.ActionLink("Termeni si Conditii", "TermeniSiConditii", "Home") </p>
         </footer>
     </div>
 

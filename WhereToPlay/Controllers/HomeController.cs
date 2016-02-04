@@ -27,5 +27,27 @@ namespace WhereToPlay.Controllers
         {
             return View();
         }
+
+        public ActionResult DespreNoi()
+        {
+            return View();
+        }
+
+        public ActionResult TermeniSiConditii()
+        {
+            return View();
+        }
+
+        public ActionResult ContactUs(string your_name,string your_email,string your_enquiry)
+        {
+
+            if (your_email != null)
+            {
+                string subject = "Ati primit un mesaj de la " + your_name;
+                string mesajBody = your_enquiry + ". Ma puteti contacta la adresa de email: " + your_email;
+                Utilities.EmailSend("online.programare@gmail.com", subject, mesajBody);
+            }
+            return View();
+        }
     }
 }

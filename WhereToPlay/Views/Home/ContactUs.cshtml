@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Contact us";
+}
+
+<h2>@ViewBag.Title.</h2>
+<p>Below you can enter your contact data and submit a message to us.</p>
+
+<form method="get" id="formulmeu">
+    <div class="form_settings">
+        <p id="namep"><span>Name</span><input class="contact" type="text" name="your_name" value="" /></p>
+        <p id="emailp"><span>Email Address</span><input class="contact" type="text" name="your_email" value="" /></p>
+        <p><span>Message</span><textarea class="contact textarea" rows="8" cols="50" name="your_enquiry"></textarea></p>
+        <p name="wordCount"><span>Word count</span><input class="contact" type="text" name="your_wordCount" /></p>
+        <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="contact_submitted" value="submit" /></p>
+    </div>
+</form>
+<script src="~/Scripts/jquery-2.2.0.js"></script>
+<script src="~/Scripts/ValidateContactForm.js"></script>
