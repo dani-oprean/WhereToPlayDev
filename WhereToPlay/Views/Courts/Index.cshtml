@@ -48,7 +48,9 @@
                         {
                             string imageBase64 = Convert.ToBase64String(Model.ToList()[i].Content1);
                             string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                            <img src="@imageSrc" style="height:200px;width:300px;" />
+                            <a href='@Url.Action("Details", "Courts", new { id = Model.ToList()[i].IDCourt })'>
+                                <img src="@imageSrc" style="height:200px;width:300px;" />
+                            </a>
                         }
                         else
                         {
@@ -56,7 +58,9 @@
                             {
                                 string imageBase64 = Convert.ToBase64String(Model.ToList()[i].Content2);
                                 string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                <img src="@imageSrc" style="height:200px;width:300px;" />
+                                <a href='@Url.Action("Details", "Courts", new { id = Model.ToList()[i].IDCourt })'>
+                                    <img src="@imageSrc" style="height:200px;width:300px;" />
+                                </a>
                             }
                             else
                             {
@@ -64,11 +68,34 @@
                                 {
                                     string imageBase64 = Convert.ToBase64String(Model.ToList()[i].Content3);
                                     string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                    <img src="@imageSrc" style="height:200px;width:300px;" />
+                                    <a href='@Url.Action("Details", "Courts", new { id = Model.ToList()[i].IDCourt })'>
+                                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                                    </a>
                                 }
                                 else
                                 {
-                                    <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                    if (Model.ToList()[i].Sport.SportName == "Fotbal")
+                                    {
+                                        <img src="~/Content/Images/fotbal.png" style="height:200px;width:300px;" />
+                                    }
+                                    else
+                                    {
+                                        if (Model.ToList()[i].Sport.SportName == "Tenis")
+                                        {
+                                            <img src="~/Content/Images/tenis.png" style="height:200px;width:300px;" />
+                                        }
+                                        else
+                                        {
+                                            if (Model.ToList()[i].Sport.SportName == "Bachet")
+                                            {
+                                                <img src="~/Content/Images/baschet.png" style="height:200px;width:300px;" />
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -94,7 +121,9 @@
                             {
                                 string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 1].Content1);
                                 string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                <img src="@imageSrc" style="height:200px;width:300px;" />
+                                <a href='@Url.Action("Details", "Courts", new { id = Model.ToList()[i+1].IDCourt })'>
+                                    <img src="@imageSrc" style="height:200px;width:300px;" />
+                                </a>
                             }
                             else
                             {
@@ -102,7 +131,9 @@
                                 {
                                     string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 1].Content2);
                                     string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                    <img src="@imageSrc" style="height:200px;width:300px;" />
+                                    <a href='@Url.Action("Details", "Courts", new { id = Model.ToList()[i+1].IDCourt })'>
+                                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                                    </a>
                                 }
                                 else
                                 {
@@ -110,11 +141,34 @@
                                     {
                                         string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 1].Content3);
                                         string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                                        <a href='@Url.Action("Details", "Courts", new { id = Model.ToList()[i+1].IDCourt })'>
+                                            <img src="@imageSrc" style="height:200px;width:300px;" />
+                                        </a>
                                     }
                                     else
                                     {
-                                        <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                        if (Model.ToList()[i + 1].Sport.SportName == "Fotbal")
+                                        {
+                                            <img src="~/Content/Images/fotbal.png" style="height:200px;width:300px;" />
+                                        }
+                                        else
+                                        {
+                                            if (Model.ToList()[i + 1].Sport.SportName == "Tenis")
+                                            {
+                                                <img src="~/Content/Images/tenis.png" style="height:200px;width:300px;" />
+                                            }
+                                            else
+                                            {
+                                                if (Model.ToList()[i + 1].Sport.SportName == "Bachet")
+                                                {
+                                                    <img src="~/Content/Images/baschet.png" style="height:200px;width:300px;" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -141,7 +195,9 @@
                                             {
                                                 string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content1);
                                                 string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                                <img src="@imageSrc" style="height:200px;width:300px;" />
+                                                <a href='@Url.Action("Details", "Courts", new { id = Model.ToList()[i+2].IDCourt })'>
+                                                    <img src="@imageSrc" style="height:200px;width:300px;" />
+                                                </a>
                                             }
                                             else
                                             {
@@ -149,7 +205,9 @@
                                                 {
                                                     string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content2);
                                                     string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                                    <img src="@imageSrc" style="height:200px;width:300px;" />
+                                                    <a href='@Url.Action("Details", "Courts", new { id = Model.ToList()[i+2].IDCourt })'>
+                                                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                                                    </a>
                                                 }
                                                 else
                                                 {
@@ -157,11 +215,34 @@
                                                     {
                                                         string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content3);
                                                         string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                                                        <a href='@Url.Action("Details", "Courts", new { id = Model.ToList()[i+2].IDCourt })'>
+                                                            <img src="@imageSrc" style="height:200px;width:300px;" />
+                                                        </a>
                                                     }
                                                     else
                                                     {
-                                                        <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                                        if (Model.ToList()[i + 2].Sport.SportName == "Fotbal")
+                                                        {
+                                                            <img src="~/Content/Images/fotbal.png" style="height:200px;width:300px;" />
+                                                        }
+                                                        else
+                                                        {
+                                                            if (Model.ToList()[i + 2].Sport.SportName == "Tenis")
+                                                            {
+                                                                <img src="~/Content/Images/tenis.png" style="height:200px;width:300px;" />
+                                                            }
+                                                            else
+                                                            {
+                                                                if (Model.ToList()[i + 2].Sport.SportName == "Bachet")
+                                                                {
+                                                                    <img src="~/Content/Images/baschet.png" style="height:200px;width:300px;" />
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                                                }
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
