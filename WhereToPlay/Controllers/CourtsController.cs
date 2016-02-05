@@ -50,7 +50,7 @@ namespace WhereToPlay.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourtReservation court = new CourtReservation(id);
+            Court court = db.Courts.Where(c => c.IDCourt == id).First();
             if (court == null)
             {
                 return HttpNotFound();
@@ -259,22 +259,21 @@ namespace WhereToPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult Rent(CourtReservation _reservations)
+        public ActionResult Rent(Court court, CourtReservation reservation, string selectedDate)
         {
-            _reservations.Court = db.Courts.Find(_reservations.Court.IDCourt);
-
             Reservation res = new Reservation();
+            DateTime reservationDate = Convert.ToDateTime(selectedDate);
 
             //court
-            if (_reservations.Court.IDCourt > 0)
+            if (court.IDCourt > 0)
             {
-                res.Court = db.Courts.Find(_reservations.Court.IDCourt);
-                res.CourtID =  _reservations.Court.IDCourt;
+                res.Court = db.Courts.Find(court.IDCourt);
+                res.CourtID = court.IDCourt;
             }
             else
             {
                 ModelState.AddModelError("", "Teren invalid!");
-                return View(_reservations);
+                return View(res.Court);
             }
 
             //user
@@ -282,33 +281,33 @@ namespace WhereToPlay.Controllers
             if (res.User == null)
             {
                 ModelState.AddModelError("", "Utilizator necunoscut!");
-                return View(_reservations);
+                return View(res.Court);
             }
             res.UserID = res.User.IDUser;
             res.User.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == res.User.UserGroupID).FirstOrDefault();
             res.User.UserPasswordConfirm = res.User.UserPassword;
 
             //date
-            if (_reservations.Date != null && 
-                (_reservations.Date.Year >= DateTime.Now.Year && 
-                _reservations.Date.Month >= DateTime.Now.Month &&
-                _reservations.Date.Day >= DateTime.Now.Day))
+            if (reservationDate != null &&
+                (reservationDate.Year >= DateTime.Now.Year &&
+                reservationDate.Month >= DateTime.Now.Month &&
+                reservationDate.Day >= DateTime.Now.Day))
             {
-                res.ReservationDate = _reservations.Date;
+                res.ReservationDate = reservationDate;
             }
             else
             {
                 ModelState.AddModelError("", "Data invalida! Va rog selectati o data valida din viitor!");
-                return View(_reservations);
+                return View("Details",res.Court);
             }
-            bool forToday = (_reservations.Date.Year == DateTime.Now.Year) &&
-                            (_reservations.Date.Month == DateTime.Now.Month) &&
-                            (_reservations.Date.Day == DateTime.Now.Day);
+            bool forToday = (reservationDate.Year == DateTime.Now.Year) &&
+                            (reservationDate.Month == DateTime.Now.Month) &&
+                            (reservationDate.Day == DateTime.Now.Day);
 
             //Reservation hours
-            if (_reservations.TZeceDoispe)
+            if (reservation.NZeceDoispe)
             {
-                if ((forToday && _reservations.Date.Hour < 9) || !forToday)
+                if ((forToday && DateTime.Now.Hour < 9) || !forToday)
                 {
                     Reservation res1012 = Utilities.Clone(res);
                     res1012.ReservationTime = db.ReservationTimes.Where(r => r.Hours == "10-12").First();
@@ -320,13 +319,13 @@ namespace WhereToPlay.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Terenul trebuie rezervat cu minim o ora inainte de prezentare!");
-                    return View("Details", _reservations);
+                    return View("Details", res.Court);
                 }
             }
 
-            if (_reservations.TDoispePaispe)
+            if (reservation.NDoispePaispe)
             {
-                if ((forToday && _reservations.Date.Hour < 11) || !forToday)
+                if ((forToday && DateTime.Now.Hour < 11) || !forToday)
                 {
                     Reservation res1214 = Utilities.Clone(res);
                     res1214.ReservationTime = db.ReservationTimes.Where(r => r.Hours == "12-14").First();
@@ -338,13 +337,13 @@ namespace WhereToPlay.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Terenul trebuie rezervat cu minim o ora inainte de prezentare!");
-                    return View("Details", _reservations);
+                    return View("Details", res.Court);
                 }
             }
 
-            if (_reservations.TPaispeSaispe)
+            if (reservation.NPaispeSaispe)
             {
-                if ((forToday && _reservations.Date.Hour < 13) || !forToday)
+                if ((forToday && DateTime.Now.Hour < 13) || !forToday)
                 {
                     Reservation res1416 = Utilities.Clone(res);
                     res1416.ReservationTime = db.ReservationTimes.Where(r => r.Hours == "14-16").First();
@@ -356,13 +355,13 @@ namespace WhereToPlay.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Terenul trebuie rezervat cu minim o ora inainte de prezentare!");
-                    return View("Details", _reservations);
+                    return View("Details", res.Court);
                 }
             }
 
-            if (_reservations.TSaispeOptspe)
+            if (reservation.NSaispeOptspe)
             {
-                if ((forToday && _reservations.Date.Hour < 15) || !forToday)
+                if ((forToday && DateTime.Now.Hour < 15) || !forToday)
                 {
                     Reservation res1618 = Utilities.Clone(res);
                     res1618.ReservationTime = db.ReservationTimes.Where(r => r.Hours == "16-18").First();
@@ -374,13 +373,13 @@ namespace WhereToPlay.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Terenul trebuie rezervat cu minim o ora inainte de prezentare!");
-                    return View("Details", _reservations);
+                    return View("Details", res.Court);
                 }
             }
 
-            if (_reservations.TOptspeDouazeci)
+            if (reservation.NOptspeDouazeci)
             {
-                if ((forToday && _reservations.Date.Hour < 17) || !forToday)
+                if ((forToday && DateTime.Now.Hour < 17) || !forToday)
                 {
                     Reservation res1820 = Utilities.Clone(res);
                     res1820.ReservationTime = db.ReservationTimes.Where(r => r.Hours == "18-20").First();
@@ -392,13 +391,13 @@ namespace WhereToPlay.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Terenul trebuie rezervat cu minim o ora inainte de prezentare!");
-                    return View("Details", _reservations);
+                    return View("Details", res.Court);
                 }
             }
 
-            if (_reservations.TDouazeciDouajdoi)
+            if (reservation.NDouazeciDouajdoi)
             {
-                if ((forToday && _reservations.Date.Hour < 19) || !forToday)
+                if ((forToday && DateTime.Now.Hour < 19) || !forToday)
                 {
                     Reservation res2022 = Utilities.Clone(res);
                     res2022.ReservationTime = db.ReservationTimes.Where(r => r.Hours == "20-22").First();
@@ -410,7 +409,7 @@ namespace WhereToPlay.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Terenul trebuie rezervat cu minim o ora inainte de prezentare!");
-                    return View("Details", _reservations);
+                    return View("Details", res.Court);
                 }
             }
 
@@ -428,7 +427,7 @@ namespace WhereToPlay.Controllers
 
                     }
                 }
-                return View(_reservations);
+                return View("Details", res.Court);
             }
 
             return RedirectToAction("Index", "Home");
@@ -463,6 +462,32 @@ namespace WhereToPlay.Controllers
                 allowed = false;
             }
             return allowed;
+        }
+
+        //[NonAction]
+        public ActionResult ShowTimes(string dateRes, int courtId)
+        {
+            DateTime date = Convert.ToDateTime(dateRes);
+            CourtReservation reservation = new CourtReservation();
+
+            if (Request.IsAjaxRequest())
+            {
+                var result = db.Reservations
+                    .Where(r=>(r.CourtID== courtId) &&
+                    (r.ReservationDate.Year==date.Year) && 
+                    (r.ReservationDate.Month == date.Month) && 
+                    (r.ReservationDate.Day == date.Day))
+                    .Select(r=>r.ReservationTime.Hours).ToList();
+                
+                reservation.NZeceDoispe = result.Contains("10-12");
+                reservation.NDoispePaispe = result.Contains("12-14");
+                reservation.NPaispeSaispe = result.Contains("14-16");
+                reservation.NSaispeOptspe = result.Contains("16-18");
+                reservation.NOptspeDouazeci = result.Contains("18-20");
+                reservation.NDouazeciDouajdoi = result.Contains("20-22");
+            }
+
+            return PartialView("CourtReservationTime",reservation);
         }
     }
 }

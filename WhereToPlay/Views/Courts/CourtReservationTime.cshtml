@@ -3,69 +3,69 @@
 <div id="timesList">
     <ul class="nav navbar-nav">
         <li>
-            @Html.Label("LZeceDoispe", "10-12")
             @if (Model.NZeceDoispe)
             {
-                @Html.EditorFor(model => model.NZeceDoispe, new { htmlAttributes = new { @readonly = "readonly" } })
+                @Html.HiddenFor(model => model.NZeceDoispe)
             }
             else
             {
-                @Html.EditorFor(model => model.TZeceDoispe)
+                @Html.Label("LZeceDoispe", "10-12")
+                @Html.EditorFor(model => model.NZeceDoispe)
             }
         </li>
         <li>
-            @Html.Label("LDoispePaispe", "12-14")
             @if (Model.NDoispePaispe)
             {
-                @Html.EditorFor(model => model.NDoispePaispe, new { htmlAttributes = new { @readonly = "readonly" } })
+                @Html.HiddenFor(model => model.NDoispePaispe)
             }
             else
             {
-                @Html.EditorFor(model => model.TDoispePaispe)
+                @Html.Label("LDoispePaispe", "12-14")
+                @Html.EditorFor(model => model.NDoispePaispe)
             }
         </li>
         <li>
-            @Html.Label("LPaispeSaispe", "14-16")
             @if (Model.NPaispeSaispe)
             {
-                @Html.EditorFor(model => model.NPaispeSaispe, new { htmlAttributes = new { @readonly = "readonly" } })
+                @Html.HiddenFor(model => model.NPaispeSaispe)
             }
             else
             {
-                @Html.EditorFor(model => model.TPaispeSaispe)
+                @Html.Label("LPaispeSaispe", "14-16")
+                @Html.EditorFor(model => model.NPaispeSaispe)
             }
         </li>
         <li>
-            @Html.Label("LSaispeOptspe", "16-18")
             @if (Model.NSaispeOptspe)
             {
-                @Html.EditorFor(model => model.NSaispeOptspe, new { htmlAttributes = new { @readonly = "readonly" } })
+                @Html.HiddenFor(model => model.NSaispeOptspe)
             }
             else
             {
-                @Html.EditorFor(model => model.TSaispeOptspe)
+                @Html.Label("LSaispeOptspe", "16-18")
+                @Html.EditorFor(model => model.NSaispeOptspe)
             }
         </li>
         <li>
-            @Html.Label("LOptspeDouazeci", "18-20")
             @if (Model.NOptspeDouazeci)
             {
-                @Html.EditorFor(model => model.NOptspeDouazeci, new { htmlAttributes = new { @readonly = "readonly" } })
+                @Html.HiddenFor(model => model.NOptspeDouazeci)
             }
             else
             {
-                @Html.EditorFor(model => model.TOptspeDouazeci)
+                @Html.Label("LOptspeDouazeci", "18-20")
+                @Html.EditorFor(model => model.NOptspeDouazeci)
             }
         </li>
         <li>
-            @Html.Label("LDouazeciDouajdoi", "20-22")
             @if (Model.NDouazeciDouajdoi)
             {
-                @Html.EditorFor(model => model.NDouazeciDouajdoi, new { htmlAttributes = new { @readonly = "readonly" } })
+                @Html.HiddenFor(model => model.NDouazeciDouajdoi)
             }
             else
             {
-                @Html.EditorFor(model => model.TDouazeciDouajdoi)
+                @Html.Label("LDouazeciDouajdoi", "20-22")
+                @Html.EditorFor(model => model.NDouazeciDouajdoi)
             }
         </li>
     </ul>

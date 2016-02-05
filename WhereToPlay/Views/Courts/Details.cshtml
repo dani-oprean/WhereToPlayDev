@@ -1,9 +1,6 @@
-﻿@model WhereToPlay.Models.ViewModel.CourtReservation
+﻿@model WhereToPlay.Models.DB.Court
 
-<script src="~/Scripts/jquery-ui-1.11.4.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="~/Scripts/datePicker.js"></script>
+
 
 @{
     ViewBag.Title = "Details";
@@ -16,72 +13,67 @@
     @Html.AntiForgeryToken()
 
 <div>
-    <h4>Court</h4>
-    <hr />
-    
-
-            <p>@Html.DisplayFor(model => model.Court.CourtName) / @Html.DisplayFor(model => model.Court.Sport.SportName)</p>
-            <p>@Html.HiddenFor(model=>model.Court.IDCourt)</p>
-
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <p>@Html.DisplayFor(model => model.CourtName) / @Html.DisplayFor(model => model.Sport.SportName)</p>
+            <p>@Html.HiddenFor(model=>model.IDCourt)</p>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.Court.Address)
+                    @Html.DisplayNameFor(model => model.Address)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Court.Address.AddressStreet)
-                    @Html.DisplayFor(model => model.Court.Address.AddressNumber)
-                    @Html.DisplayFor(model => model.Court.Address.AddressCity)
-                    @Html.DisplayFor(model => model.Court.Address.AddressCounty)
+                    @Html.DisplayFor(model => model.Address.AddressStreet)
+                    @Html.DisplayFor(model => model.Address.AddressNumber)
+                    @Html.DisplayFor(model => model.Address.AddressCity)
+                    @Html.DisplayFor(model => model.Address.AddressCounty)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Court.User.UserName)
+                    @Html.DisplayNameFor(model => model.User.UserName)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Court.User.UserName)
+                    @Html.DisplayFor(model => model.User.UserName)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Court.Length)
+                    @Html.DisplayNameFor(model => model.Length)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Court.Length)
+                    @Html.DisplayFor(model => model.Length)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Court.Width)
+                    @Html.DisplayNameFor(model => model.Width)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Court.Width)
+                    @Html.DisplayFor(model => model.Width)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Court.PhoneNumber)
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Court.PhoneNumber)
+                    @Html.DisplayFor(model => model.PhoneNumber)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Court.EmailAddress)
+                    @Html.DisplayNameFor(model => model.EmailAddress)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Court.EmailAddress)
+                    @Html.DisplayFor(model => model.EmailAddress)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Court.SessionPrice)
+                    @Html.DisplayNameFor(model => model.SessionPrice)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Court.SessionPrice)
+                    @Html.DisplayFor(model => model.SessionPrice)
                 </dd>
 
            </dl>
@@ -89,9 +81,9 @@
 
     <div>
         @{
-            if (Model.Court.FileName1 != null)
+            if (Model.FileName1 != null)
             {
-                string imageBase64 = Convert.ToBase64String(Model.Court.Content1);
+                string imageBase64 = Convert.ToBase64String(Model.Content1);
                 string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
                 <img src="@imageSrc" style="height:200px;width:300px;" />
             }
@@ -100,9 +92,9 @@
 
     <div>
         @{
-            if (Model.Court.FileName2 != null)
+            if (Model.FileName2 != null)
             {
-                string imageBase64 = Convert.ToBase64String(Model.Court.Content2);
+                string imageBase64 = Convert.ToBase64String(Model.Content2);
                 string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
                 <img src="@imageSrc" style="height:200px;width:300px;" />
             }
@@ -111,9 +103,9 @@
 
     <div>
         @{
-            if (Model.Court.FileName3 != null)
+            if (Model.FileName3 != null)
             {
-                string imageBase64 = Convert.ToBase64String(Model.Court.Content3);
+                string imageBase64 = Convert.ToBase64String(Model.Content3);
                 string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
                 <img src="@imageSrc" style="height:200px;width:300px;" />
             }
@@ -126,11 +118,12 @@
         <dl class="dl-horizontal">
 
             <dt>
-                @Html.LabelFor(model=>model.Date, "Data rezervarii")
+                @Html.Label("", "Selecteaza data")
             </dt>
 
             <dd>
-                @Html.TextBoxFor(model=>model.Date, new { @class = "date-picker" })
+                @*<div id="selectedDate" name="selectedDate" class="date-picker"></div>*@
+                @Html.TextBox("selectedDate", "",new { @class = "date-picker" })
             </dd>
 
             <dt>
@@ -138,7 +131,12 @@
             </dt>
 
             <dd>
-                @Html.Partial("CourtReservationTime", Model)
+                @Html.Partial("CourtReservationTime",
+                new WhereToPlay.Models.ViewModel.CourtReservation
+                {
+                    NZeceDoispe = false, NDoispePaispe = false, NPaispeSaispe=false,
+                    NSaispeOptspe =false, NOptspeDouazeci=false,NDouazeciDouajdoi=false
+                })
             </dd>
         </dl>
 
@@ -149,9 +147,27 @@
         </div>
     }
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Court.IDCourt }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-
-
+<script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script>
+    $(function () {
+        $('.date-picker').datepicker({
+            changeYear: true,
+            inline: true,
+            showOtherMonths: true,
+            dayNamesMin: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sa'],
+            monthNames: ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie',
+                'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie'],
+            monthNamesShort: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun',
+                'Iul', 'Aug', 'Sep', 'Oct', 'Noi', 'Dec'],
+            nextText: '&rarr;',
+            prevText: '&larr;',
+            onSelect: function (date) {
+                $.get("/Courts/ShowTimes", { dateRes: date, courtId : @Model.IDCourt });
+                return false;
+            }
+        }).datepicker("setDate", new Date());
+    })
+</script>
