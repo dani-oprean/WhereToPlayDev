@@ -108,11 +108,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\HomeIndex.css" />
-    <Content Include="Content\Images\back-home.png" />
-    <Content Include="Content\Images\back-logare.png" />
+    <Content Include="Content\Images\baschet.png" />
+    <Content Include="Content\Images\fotbal.png" />
     <Content Include="Content\Images\logo-mihai35_02.gif" />
     <Content Include="Content\Images\logo-mihai35_02_H275.gif" />
     <Content Include="Content\Images\no_image-500x500.png" />
+    <Content Include="Content\Images\tenis.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -171,6 +172,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\ValidateContactForm.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -232,6 +234,9 @@
     <Content Include="Views\Account\ForgotPass.cshtml" />
     <Content Include="Views\Home\IndexBKP.cshtml" />
     <Content Include="Views\Home\_IndexSport.cshtml" />
+    <Content Include="Views\Home\DespreNoi.cshtml" />
+    <Content Include="Views\Home\TermeniSiConditii.cshtml" />
+    <Content Include="Views\Home\ContactUs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

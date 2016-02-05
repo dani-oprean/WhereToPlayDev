@@ -5,6 +5,7 @@
 .divTable
 {
     display:table;
+    text-align:center;
 }
 .divTableRow
 {
@@ -13,13 +14,18 @@
 .divTableCell
 {
     display:table-cell;
-    width:30%;
+    width:33%;
     text-align:center;
 }
 .divGol
 {
     margin:10px;
-    background-color:#eeeeee;
+    background-color:#dddddd;
+}
+
+.divGolLayout
+{
+    margin:10px;
 }
 
 

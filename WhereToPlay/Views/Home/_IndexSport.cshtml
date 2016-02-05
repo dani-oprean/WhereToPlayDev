@@ -12,7 +12,16 @@
                         {
                             string imageBase64 = Convert.ToBase64String(item.Content1);
                             string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                            <img src="@imageSrc" style="height:200px;width:300px;" />
+                            if (Request.IsAuthenticated)
+                            {
+                            <a href='@Url.Action("Details", "Courts", new { id = item.IDCourt })'>
+                                <img src="@imageSrc" style="height:200px;width:300px;" />
+                            </a>
+                            }
+                            else
+                            {
+                                <img src="@imageSrc" style="height:200px;width:300px;" />
+                            }
                         }
                         else
                         {
@@ -20,19 +29,58 @@
                             {
                                 string imageBase64 = Convert.ToBase64String(item.Content2);
                                 string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                <img src="@imageSrc" style="height:200px;width:300px;" />
-                            }
-                            else
-                            {
-                                if (item.FileName3 != null)
+                                if (Request.IsAuthenticated)
                                 {
-                                    string imageBase64 = Convert.ToBase64String(item.Content3);
-                                    string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                    <a href='@Url.Action("Details", "Courts", new { id = item.IDCourt })'>
+                                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                                    </a>
+                                    }
+                                    else
+                                    {
                                     <img src="@imageSrc" style="height:200px;width:300px;" />
+                                    }
                                 }
                                 else
                                 {
-                                    <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                    if (item.FileName3 != null)
+                                    {
+                                        string imageBase64 = Convert.ToBase64String(item.Content3);
+                                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                        if (Request.IsAuthenticated)
+                                        {
+                                        <a href='@Url.Action("Details", "Courts", new { id = item.IDCourt })'>
+                                            <img src="@imageSrc" style="height:200px;width:300px;" />
+                                        </a>
+                                        }
+                                        else
+                                        {
+                                            <img src="@imageSrc" style="height:200px;width:300px;" />
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.Sport.SportName == "Fotbal")
+                                    {
+                                        <img src="~/Content/Images/fotbal.png" style="height:200px;width:300px;" />
+                                    }
+                                    else
+                                    {
+                                        if (item.Sport.SportName == "Tenis")
+                                        {
+                                            <img src="~/Content/Images/tenis.png" style="height:200px;width:300px;" />
+                                        }
+                                        else
+                                        {
+                                            if (item.Sport.SportName == "Bachet")
+                                            {
+                                                <img src="~/Content/Images/baschet.png" style="height:200px;width:300px;" />
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -51,3 +99,4 @@
                         }
        
 
+ 

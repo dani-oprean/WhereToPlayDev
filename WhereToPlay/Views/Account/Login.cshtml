@@ -1,15 +1,8 @@
 ﻿@model WhereToPlay.Models.DB.User
 
-@{
-    ViewBag.Title = "Login";
-}
-
 <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 
 <div class="divlogare">
-    <br />
-    <h1 class="logare">WhereToPlay</h1>
-    <br />
     @using (Html.BeginForm("Login", "Account", FormMethod.Post))
     {
         @Html.AntiForgeryToken()

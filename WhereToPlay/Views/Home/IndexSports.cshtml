@@ -26,7 +26,14 @@
             </li>
         }
             <li>
-                @Html.ActionLink("Toate", "Index")
+                @Html.ActionLink("Home", "Index")
+            </li>
+
+            <li>
+                <form method="get">
+                <input type="search" name="terenCautat" />
+                <input type="submit" value="Cauta Teren" />
+                </form>
             </li>
     </ul>
 </div>
@@ -64,7 +71,28 @@
                                 }
                                 else
                                 {
-                                    <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                    if (Model.ToList()[i].Sport.SportName == "Fotbal")
+                                    {
+                                        <img src="~/Content/Images/fotbal.png" style="height:200px;width:300px;" />
+                                    }
+                                    else
+                                    {
+                                        if (Model.ToList()[i].Sport.SportName == "Tenis")
+                                        {
+                                            <img src="~/Content/Images/tenis.png" style="height:200px;width:300px;" />
+                                        }
+                                        else
+                                        {
+                                            if (Model.ToList()[i].Sport.SportName == "Bachet")
+                                            {
+                                                <img src="~/Content/Images/baschet.png" style="height:200px;width:300px;" />
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -110,7 +138,28 @@
                                     }
                                     else
                                     {
-                                        <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                        if (Model.ToList()[i+1].Sport.SportName == "Fotbal")
+                                        {
+                                            <img src="~/Content/Images/fotbal.png" style="height:200px;width:300px;" />
+                                        }
+                                        else
+                                        {
+                                            if (Model.ToList()[i+1].Sport.SportName == "Tenis")
+                                            {
+                                                <img src="~/Content/Images/tenis.png" style="height:200px;width:300px;" />
+                                            }
+                                            else
+                                            {
+                                                if (Model.ToList()[i+1].Sport.SportName == "Bachet")
+                                                {
+                                                    <img src="~/Content/Images/baschet.png" style="height:200px;width:300px;" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -157,7 +206,28 @@
                                     }
                                     else
                                     {
-                                        <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                        if (Model.ToList()[i + 2].Sport.SportName == "Fotbal")
+                                        {
+                                            <img src="~/Content/Images/fotbal.png" style="height:200px;width:300px;" />
+                                        }
+                                        else
+                                        {
+                                            if (Model.ToList()[i + 2].Sport.SportName == "Tenis")
+                                            {
+                                                <img src="~/Content/Images/tenis.png" style="height:200px;width:300px;" />
+                                            }
+                                            else
+                                            {
+                                                if (Model.ToList()[i + 2].Sport.SportName == "Bachet")
+                                                {
+                                                    <img src="~/Content/Images/baschet.png" style="height:200px;width:300px;" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
