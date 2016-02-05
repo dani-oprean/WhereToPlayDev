@@ -24,7 +24,14 @@
             @Html.ActionLink("Baschet", "IndexSports", new { id = spIDB })
         </td>
         <td>
-            @Html.ActionLink("Toate", "Index")
+            @Html.ActionLink("Home", "Index")
+        </td>
+        <td>
+            <form method="get">
+                <input type="search" name="terenCautat" />
+                <input type="submit" value="Cauta Teren" />
+            </form>
+ 
         </td>
     </tr>
 

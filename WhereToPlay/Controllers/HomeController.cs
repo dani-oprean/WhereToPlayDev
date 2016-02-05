@@ -18,9 +18,16 @@ namespace WhereToPlay.Controllers
             return View(db.Courts.Where(e=>e.Hidden==false).ToList());
         }
 
-        public ActionResult IndexSports(int id)
+        public ActionResult IndexSports(int id, string terenCautat)
         {
-            return View(db.Courts.Where(e => e.Hidden == false).Where(s=>s.SportID==id).ToList());
+            if (terenCautat == null)
+            {
+                return View(db.Courts.Where(e => e.Hidden == false).Where(s => s.SportID == id).ToList());
+            }
+            else
+            {
+                return View(db.Courts.Where(e => e.Hidden == false).Where(s => s.SportID == id).Where(c => c.CourtName.Contains(terenCautat)).ToList());
+            }
         }
 
         public ActionResult NotAllowed()

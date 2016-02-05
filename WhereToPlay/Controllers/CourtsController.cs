@@ -18,25 +18,40 @@ namespace WhereToPlay.Controllers
         private WhereToPlayDb db = new WhereToPlayDb();
 
         // GET: Courts
-        public ActionResult Index()
+        public ActionResult Index(string terenCautat)
         {
             if (Request.IsAuthenticated)
             {
                 int loggedUserID = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault().IDUser;
                 var courts = db.Courts.Where(c => c.CreateUserID == loggedUserID).Include(c => c.Address).Include(c => c.Sport).Include(c => c.User);
-                return View(courts.ToList());
+                if (terenCautat == null)
+                {
+                    return View(courts.ToList());
+                }
+                else
+                {
+                    return View(courts.Where(c => c.CourtName.Contains(terenCautat)).ToList());
+                }
             }
 
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult IndexSports(int id)
+        public ActionResult IndexSports(int id, string terenCautat)
         {
             if (Request.IsAuthenticated)
             {
                 int loggedUserID = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault().IDUser;
                 var courts = db.Courts.Where(c => c.CreateUserID == loggedUserID).Where(s=>s.SportID==id).Include(c => c.Address).Include(c => c.Sport).Include(c => c.User);
-                return View(courts.ToList());
+                if(terenCautat==null)
+                {
+                    return View(courts.ToList());
+                }
+                else
+                {
+                    return View(courts.Where(c => c.CourtName.Contains(terenCautat)).ToList());
+                }
+               
             }
 
             return RedirectToAction("Index", "Home");

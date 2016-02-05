@@ -26,7 +26,14 @@
             </li>
         }
             <li>
-                @Html.ActionLink("Toate", "Index")
+                @Html.ActionLink("Home", "Index")
+            </li>
+
+            <li>
+                <form method="get">
+                <input type="search" name="terenCautat" />
+                <input type="submit" value="Cauta Teren" />
+                </form>
             </li>
     </ul>
 </div>
