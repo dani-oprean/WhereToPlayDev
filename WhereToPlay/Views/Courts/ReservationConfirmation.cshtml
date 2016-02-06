@@ -1,0 +1,24 @@
+﻿@model IEnumerable<WhereToPlay.Models.DB.Reservation>
+
+@{
+    ViewBag.Title = "ReservationConfirmation";
+}
+
+<h3><b>Felicitari,</b><br/> poti sa joci <b>@Model.First().Court.Sport.SportName</b> pe terenul <b>@Model.First().Court.CourtName</b>
+   <br /> , in data de <b>@Model.First().ReservationDate.ToString("dd.MM.yyyy")</b> la orele:</h3>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <h4>
+                <b>
+                    @Html.DisplayFor(modelItem => item.ReservationTime.Hours)
+                </b>
+            </h4>
+        </li>
+    }
+</ul>
+<br />
+
+<p>@Html.ActionLink("Du-te la prima pagina!", "Index", "Home")</p>

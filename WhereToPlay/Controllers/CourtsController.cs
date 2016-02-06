@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using WhereToPlay.Models;
@@ -277,8 +279,34 @@ namespace WhereToPlay.Controllers
         public ActionResult Rent(Court court, CourtReservation reservation, string selectedDate)
         {
             Reservation res = new Reservation();
-            DateTime reservationDate = Convert.ToDateTime(selectedDate);
 
+            //date
+            if (selectedDate != null)
+            {
+                CultureInfo culture = new CultureInfo("ro-RO");
+                DateTime reservationDate = Convert.ToDateTime(selectedDate,culture);
+                if ((reservationDate.Year >= DateTime.Now.Year &&
+                    reservationDate.Month >= DateTime.Now.Month &&
+                    reservationDate.Day >= DateTime.Now.Day))
+                {
+                    res.ReservationDate = reservationDate;
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Data invalida! Va rugam sa selectati o data din viitor!");
+                    return View("Details", res.Court);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Va trebui sa selectati o data!");
+                return View("Details", res.Court);
+            }
+
+            bool forToday = (res.ReservationDate.Year == DateTime.Now.Year) &&
+                            (res.ReservationDate.Month == DateTime.Now.Month) &&
+                            (res.ReservationDate.Day == DateTime.Now.Day);
+            
             //court
             if (court.IDCourt > 0)
             {
@@ -302,24 +330,8 @@ namespace WhereToPlay.Controllers
             res.User.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == res.User.UserGroupID).FirstOrDefault();
             res.User.UserPasswordConfirm = res.User.UserPassword;
 
-            //date
-            if (reservationDate != null &&
-                (reservationDate.Year >= DateTime.Now.Year &&
-                reservationDate.Month >= DateTime.Now.Month &&
-                reservationDate.Day >= DateTime.Now.Day))
-            {
-                res.ReservationDate = reservationDate;
-            }
-            else
-            {
-                ModelState.AddModelError("", "Data invalida! Va rog selectati o data valida din viitor!");
-                return View("Details",res.Court);
-            }
-            bool forToday = (reservationDate.Year == DateTime.Now.Year) &&
-                            (reservationDate.Month == DateTime.Now.Month) &&
-                            (reservationDate.Day == DateTime.Now.Day);
-
             //Reservation hours
+            List<Reservation> reservations = new List<Reservation>();
             if (reservation.NZeceDoispe)
             {
                 if ((forToday && DateTime.Now.Hour < 9) || !forToday)
@@ -330,6 +342,7 @@ namespace WhereToPlay.Controllers
                     db.Reservations.Add(res1012);
                     db.Entry(res1012.Court).State = EntityState.Detached;
                     db.Entry(res1012.User).State = EntityState.Detached;
+                    reservations.Add(res1012);
                 }
                 else
                 {
@@ -348,6 +361,7 @@ namespace WhereToPlay.Controllers
                     db.Reservations.Add(res1214);
                     db.Entry(res1214.Court).State = EntityState.Detached;
                     db.Entry(res1214.User).State = EntityState.Detached;
+                    reservations.Add(res1214);
                 }
                 else
                 {
@@ -366,6 +380,7 @@ namespace WhereToPlay.Controllers
                     db.Reservations.Add(res1416);
                     db.Entry(res1416.Court).State = EntityState.Detached;
                     db.Entry(res1416.User).State = EntityState.Detached;
+                    reservations.Add(res1416);
                 }
                 else
                 {
@@ -384,6 +399,7 @@ namespace WhereToPlay.Controllers
                     db.Reservations.Add(res1618);
                     db.Entry(res1618.Court).State = EntityState.Detached;
                     db.Entry(res1618.User).State = EntityState.Detached;
+                    reservations.Add(res1618);
                 }
                 else
                 {
@@ -402,6 +418,7 @@ namespace WhereToPlay.Controllers
                     db.Reservations.Add(res1820);
                     db.Entry(res1820.Court).State = EntityState.Detached;
                     db.Entry(res1820.User).State = EntityState.Detached;
+                    reservations.Add(res1820);
                 }
                 else
                 {
@@ -420,6 +437,7 @@ namespace WhereToPlay.Controllers
                     db.Reservations.Add(res2022);
                     db.Entry(res2022.Court).State = EntityState.Detached;
                     db.Entry(res2022.User).State = EntityState.Detached;
+                    reservations.Add(res2022);
                 }
                 else
                 {
@@ -444,8 +462,47 @@ namespace WhereToPlay.Controllers
                 }
                 return View("Details", res.Court);
             }
+            if (reservations.Count > 0)
+            {
+                if (res.Court.EmailAddress != null)
+                {
+                    StringBuilder body = new StringBuilder();
+                    StringBuilder sms = new StringBuilder();
 
-            return RedirectToAction("Index", "Home");
+                    body.Append("Buna ziua,\n");
+                    if (reservations.Count == 1)
+                    {
+                        body.Append("O noua rezervare a fost creata pe terenul " + res.Court.CourtName);
+                        sms.Append("Rezervare noua ");
+                    }
+                    else
+                    {
+                        body.Append("Noi rezervari au fost create pe terenul " + res.Court.CourtName);
+                        sms.Append("Rezervari noi ");
+                    }
+
+                    body.Append(" de catre "+res.User.UserEmail + ". \n");
+                    body.Append("Rezervarea este in data de " + res.ReservationDate.ToString("dd.MM.yyyy") + " la orele: \n");
+                    sms.Append("pe terenul " + res.Court.CourtName + " in data de " + res.ReservationDate.ToString("dd.MM.yyyy") + " la orele: ");
+
+                    foreach (var item in reservations)
+                    {
+                        body.Append(item.ReservationTime.Hours + "\n");
+                        sms.Append(item.ReservationTime.Hours + " ");
+                    }
+                    sms.Append(". Contact:" + res.User.UserEmail);
+                    body.Append("O zi placuta");
+                    Utilities.EmailSend(res.Court.EmailAddress, "Rezervare noua pe terenul " + res.Court.CourtName, body.ToString());
+                    Utilities.SmsSend(res.Court.PhoneNumber, sms.ToString());
+                    
+                }
+                return View("ReservationConfirmation", reservations);
+            }
+            else
+            {
+                ModelState.AddModelError("", "Nici o ora nu a fost selectata din lista de ore pentru rezervare!");
+                return View("Details", res.Court);
+            }
         }
 
         public bool Allowed()
@@ -482,7 +539,8 @@ namespace WhereToPlay.Controllers
         //[NonAction]
         public ActionResult ShowTimes(string dateRes, int courtId)
         {
-            DateTime date = Convert.ToDateTime(dateRes);
+            CultureInfo culture = new CultureInfo("ro-RO");
+            DateTime date = Convert.ToDateTime(dateRes,culture);
             CourtReservation reservation = new CourtReservation();
 
             if (Request.IsAjaxRequest())

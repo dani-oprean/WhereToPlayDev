@@ -3,6 +3,8 @@
 @using (Html.BeginForm("Create", "Account", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+
+    <h3>Inregistrare utilizator</h3>
     
     <div class="form-horizontal">
         <hr />
@@ -64,7 +66,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Creaza" class="btn btn-default" />
+                <input type="submit" value="Creeaza" class="btn btn-default" />
             </div>
         </div>
     </div>

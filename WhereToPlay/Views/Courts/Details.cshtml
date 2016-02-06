@@ -1,5 +1,5 @@
 ﻿@model WhereToPlay.Models.DB.Court
-
+<link href="~/Content/datepicker.css" rel="stylesheet" />
 
 
 @using (Html.BeginForm("Rent", "Courts", FormMethod.Post))
@@ -20,14 +20,6 @@
                     @Html.DisplayFor(model => model.Address.AddressNumber)
                     @Html.DisplayFor(model => model.Address.AddressCity)
                     @Html.DisplayFor(model => model.Address.AddressCounty)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.User.UserName)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.User.UserName)
                 </dd>
 
                 <dt>
@@ -73,42 +65,47 @@
            </dl>
     </div>
 
-    <div>
-        @{
-            if (Model.FileName1 != null)
-            {
-                string imageBase64 = Convert.ToBase64String(Model.Content1);
-                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                <img src="@imageSrc" style="height:200px;width:300px;" />
-            }
-        }
+    <div class="divTable">
+        <div class="divTableRow">
+            <div class="divTableCell">
+                <div class="divGol">
+                    @{
+                        if (Model.FileName1 != null)
+                        {
+                            string imageBase64 = Convert.ToBase64String(Model.Content1);
+                            string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                            <img src="@imageSrc" style="height:200px;width:300px;" />
+                        }
+                    }
+                </div>
+            </div>
+            <div class="divTableCell">
+                <div class="divGol">
+                    @{
+                        if (Model.FileName2 != null)
+                        {
+                            string imageBase64 = Convert.ToBase64String(Model.Content2);
+                            string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                            <img src="@imageSrc" style="height:200px;width:300px;" />
+                        }
+                    }
+                </div>
+            </div>
+            <div class="divTableCell">
+                <div class="divGol">
+                    @{
+                        if (Model.FileName3 != null)
+                        {
+                            string imageBase64 = Convert.ToBase64String(Model.Content3);
+                            string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                            <img src="@imageSrc" style="height:200px;width:300px;" />
+                        }
+                    }
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div>
-        @{
-            if (Model.FileName2 != null)
-            {
-                string imageBase64 = Convert.ToBase64String(Model.Content2);
-                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                <img src="@imageSrc" style="height:200px;width:300px;" />
-            }
-        }
-    </div>
-
-    <div>
-        @{
-            if (Model.FileName3 != null)
-            {
-                string imageBase64 = Convert.ToBase64String(Model.Content3);
-                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                <img src="@imageSrc" style="height:200px;width:300px;" />
-            }
-        }
-    </div>
-
-    <hr />
-
-    
         <dl class="dl-horizontal">
 
             <dt>
@@ -120,7 +117,7 @@
             </dd>
 
             <dt>
-                @Html.Label("","Ora rezervare")
+                @Html.Label("","Ore disponibile")
             </dt>
 
             <dd>
@@ -157,6 +154,7 @@
                 'Iul', 'Aug', 'Sep', 'Oct', 'Noi', 'Dec'],
             nextText: '&rarr;',
             prevText: '&larr;',
+            dateFormat: 'dd.mm.yy',
             onSelect: function (date) {
                 $.get("/Courts/ShowTimes", { dateRes: date, courtId : @Model.IDCourt })
                 .done(function( data ) {
