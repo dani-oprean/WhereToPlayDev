@@ -43,7 +43,7 @@ textarea {
   margin: 0;
 }
 #menu ul li a {
-  color: #004529;
+  color: #539d14;
   text-decoration: none;
   display: block;
   padding: 15px 10px;
@@ -58,7 +58,7 @@ textarea {
   transition: color .25s;
 }
 #menu ul li a:hover {
-  color: #004529;
+  color: #539d14;
 }
 #menu ul li a:hover:before {
   width: 100%;
@@ -105,7 +105,7 @@ textarea {
   font-weight: 700;
   text-transform: uppercase;
   font-size: 18px;
-  color:#004529;
+  color:#539d14;
 }
 #menu img
 {
@@ -145,7 +145,49 @@ textarea {
     float:left;
 }
 
+/*general purpose*/
+
 .nav li
 {
     margin-right:20px;
+}
+
+body input[type="submit"]
+{
+	-moz-box-shadow:inset 0px 1px 0px 0px #9acc85;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #9acc85;
+	box-shadow:inset 0px 1px 0px 0px #9acc85;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #549d14), color-stop(1, #3b8e00));
+	background:-moz-linear-gradient(top, #549d14 5%, #3b8e00 100%);
+	background:-webkit-linear-gradient(top, #549d14 5%, #3b8e00 100%);
+	background:-o-linear-gradient(top, #549d14 5%, #3b8e00 100%);
+	background:-ms-linear-gradient(top, #549d14 5%, #3b8e00 100%);
+	background:linear-gradient(to bottom, #549d14 5%, #3b8e00 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#549d14', endColorstr='#3b8e00',GradientType=0);
+	background-color:#549d14;
+	border:1px solid #3b6e22;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:6px 12px;
+	text-decoration:none;
+}
+body input[type="submit"]:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #3b8e00), color-stop(1, #549d14));
+	background:-moz-linear-gradient(top, #3b8e00 5%, #549d14 100%);
+	background:-webkit-linear-gradient(top, #3b8e00 5%, #549d14 100%);
+	background:-o-linear-gradient(top, #3b8e00 5%, #549d14 100%);
+	background:-ms-linear-gradient(top, #3b8e00 5%, #549d14 100%);
+	background:linear-gradient(to bottom, #3b8e00 5%, #549d14 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3b8e00', endColorstr='#549d14',GradientType=0);
+	background-color:#3b8e00;
+    text-decoration:underline;
+    color:#dddddd;
+}
+body input[type="submit"]:active {
+	position:relative;
+	top:1px;
 }
