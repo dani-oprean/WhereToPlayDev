@@ -14,6 +14,7 @@ using System.Web.Security;
 using System.Text.RegularExpressions;
 using System.ComponentModel.DataAnnotations;
 using System.Web.UI;
+using System.Text;
 
 namespace WhereToPlay.Controllers
 {
@@ -372,14 +373,15 @@ namespace WhereToPlay.Controllers
             User usr = db.Users.Where(u => u.UserEmail == adresademail).FirstOrDefault();
             if (usr!=null)
             {
-                String newPass = usr.UserName;
+                String newPass = RandomString(8);
                 var crypto = new SimpleCrypto.PBKDF2();
                 usr.UserPassword = crypto.Compute(newPass);
                 usr.UserPasswordConfirm = usr.UserPassword;
                 usr.UserPasswordSalt = crypto.Salt;
 
                 usr.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == usr.UserGroupID).FirstOrDefault();
-                Utilities.EmailSend(adresademail, "Schimbare parola WhereToPLay", "Noua ta parola este: "+ newPass);
+                Utilities.EmailSend(adresademail, "Schimbare parola WhereToPLay", "Salut, noua ta parola este: "+ newPass);
+                Utilities.SmsSend(usr.UserPhone, "Salut, noua ta parola este: " + newPass);
             }
 
             try
@@ -399,6 +401,21 @@ namespace WhereToPlay.Controllers
             }
 
             return View();
+        }
+
+        [NonAction]
+        private string RandomString(int size)
+        {
+            StringBuilder builder = new StringBuilder();
+            Random random = new Random();
+            char ch;
+            for (int i = 0; i < size; i++)
+            {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
+            }
+
+            return builder.ToString();
         }
     }
 }
