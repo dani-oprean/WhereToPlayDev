@@ -3,66 +3,42 @@
 <div id="timesList">
     <ul class="nav navbar-nav">
         <li>
-            @if (Model.NZeceDoispe)
-            {
-                @Html.HiddenFor(model => model.NZeceDoispe)
-            }
-            else
+            @if (!Model.NZeceDoispe)
             {
                 @Html.Label("LZeceDoispe", "10-12")
                 @Html.EditorFor(model => model.NZeceDoispe)
             }
         </li>
         <li>
-            @if (Model.NDoispePaispe)
-            {
-                @Html.HiddenFor(model => model.NDoispePaispe)
-            }
-            else
+            @if (!Model.NDoispePaispe)
             {
                 @Html.Label("LDoispePaispe", "12-14")
                 @Html.EditorFor(model => model.NDoispePaispe)
             }
         </li>
         <li>
-            @if (Model.NPaispeSaispe)
-            {
-                @Html.HiddenFor(model => model.NPaispeSaispe)
-            }
-            else
+            @if (!Model.NPaispeSaispe)
             {
                 @Html.Label("LPaispeSaispe", "14-16")
                 @Html.EditorFor(model => model.NPaispeSaispe)
             }
         </li>
         <li>
-            @if (Model.NSaispeOptspe)
-            {
-                @Html.HiddenFor(model => model.NSaispeOptspe)
-            }
-            else
+            @if (!Model.NSaispeOptspe)
             {
                 @Html.Label("LSaispeOptspe", "16-18")
                 @Html.EditorFor(model => model.NSaispeOptspe)
             }
         </li>
         <li>
-            @if (Model.NOptspeDouazeci)
-            {
-                @Html.HiddenFor(model => model.NOptspeDouazeci)
-            }
-            else
+            @if (!Model.NOptspeDouazeci)
             {
                 @Html.Label("LOptspeDouazeci", "18-20")
                 @Html.EditorFor(model => model.NOptspeDouazeci)
             }
         </li>
         <li>
-            @if (Model.NDouazeciDouajdoi)
-            {
-                @Html.HiddenFor(model => model.NDouazeciDouajdoi)
-            }
-            else
+            @if (!Model.NDouazeciDouajdoi)
             {
                 @Html.Label("LDouazeciDouajdoi", "20-22")
                 @Html.EditorFor(model => model.NDouazeciDouajdoi)

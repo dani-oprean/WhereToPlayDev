@@ -116,7 +116,6 @@
             </dt>
 
             <dd>
-                @*<div id="selectedDate" name="selectedDate" class="date-picker"></div>*@
                 @Html.TextBox("selectedDate", "",new { @class = "date-picker" })
             </dd>
 
@@ -128,8 +127,8 @@
                 @Html.Partial("CourtReservationTime",
                 new WhereToPlay.Models.ViewModel.CourtReservation
                 {
-                    NZeceDoispe = false, NDoispePaispe = false, NPaispeSaispe=false,
-                    NSaispeOptspe =false, NOptspeDouazeci=false,NDouazeciDouajdoi=false
+                    NZeceDoispe = false, NDoispePaispe = false, NPaispeSaispe = false,
+                    NSaispeOptspe = false, NOptspeDouazeci = false, NDouazeciDouajdoi = false
                 })
             </dd>
         </dl>
@@ -159,9 +158,13 @@
             nextText: '&rarr;',
             prevText: '&larr;',
             onSelect: function (date) {
-                $.get("/Courts/ShowTimes", { dateRes: date, courtId : @Model.IDCourt });
+                $.get("/Courts/ShowTimes", { dateRes: date, courtId : @Model.IDCourt })
+                .done(function( data ) {
+                    $("#timesList").html(data);
+                });
                 return false;
             }
-        }).datepicker("setDate", new Date());
+        });
+        //.datepicker("setDate", new Date())
     })
 </script>
