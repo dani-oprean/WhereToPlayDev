@@ -8,25 +8,25 @@
             WhereToPlay.Models.WhereToPlayDb db = new WhereToPlay.Models.WhereToPlayDb();
             int spIDF = db.Sports.Where(s => s.SportName == "Fotbal").FirstOrDefault().IDSport;
             <li>
-                @Html.ActionLink("Fotbal", "IndexSports", new { id = spIDF })
+                <p>@Html.ActionLink("Fotbal", "IndexSports", new { id = spIDF })</p>
             </li>
         }
 
         @{
             int spIDT = db.Sports.Where(s => s.SportName == "Tenis").FirstOrDefault().IDSport;
             <li>
-                @Html.ActionLink("Tenis", "IndexSports", new { id = spIDT })
+                <p>@Html.ActionLink("Tenis", "IndexSports", new { id = spIDT })</p>
             </li>
         }
 
         @{
             int spIDB = db.Sports.Where(s => s.SportName == "Baschet").FirstOrDefault().IDSport;
             <li>
-                @Html.ActionLink("Baschet", "IndexSports", new { id = spIDB })
+               <p>@Html.ActionLink("Baschet", "IndexSports", new { id = spIDB })</p>
             </li>
         }
             <li>
-                @Html.ActionLink("Home", "Index")
+                <p>@Html.ActionLink("Home", "Index")</p>
             </li>
 
             <li>
