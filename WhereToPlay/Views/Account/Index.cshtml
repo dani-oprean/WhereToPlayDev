@@ -47,14 +47,14 @@
                 {
 
                     @Html.CheckBoxFor(modelItem => item.Hidden, new { @disabled = "disabled" })
-                    @Html.ActionLink("Inactiveaza", "Delete", new { id = item.IDUser })
+                    <p>@Html.ActionLink("Inactiveaza", "Delete", new { id = item.IDUser })</p>
 
                 }
                 else
                 {
 
                     @Html.CheckBoxFor(modelItem => item.Hidden, new { @disabled = "disabled" })
-                    @Html.ActionLink("Activeaza", "Delete", new { id = item.IDUser })
+                    <p>@Html.ActionLink("Activeaza", "Delete", new { id = item.IDUser })</p>
                 }
             }
         </td>
