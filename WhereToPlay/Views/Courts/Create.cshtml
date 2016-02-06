@@ -1,12 +1,11 @@
 ﻿@model WhereToPlay.Models.DB.Court
+@{ ViewBag.Title = "Adauga teren"; }
 
 @using (Html.BeginForm("Create", "Courts", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Court</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.CourtName, htmlAttributes: new { @class = "control-label col-md-2" })

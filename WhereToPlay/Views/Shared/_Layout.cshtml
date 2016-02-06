@@ -17,7 +17,8 @@
             <a href='@Url.Action("Index", "Home")'>
                 <img src="~/Content/Images/logo-mihai35_02_H275.gif" />
             </a>
-            <ul class="nav navbar-nav">
+            <p id="pageTitle">@ViewBag.Title</p>
+            <ul id ="menuList" class="nav navbar-nav">
             @if (Request.IsAuthenticated)
             {
                 WhereToPlay.Models.LoggedStatus status = WhereToPlay.Models.Utilities.GetLoggedStatus(HttpContext.Current.User.Identity.Name);
@@ -62,9 +63,9 @@
         <hr />
         <div id="footer">
             <ul>
-                <li>&copy; @DateTime.Now.Year - The Challengers</li>
-                <li>@Html.ActionLink("Despre Noi", "DespreNoi", "Home") </li>
-                <li>@Html.ActionLink("Termeni si Conditii", "TermeniSiConditii", "Home")</li>
+                <li><p>&copy; @DateTime.Now.Year - The Challengers</p></li>
+                <li><p>@Html.ActionLink("Despre Noi", "DespreNoi", "Home")</p></li>
+                <li><p>@Html.ActionLink("Termeni si Conditii", "TermeniSiConditii", "Home")</p></li>
             </ul>
         </div>
     </div>

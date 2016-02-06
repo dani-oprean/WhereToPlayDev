@@ -1,13 +1,10 @@
 ﻿@model WhereToPlay.Models.DB.User
+@{ ViewBag.Title = "Inregistrare utilizator"; }
 
 @using (Html.BeginForm("Create", "Account", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-
-    <h3>Inregistrare utilizator</h3>
-    
     <div class="form-horizontal">
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
