@@ -12,13 +12,13 @@
     <link href="~/Content/HomeIndex.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="divGolLayout">
+    <div id="menu">
         <div class="container">
             <a href='@Url.Action("Index", "Home")'>
                 <img src="~/Content/Images/logo-mihai35_02_H275.gif" />
             </a>
             <ul class="nav navbar-nav">
-                @if (Request.IsAuthenticated)
+            @if (Request.IsAuthenticated)
             {
                 WhereToPlay.Models.LoggedStatus status = WhereToPlay.Models.Utilities.GetLoggedStatus(HttpContext.Current.User.Identity.Name);
                 if (status == WhereToPlay.Models.LoggedStatus.NotLogged)
@@ -60,9 +60,13 @@
         @RenderBody()
         <br />
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - The Challengers   @Html.ActionLink("Despre Noi", "DespreNoi", "Home")  @Html.ActionLink("Termeni si Conditii", "TermeniSiConditii", "Home") </p>
-        </footer>
+        <div id="footer">
+            <ul>
+                <li>&copy; @DateTime.Now.Year - The Challengers</li>
+                <li>@Html.ActionLink("Despre Noi", "DespreNoi", "Home") </li>
+                <li>@Html.ActionLink("Termeni si Conditii", "TermeniSiConditii", "Home")</li>
+            </ul>
+        </div>
     </div>
 
 </body>
