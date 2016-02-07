@@ -280,8 +280,20 @@ namespace WhereToPlay.Controllers
         {
             Reservation res = new Reservation();
 
+            //court
+            if (court.IDCourt > 0)
+            {
+                res.Court = db.Courts.Find(court.IDCourt);
+                res.CourtID = court.IDCourt;
+            }
+            else
+            {
+                ModelState.AddModelError("", "Teren invalid!");
+                return View(res.Court);
+            }
+
             //date
-            if (selectedDate != null)
+            if (selectedDate != null && selectedDate!="")
             {
                 CultureInfo culture = new CultureInfo("ro-RO");
                 DateTime reservationDate = Convert.ToDateTime(selectedDate,culture);
@@ -307,17 +319,7 @@ namespace WhereToPlay.Controllers
                             (res.ReservationDate.Month == DateTime.Now.Month) &&
                             (res.ReservationDate.Day == DateTime.Now.Day);
             
-            //court
-            if (court.IDCourt > 0)
-            {
-                res.Court = db.Courts.Find(court.IDCourt);
-                res.CourtID = court.IDCourt;
-            }
-            else
-            {
-                ModelState.AddModelError("", "Teren invalid!");
-                return View(res.Court);
-            }
+            
 
             //user
             res.User = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
@@ -500,7 +502,7 @@ namespace WhereToPlay.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Nici o ora nu a fost selectata din lista de ore pentru rezervare!");
+                ModelState.AddModelError("", "Nicio ora nu a fost selectata din lista de ore pentru rezervare!");
                 return View("Details", res.Court);
             }
         }
