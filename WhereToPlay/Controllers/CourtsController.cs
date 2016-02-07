@@ -39,12 +39,12 @@ namespace WhereToPlay.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult IndexSports(int id, string terenCautat)
+        public ActionResult IndexSports(string id, string terenCautat)
         {
             if (Request.IsAuthenticated)
             {
                 int loggedUserID = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault().IDUser;
-                var courts = db.Courts.Where(c => c.CreateUserID == loggedUserID).Where(s=>s.SportID==id).Include(c => c.Address).Include(c => c.Sport).Include(c => c.User);
+                var courts = db.Courts.Where(c => c.CreateUserID == loggedUserID).Where(s=>s.Sport.SportName==id).Include(c => c.Address).Include(c => c.Sport).Include(c => c.User);
                 if(terenCautat==null)
                 {
                     return View(courts.ToList());

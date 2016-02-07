@@ -7,24 +7,24 @@
 <div class="divTableRow">
     <ul class="nav navbar-nav">
         @{
-            WhereToPlay.Models.WhereToPlayDb db = new WhereToPlay.Models.WhereToPlayDb();
-            int spIDF = db.Sports.Where(s => s.SportName == "Fotbal").FirstOrDefault().IDSport;
+           // WhereToPlay.Models.WhereToPlayDb db = new WhereToPlay.Models.WhereToPlayDb();
+            //int spIDF = db.Sports.Where(s => s.SportName == "Fotbal").FirstOrDefault().IDSport;
             <li>
-                <p>@Html.ActionLink("Fotbal", "IndexSports", new { id = spIDF })</p>
+                <p>@Html.ActionLink("Fotbal", "IndexSports", new { id = "Fotbal" })</p>
             </li>
         }
 
         @{
-            int spIDT = db.Sports.Where(s => s.SportName == "Tenis").FirstOrDefault().IDSport;
+            //int spIDT = db.Sports.Where(s => s.SportName == "Tenis").FirstOrDefault().IDSport;
             <li>
-               <p>@Html.ActionLink("Tenis", "IndexSports", new { id = spIDT })</p>
+               <p>@Html.ActionLink("Tenis", "IndexSports", new { id = "Tenis" })</p>
             </li>
         }
 
         @{
-            int spIDB = db.Sports.Where(s => s.SportName == "Baschet").FirstOrDefault().IDSport;
+            //int spIDB = db.Sports.Where(s => s.SportName == "Baschet").FirstOrDefault().IDSport;
             <li>
-                <p>@Html.ActionLink("Baschet", "IndexSports", new { id = spIDB })</p>
+                <p>@Html.ActionLink("Baschet", "IndexSports", new { id = "Baschet" })</p>
             </li>
         }
     </ul>
