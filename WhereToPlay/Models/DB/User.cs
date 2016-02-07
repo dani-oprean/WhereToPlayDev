@@ -26,7 +26,7 @@ namespace WhereToPlay.Models.DB
 
         [StringLength(50)]
         [Required(ErrorMessage = "Campul Nume Utilizator trebuie completat!")]
-        [Display(Name ="Nume utilizator*")]
+        [Display(Name ="Nume utilizator")]
         public string UserName { get; set; }
 
         [StringLength(50)]
@@ -35,12 +35,12 @@ namespace WhereToPlay.Models.DB
 
         [StringLength(50)]
         [Required(ErrorMessage = "Campul Adresa de email trebuie completat!")]
-        [Display(Name = "Adresa de email*")]
+        [Display(Name = "Adresa de email")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Acest camp trebuie sa aiba forma unei adrese de email!")]
         public string UserEmail { get; set; }
 
         [Required(ErrorMessage = "Campul Parola trebuie completat!")]
-        [Display(Name = "Parola*")]
+        [Display(Name = "Parola")]
         [DataType(DataType.Password)]
         public string UserPassword { get; set; }
 
@@ -51,12 +51,12 @@ namespace WhereToPlay.Models.DB
         [System.ComponentModel.DataAnnotations.Compare("UserPassword", ErrorMessage = "Valoarea din campul Confirmati Parola trebuie sa fie egala cu valoarea din campul Parola!")]
         public string UserPasswordConfirm { get; set; }
 
-        [Display(Name = "Parola*")]
+        [Display(Name = "Parola")]
         [DataType(DataType.Password)]
         [NotMapped]
         public string PasswordChange { get; set; }
 
-        [Display(Name = "Confirma Parola*")]
+        [Display(Name = "Confirma Parola")]
         [DataType(DataType.Password)]
         [NotMapped]
         [System.ComponentModel.DataAnnotations.Compare("PasswordChange", ErrorMessage = "Valoarea din campul Confirmati Parola trebuie sa fie egala cu valoarea din campul Parola!")]

@@ -4,6 +4,7 @@
     text-align:center;
     width:100%;
     max-width:1140px;
+    margin-top:20px;
 }
 .divTableRow
 {
@@ -14,7 +15,6 @@
 {
     display:table-cell;
     max-width:380px;
-    text-align:center;
 }
 .divGol
 {
@@ -26,6 +26,12 @@
     width:100%;
     display:block;
     text-align:center;
+    margin:auto;
+}
+
+.divGol p 
+{
+    font-weight:bold;
 }
 
 .divGol:hover {

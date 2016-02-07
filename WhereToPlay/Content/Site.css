@@ -262,3 +262,8 @@ body input[type="submit"]:active {
 {
     width:unset;
 }
+
+.col-md-10
+{
+    margin-bottom:20px;
+}

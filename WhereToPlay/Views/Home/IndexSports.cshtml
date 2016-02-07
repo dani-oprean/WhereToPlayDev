@@ -42,8 +42,8 @@
 <div class="divTable">
     @for (int i = 0; i < Model.ToList().Count; i += 3)
     {
-        <ul class="nav navbar-nav">
-            <li>
+        <div class="divTableRow">
+            <div class="divTableCell">
                 <div class="divGol">
 
                     <p>@Model.ToList()[i].Sport.SportName / @Model.ToList()[i].CourtName</p>
@@ -110,13 +110,13 @@
                         <p>@Html.ActionLink("Inchiriaza", "Login", "Account")</p>
                     }
                 </div>
-            </li>
+            </div>
 
             @*coloana 2 *@
 
             @if (i + 1 < Model.ToList().Count)
             {
-                <li>
+                <div class="divTableCell">
                     <div class="divGol">
 
                         <p>@Model.ToList()[i + 1].Sport.SportName / @Model.ToList()[i + 1].CourtName</p>
@@ -182,7 +182,7 @@
                             <p>@Html.ActionLink("Inchiriaza", "Login", "Account")</p>
                         }
                     </div>
-                </li>
+                </div>
             }
 
 
@@ -190,7 +190,7 @@
 
                             @if (i + 2 < Model.ToList().Count)
                             {
-                                <li>
+                                <div class="divTableCell">
                                     <div class="divGol">
 
                                         <p>@Model.ToList()[i + 2].Sport.SportName / @Model.ToList()[i + 2].CourtName</p>
@@ -255,9 +255,9 @@
                                             <p>@Html.ActionLink("Inchiriaza", "Login", "Account")</p>
                                         }
                                     </div>
-                                </li>
+                                </div>
                             }
 
-                        </ul>
+                        </div>
                     }
 </div>

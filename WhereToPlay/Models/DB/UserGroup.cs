@@ -20,7 +20,7 @@ namespace WhereToPlay.Models.DB
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Nume grup de utilizatori")]
+        [Display(Name = "Grup de utilizatori")]
         public string UserGroupName { get; set; }
 
         public virtual List<PageAccess> PageAccesses { get; set; }
