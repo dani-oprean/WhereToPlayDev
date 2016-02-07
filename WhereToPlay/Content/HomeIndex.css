@@ -43,3 +43,9 @@
     margin:10px;
 }
 
+#divTableRowHeader
+{
+    display:table-row;
+    text-align:left;
+    font-weight:bold;
+}

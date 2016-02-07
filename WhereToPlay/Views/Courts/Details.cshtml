@@ -6,23 +6,35 @@
 @using (Html.BeginForm("Rent", "Courts", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-
-<div>
-            <p>@Html.DisplayFor(model => model.CourtName) / @Html.DisplayFor(model => model.Sport.SportName)</p>
-            <p>@Html.HiddenFor(model=>model.IDCourt)</p>
+    <div id="cdMasterPane">
+        <div id="cdLeftPane">
+            <p id="cdHeader">@Html.DisplayFor(model => model.Sport.SportName) / @Html.DisplayFor(model => model.CourtName)</p>
+            <p>@Html.HiddenFor(model => model.IDCourt)</p>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Address)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Address.AddressStreet)
-                    @Html.DisplayFor(model => model.Address.AddressNumber)
-                    @Html.DisplayFor(model => model.Address.AddressCity)
-                    @Html.DisplayFor(model => model.Address.AddressCounty)
-                </dd>
-
+            <p id="cdAdresa">
+                <b>Adresa:</b>
+                Str.
+                @Html.DisplayFor(model => model.Address.AddressStreet)
+                Nr.
+                @Html.DisplayFor(model => model.Address.AddressNumber)
+                Oras
+                @Html.DisplayFor(model => model.Address.AddressCity)
+                Judet
+                @Html.DisplayFor(model => model.Address.AddressCounty)
+                <br />
+                @if (@Model.PhoneNumber != null && @Model.PhoneNumber != "")
+                {
+                    <b>Telefon: </b>
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                }
+                <br />
+                @if (@Model.EmailAddress != null && @Model.EmailAddress != "")
+                {
+                    <b>Email: </b>
+                    @Html.DisplayFor(model => model.EmailAddress)
+                }
+            </p>
+            <dl>
                 <dt>
                     @Html.DisplayNameFor(model => model.Length)
                 </dt>
@@ -39,21 +51,6 @@
                     @Html.DisplayFor(model => model.Width)
                 </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.PhoneNumber)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.EmailAddress)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.EmailAddress)
-                </dd>
 
                 <dt>
                     @Html.DisplayNameFor(model => model.SessionPrice)
@@ -63,83 +60,81 @@
                     @Html.DisplayFor(model => model.SessionPrice)
                 </dd>
 
-           </dl>
-    </div>
+            </dl>
 
-    <div class="divTable">
-        <div class="divTableRow">
-            <div class="divTableCell">
-                <div class="divGol">
-                    @{
-                        if (Model.FileName1 != null)
-                        {
-                            string imageBase64 = Convert.ToBase64String(Model.Content1);
-                            string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                            <img src="@imageSrc" style="height:200px;width:300px;" />
-                        }
-                    }
-                </div>
-            </div>
-            <div class="divTableCell">
-                <div class="divGol">
-                    @{
-                        if (Model.FileName2 != null)
-                        {
-                            string imageBase64 = Convert.ToBase64String(Model.Content2);
-                            string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                            <img src="@imageSrc" style="height:200px;width:300px;" />
-                        }
-                    }
-                </div>
-            </div>
-            <div class="divTableCell">
-                <div class="divGol">
-                    @{
-                        if (Model.FileName3 != null)
-                        {
-                            string imageBase64 = Convert.ToBase64String(Model.Content3);
-                            string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                            <img src="@imageSrc" style="height:200px;width:300px;" />
-                        }
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
+            <dl class="dl-horizontal">
 
-        <dl class="dl-horizontal">
+                <dt>
+                    @Html.Label("", "Selecteaza data")
+                </dt>
 
-            <dt>
-                @Html.Label("", "Selecteaza data")
-            </dt>
+                <dd>
+                    @Html.TextBox("selectedDate", "", new { @class = "date-picker" })
+                </dd>
 
-            <dd>
-                @Html.TextBox("selectedDate", "",new { @class = "date-picker" })
-            </dd>
+                <dt>
+                    @Html.Label("", "Ore disponibile")
+                </dt>
 
-            <dt>
-                @Html.Label("","Ore disponibile")
-            </dt>
-
-            <dd>
-                @Html.Partial("CourtReservationTime",
+                <dd>
+                    @Html.Partial("CourtReservationTime",
                 new WhereToPlay.Models.ViewModel.CourtReservation
                 {
-                    NZeceDoispe = false, NDoispePaispe = false, NPaispeSaispe = false,
-                    NSaispeOptspe = false, NOptspeDouazeci = false, NDouazeciDouajdoi = false
+                    NZeceDoispe = false,
+                    NDoispePaispe = false,
+                    NPaispeSaispe = false,
+                    NSaispeOptspe = false,
+                    NOptspeDouazeci = false,
+                    NDouazeciDouajdoi = false
                 })
-            </dd>
-        </dl>
+                </dd>
+            </dl>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Rezerva" class="btn btn-default" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Rezerva" class="btn btn-default" />
+                </div>
+            </div>
+
+            <div>
+                <p>@Html.ActionLink("Inapoi la terenuri", "Index", "Home")</p>
             </div>
         </div>
-        <div>
-            <p>@Html.ActionLink("Inapoi la terenuri", "Index","Home")</p>
+
+        <div id="cdRightPane">
+            <div>
+                @{
+                    if (Model.FileName1 != null)
+                    {
+                        string imageBase64 = Convert.ToBase64String(Model.Content1);
+                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                    }
+                }
+            </div>
+            <div>
+                @{
+                    if (Model.FileName2 != null)
+                    {
+                        string imageBase64 = Convert.ToBase64String(Model.Content2);
+                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                    }
+                }
+            </div>
+            <div>
+                @{
+                    if (Model.FileName3 != null)
+                    {
+                        string imageBase64 = Convert.ToBase64String(Model.Content3);
+                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                    }
+                }
+            </div>
         </div>
-                        }
+    </div>
+}
 
 <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>

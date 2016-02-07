@@ -101,7 +101,7 @@ textarea {
 }
 #menu p
 {
-  padding: 15px 10px;
+  padding: 15px 0px;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 18px;
@@ -266,4 +266,47 @@ body input[type="submit"]:active {
 .col-md-10
 {
     margin-bottom:20px;
+}
+
+.linkUtilizatori:link{
+   color: #549d14;
+}
+
+.linkUtilizatori:visited {
+    color: #3b8e00;
+}
+
+.linkUtilizatori:hover {
+    color: #004529;
+    background-color:#eeeeee;
+}
+
+.linkUtilizatori:active {
+    color: #3b8e00;
+} 
+
+#cdHeader
+{
+    font-size:16px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+#cdAdresa
+{
+    margin-top:20px;
+}
+
+#cdLeftPane
+{
+float:left;
+}
+
+#cdRightPane
+{
+    float:right;
+}
+#cdMasterPane
+{
+    overflow:hidden;
 }

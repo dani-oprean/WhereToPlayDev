@@ -2,43 +2,40 @@
 @{ViewBag.Title = "Lista utilizatori";}
 
 <div class="divTable">
-    <div class="divTableRow">
-        <div class="divTableCell">@Html.DisplayNameFor(model => model.UserGroup.UserGroupName)</div>
-        <div class="divTableCell">@Html.DisplayNameFor(model => model.UserName)</div>
-        <div class="divTableCell">@Html.DisplayNameFor(model => model.UserPhone)</div>
-        <div class="divTableCell">@Html.DisplayNameFor(model => model.UserEmail)</div>
-        <div class="divTableCell">@Html.DisplayNameFor(model => model.UserFullName)</div>
+    <div id="divTableRowHeader">
+        <div class="divTableCell"><p>@Html.DisplayNameFor(model => model.UserGroup.UserGroupName)</p></div>
+        <div class="divTableCell"><p>@Html.DisplayNameFor(model => model.UserName)</p></div>
+        <div class="divTableCell"><p>@Html.DisplayNameFor(model => model.UserPhone)</p></div>
+        <div class="divTableCell"><p>@Html.DisplayNameFor(model => model.UserEmail)</p></div>
+        <div class="divTableCell"><p>@Html.DisplayNameFor(model => model.UserFullName)</p></div>
      </div>
+    <br />
 
-    @foreach (var item in Model)
-    {
-        <div class="divTableRow">
-            <div class="divTableCell">@Html.DisplayFor(modelItem => item.UserGroup.UserGroupName)</div>
-            <div class="divTableCell">@Html.DisplayFor(modelItem => item.UserName)</div>
-            <div class="divTableCell">@Html.DisplayFor(modelItem => item.UserPhone)</div>
-            <div class="divTableCell">@Html.DisplayFor(modelItem => item.UserEmail)</div>
-            <div class="divTableCell">@Html.DisplayFor(modelItem => item.UserFullName)</div>
-            @if (item.UserGroup.UserGroupName != "Administrator")
-            {
-                if (item.Hidden == false)
+        @foreach (var item in Model)
+        {
+            <div class="divTableRow">
+                <div class="divTableCell"><p>@Html.DisplayFor(modelItem => item.UserGroup.UserGroupName)</p></div>
+                <div class="divTableCell"><p>@Html.DisplayFor(modelItem => item.UserName)</p></div>
+                <div class="divTableCell"><p>@Html.DisplayFor(modelItem => item.UserPhone)</p></div>
+                <div class="divTableCell"><p>@Html.DisplayFor(modelItem => item.UserEmail)</p></div>
+                <div class="divTableCell"><p>@Html.DisplayFor(modelItem => item.UserFullName)</p></div>
+                @if (item.UserGroup.UserGroupName != "Administrator")
                 {
-                    <div class="divTableCell">
-                        <ul class="nav navbar-nav">
-                            <li>@Html.HiddenFor(modelItem => item.Hidden, new { @disabled = "disabled" })</li>
-                            <li><p>@Html.ActionLink("Inactiveaza", "Delete", new { id = item.IDUser })</p></li>
-                        </ul>
-                    </div>
+                    if (item.Hidden == false)
+                    {
+                        <div class="divTableCell">
+                                @Html.HiddenFor(modelItem => item.Hidden, new { @disabled = "disabled" })
+                                <p>@Html.ActionLink("Inactiveaza", "Delete", new { id = item.IDUser }, new { @class = "linkUtilizatori" })</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="divTableCell">
+                                @Html.HiddenFor(modelItem => item.Hidden, new { @disabled = "disabled" })
+                                <p>@Html.ActionLink("Activeaza", "Delete", new { id = item.IDUser }, new { @class = "linkUtilizatori" })</p>
+                        </div>
+                    }
                 }
-                else
-                {
-                    <div class="divTableCell">
-                        <ul class="nav navbar-nav">
-                            <li>@Html.HiddenFor(modelItem => item.Hidden, new { @disabled = "disabled" })</li>
-                            <li><p>@Html.ActionLink("Activeaza", "Delete", new { id = item.IDUser })</p></li>
-                        </ul>
-                    </div>
-                }
-            }
-        </div>
-    }
-</div>
+            </div>
+        }
+    </div>
