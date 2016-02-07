@@ -380,8 +380,8 @@ namespace WhereToPlay.Controllers
                 usr.UserPasswordSalt = crypto.Salt;
 
                 usr.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == usr.UserGroupID).FirstOrDefault();
-                Utilities.EmailSend(adresademail, "Schimbare parola WhereToPLay", "Salut, noua ta parola este: "+ newPass);
-                Utilities.SmsSend(usr.UserPhone, "Salut, noua ta parola este: " + newPass);
+                Utilities.EmailSend(adresademail, "Schimbare parola WhereToPLay", "Salut, noua ta parola pentru userul "+usr.UserName+" este: "+ newPass);
+                Utilities.SmsSend(usr.UserPhone, "Salut, noua ta parola pentru userul " + usr.UserName + " este: " + newPass);
             }
 
             try

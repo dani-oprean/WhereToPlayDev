@@ -1,66 +1,44 @@
 ﻿@model IEnumerable<WhereToPlay.Models.DB.User>
 @{ViewBag.Title = "Lista utilizatori";}
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserGroup.UserGroupName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserPhone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserEmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserFullName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hidden)
-        </th>
-        <th></th>
-    </tr>
+<div class="divTable">
+    <div class="divTableRow">
+        <div class="divTableCell">@Html.DisplayNameFor(model => model.UserGroup.UserGroupName)</div>
+        <div class="divTableCell">@Html.DisplayNameFor(model => model.UserName)</div>
+        <div class="divTableCell">@Html.DisplayNameFor(model => model.UserPhone)</div>
+        <div class="divTableCell">@Html.DisplayNameFor(model => model.UserEmail)</div>
+        <div class="divTableCell">@Html.DisplayNameFor(model => model.UserFullName)</div>
+     </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserGroup.UserGroupName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserEmail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserFullName)
-        </td>
-        <td>
+    @foreach (var item in Model)
+    {
+        <div class="divTableRow">
+            <div class="divTableCell">@Html.DisplayFor(modelItem => item.UserGroup.UserGroupName)</div>
+            <div class="divTableCell">@Html.DisplayFor(modelItem => item.UserName)</div>
+            <div class="divTableCell">@Html.DisplayFor(modelItem => item.UserPhone)</div>
+            <div class="divTableCell">@Html.DisplayFor(modelItem => item.UserEmail)</div>
+            <div class="divTableCell">@Html.DisplayFor(modelItem => item.UserFullName)</div>
             @if (item.UserGroup.UserGroupName != "Administrator")
             {
                 if (item.Hidden == false)
                 {
-
-                    @Html.CheckBoxFor(modelItem => item.Hidden, new { @disabled = "disabled" })
-                    <p>@Html.ActionLink("Inactiveaza", "Delete", new { id = item.IDUser })</p>
-
+                    <div class="divTableCell">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.HiddenFor(modelItem => item.Hidden, new { @disabled = "disabled" })</li>
+                            <li><p>@Html.ActionLink("Inactiveaza", "Delete", new { id = item.IDUser })</p></li>
+                        </ul>
+                    </div>
                 }
                 else
                 {
-
-                    @Html.CheckBoxFor(modelItem => item.Hidden, new { @disabled = "disabled" })
-                    <p>@Html.ActionLink("Activeaza", "Delete", new { id = item.IDUser })</p>
+                    <div class="divTableCell">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.HiddenFor(modelItem => item.Hidden, new { @disabled = "disabled" })</li>
+                            <li><p>@Html.ActionLink("Activeaza", "Delete", new { id = item.IDUser })</p></li>
+                        </ul>
+                    </div>
                 }
             }
-        </td>
-
-    </tr>
-}
-
-</table>
+        </div>
+    }
+</div>
