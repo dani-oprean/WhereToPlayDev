@@ -14,44 +14,53 @@
 <body>
     <div id="menu">
         <div class="container">
+            
             <a href='@Url.Action("Index", "Home")'>
                 <img src="~/Content/Images/logo-mihai35_02_H275.gif" />
             </a>
+            
             <p id="pageTitle">@ViewBag.Title</p>
+
             <ul id ="menuList" class="nav navbar-nav">
-            @if (Request.IsAuthenticated)
-            {
-                WhereToPlay.Models.LoggedStatus status = WhereToPlay.Models.Utilities.GetLoggedStatus(HttpContext.Current.User.Identity.Name);
-                if (status == WhereToPlay.Models.LoggedStatus.NotLogged)
+                
+                @if (Request.IsAuthenticated)
                 {
-                    FormsAuthentication.SignOut();
-                }
-                else
-                {
-                    switch (status)
+                    WhereToPlay.Models.LoggedStatus status = WhereToPlay.Models.Utilities.GetLoggedStatus(HttpContext.Current.User.Identity.Name);
+                    if (status == WhereToPlay.Models.LoggedStatus.NotLogged)
                     {
-                        case WhereToPlay.Models.LoggedStatus.LoggedAdmin:
+                        FormsAuthentication.SignOut();
+                    }
+                    else
+                    {
+                        <li> @Html.ActionLink("Acasa", "Index", "Home") </li>
+                        switch (status)
+                        {
+                            case WhereToPlay.Models.LoggedStatus.LoggedAdmin:
                                 <li>@Html.ActionLink("Lista Utilizatori", "Index", "Account")</li>
                                 break;
+
                             case WhereToPlay.Models.LoggedStatus.LoggedOwner:
                                 <li> @Html.ActionLink("Adauga Teren", "Create", "Courts") </li>
                                 <li> @Html.ActionLink("Terenurile Mele", "Index", "Courts") </li>
                                 break;
+
                             default:
                                 break;
                         }
-
+                        <li> @Html.ActionLink("Contacteaza-ne", "ContactUs", "Home") </li>
+                        <li> @Html.ActionLink("Despre Noi", "DespreNoi", "Home") </li>
                         <li> @Html.ActionLink(HttpContext.Current.User.Identity.Name, "Edit", "Account") </li>
                         <li> @Html.ActionLink("Log Out", "Logout", "Account") </li>
                     }
                 }
                 else
                 {
+                    <li> @Html.ActionLink("Acasa", "Index", "Home") </li>
+                    <li> @Html.ActionLink("Contacteaza-ne", "ContactUs", "Home") </li>
+                    <li> @Html.ActionLink("Despre Noi", "DespreNoi", "Home") </li>
                     <li> @Html.ActionLink("Inregistrare", "Register", "Account") </li>
                     <li> @Html.ActionLink("Logare", "Login", "Account") </li>
                 }
-                <li> @Html.ActionLink("Contacteaza-ne", "ContactUs", "Home") </li>
-                <li> @Html.ActionLink("Despre Noi", "DespreNoi", "Home") </li>
             </ul>
         </div>
     </div> 
@@ -59,7 +68,7 @@
 
     <div class="container body-content">
         @RenderBody()
-        <br />
+        <br/>
         <hr />
         <div id="footer">
             <ul>

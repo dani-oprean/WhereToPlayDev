@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<WhereToPlay.Models.DB.Reservation>
 @{ViewBag.Title = "Confirmarea rezervarii";}
 
-<h3><b>Felicitari,</b><br/> poti sa joci <b>@Model.First().Court.Sport.SportName</b> pe terenul <b>@Model.First().Court.CourtName</b>
-   <br /> , in data de <b>@Model.First().ReservationDate.ToString("dd.MM.yyyy")</b> la orele:</h3>
+<h3><b>Felicitari,</b><br/> Poti sa joci <b>@Model.First().Court.Sport.SportName</b> pe terenul <b>@Model.First().Court.CourtName</b>
+    , in data de <b>@Model.First().ReservationDate.ToString("dd.MM.yyyy")</b> la orele:</h3>
 
 <ul>
     @foreach (var item in Model)

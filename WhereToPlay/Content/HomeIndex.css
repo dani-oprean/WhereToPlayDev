@@ -1,32 +1,38 @@
-﻿body {
-    padding-top: 0px;
-    padding-bottom: 0px;
-}
-.divTable
+﻿.divTable
 {
     display:table;
     text-align:center;
+    width:100%;
+    max-width:1140px;
 }
 .divTableRow
 {
     display:table-row;
+    text-align:left;
 }
 .divTableCell
 {
     display:table-cell;
-    width:33%;
+    max-width:380px;
     text-align:center;
 }
 .divGol
 {
     margin:10px;
-    background-color:#eeeeee;
     color:#004529;
+    border-top:1px solid #dddddd;
+    border-bottom:1px solid #dddddd;
+    max-width:360px;
+    display:block;
+    text-align:center;
+}
+
+.divGol:hover {
+    background-color:#eeeeee;
 }
 
 .divGolLayout
 {
     margin:10px;
 }
-
 

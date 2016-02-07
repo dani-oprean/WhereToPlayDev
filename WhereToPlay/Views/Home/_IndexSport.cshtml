@@ -3,8 +3,8 @@
 
     @foreach (WhereToPlay.Models.DB.Court item in Model)
     {
-        <div class="divTableRow">
-            <div class="divTableCell">
+        @*<div class="divTableRow">
+            <div class="divTableCell">*@
                 <div class="divGol">
                     <p>@item.Sport.SportName / @item.CourtName</p>
                     @{
@@ -94,8 +94,8 @@
                         <p>@Html.ActionLink("Inchiriaza", "Login", "Account")</p>
                     }
                 </div>
-            </div>
-        </div>
+            @*</div>
+        </div>*@
                         }
        
 
