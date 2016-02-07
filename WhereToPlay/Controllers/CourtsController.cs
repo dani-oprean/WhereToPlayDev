@@ -39,12 +39,12 @@ namespace WhereToPlay.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult IndexSports(int id, string terenCautat)
+        public ActionResult IndexSports(string id, string terenCautat)
         {
             if (Request.IsAuthenticated)
             {
                 int loggedUserID = db.Users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefault().IDUser;
-                var courts = db.Courts.Where(c => c.CreateUserID == loggedUserID).Where(s=>s.SportID==id).Include(c => c.Address).Include(c => c.Sport).Include(c => c.User);
+                var courts = db.Courts.Where(c => c.CreateUserID == loggedUserID).Where(s=>s.Sport.SportName==id).Include(c => c.Address).Include(c => c.Sport).Include(c => c.User);
                 if(terenCautat==null)
                 {
                     return View(courts.ToList());
@@ -280,8 +280,20 @@ namespace WhereToPlay.Controllers
         {
             Reservation res = new Reservation();
 
+            //court
+            if (court.IDCourt > 0)
+            {
+                res.Court = db.Courts.Find(court.IDCourt);
+                res.CourtID = court.IDCourt;
+            }
+            else
+            {
+                ModelState.AddModelError("", "Teren invalid!");
+                return View(res.Court);
+            }
+
             //date
-            if (selectedDate != null)
+            if (selectedDate != null && selectedDate!="")
             {
                 CultureInfo culture = new CultureInfo("ro-RO");
                 DateTime reservationDate = Convert.ToDateTime(selectedDate,culture);
@@ -307,17 +319,7 @@ namespace WhereToPlay.Controllers
                             (res.ReservationDate.Month == DateTime.Now.Month) &&
                             (res.ReservationDate.Day == DateTime.Now.Day);
             
-            //court
-            if (court.IDCourt > 0)
-            {
-                res.Court = db.Courts.Find(court.IDCourt);
-                res.CourtID = court.IDCourt;
-            }
-            else
-            {
-                ModelState.AddModelError("", "Teren invalid!");
-                return View(res.Court);
-            }
+            
 
             //user
             res.User = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
@@ -500,7 +502,7 @@ namespace WhereToPlay.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Nici o ora nu a fost selectata din lista de ore pentru rezervare!");
+                ModelState.AddModelError("", "Nicio ora nu a fost selectata din lista de ore pentru rezervare!");
                 return View("Details", res.Court);
             }
         }
