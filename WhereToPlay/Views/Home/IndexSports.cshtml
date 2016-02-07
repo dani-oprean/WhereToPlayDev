@@ -27,7 +27,7 @@
             </li>
         }
             <li>
-                <p>@Html.ActionLink("Home", "Index")</p>
+                <p>@Html.ActionLink("Toate", "Index")</p>
             </li>
 
             <li>
@@ -42,11 +42,12 @@
 <div class="divTable">
     @for (int i = 0; i < Model.ToList().Count; i += 3)
     {
-        <div class="divTableRow">
-            @*coloana 1 *@
-            <div class="divTableCell">
+        <ul class="nav navbar-nav">
+            <li>
                 <div class="divGol">
+
                     <p>@Model.ToList()[i].Sport.SportName / @Model.ToList()[i].CourtName</p>
+
                     @{
                         if (Model.ToList()[i].FileName1 != null)
                         {
@@ -98,8 +99,10 @@
                             }
                         }
                     }
+
+
                     @if (Request.IsAuthenticated)
-                    {
+                {
                         <p>@Html.ActionLink("Inchiriaza", "Details", "Courts", new { id = Model.ToList()[i].IDCourt }, null)</p>
                     }
                     else
@@ -107,13 +110,17 @@
                         <p>@Html.ActionLink("Inchiriaza", "Login", "Account")</p>
                     }
                 </div>
-            </div>
+            </li>
+
+            @*coloana 2 *@
+
             @if (i + 1 < Model.ToList().Count)
-                {
-                @*coloana 2 *@
-                <div class="divTableCell">
+            {
+                <li>
                     <div class="divGol">
+
                         <p>@Model.ToList()[i + 1].Sport.SportName / @Model.ToList()[i + 1].CourtName</p>
+
                         @{
                             if (Model.ToList()[i + 1].FileName1 != null)
                             {
@@ -139,19 +146,19 @@
                                     }
                                     else
                                     {
-                                        if (Model.ToList()[i+1].Sport.SportName == "Fotbal")
+                                        if (Model.ToList()[i + 1].Sport.SportName == "Fotbal")
                                         {
                                             <img src="~/Content/Images/fotbal.png" style="height:200px;width:300px;" />
                                         }
                                         else
                                         {
-                                            if (Model.ToList()[i+1].Sport.SportName == "Tenis")
+                                            if (Model.ToList()[i + 1].Sport.SportName == "Tenis")
                                             {
                                                 <img src="~/Content/Images/tenis.png" style="height:200px;width:300px;" />
                                             }
                                             else
                                             {
-                                                if (Model.ToList()[i+1].Sport.SportName == "Bachet")
+                                                if (Model.ToList()[i + 1].Sport.SportName == "Bachet")
                                                 {
                                                     <img src="~/Content/Images/baschet.png" style="height:200px;width:300px;" />
                                                 }
@@ -165,6 +172,7 @@
                                 }
                             }
                         }
+
                         @if (Request.IsAuthenticated)
                     {
                             <p>@Html.ActionLink("Inchiriaza", "Details", "Courts", new { id = Model.ToList()[i + 1].IDCourt }, null)</p>
@@ -174,67 +182,72 @@
                             <p>@Html.ActionLink("Inchiriaza", "Login", "Account")</p>
                         }
                     </div>
-                </div>
+                </li>
             }
-            @*coloana 3 *@
-            @if (i + 2 < Model.ToList().Count)
-            {
-                <div class="divTableCell">
-                    <div class="divGol">
-                        <p>@Model.ToList()[i + 2].Sport.SportName / @Model.ToList()[i + 2].CourtName</p>
-                        @{
-                            if (Model.ToList()[i + 2].FileName1 != null)
+
+
+                            @*coloana 3 *@
+
+                            @if (i + 2 < Model.ToList().Count)
                             {
-                                string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content1);
-                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                <img src="@imageSrc" style="height:200px;width:300px;" />
-                            }
-                            else
-                            {
-                                if (Model.ToList()[i + 2].FileName2 != null)
-                                {
-                                    string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content2);
-                                    string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                    <img src="@imageSrc" style="height:200px;width:300px;" />
-                                }
-                                else
-                                {
-                                    if (Model.ToList()[i + 2].FileName3 != null)
-                                    {
-                                        string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content3);
-                                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                                        <img src="@imageSrc" style="height:200px;width:300px;" />
-                                    }
-                                    else
-                                    {
-                                        if (Model.ToList()[i + 2].Sport.SportName == "Fotbal")
-                                        {
-                                            <img src="~/Content/Images/fotbal.png" style="height:200px;width:300px;" />
-                                        }
-                                        else
-                                        {
-                                            if (Model.ToList()[i + 2].Sport.SportName == "Tenis")
+                                <li>
+                                    <div class="divGol">
+
+                                        <p>@Model.ToList()[i + 2].Sport.SportName / @Model.ToList()[i + 2].CourtName</p>
+
+                                        @{
+                                            if (Model.ToList()[i + 2].FileName1 != null)
                                             {
-                                                <img src="~/Content/Images/tenis.png" style="height:200px;width:300px;" />
+                                                string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content1);
+                                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                                <img src="@imageSrc" style="height:200px;width:300px;" />
                                             }
                                             else
                                             {
-                                                if (Model.ToList()[i + 2].Sport.SportName == "Bachet")
+                                                if (Model.ToList()[i + 2].FileName2 != null)
                                                 {
-                                                    <img src="~/Content/Images/baschet.png" style="height:200px;width:300px;" />
+                                                    string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content2);
+                                                    string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                                    <img src="@imageSrc" style="height:200px;width:300px;" />
                                                 }
                                                 else
                                                 {
-                                                    <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                                    if (Model.ToList()[i + 2].FileName3 != null)
+                                                    {
+                                                        string imageBase64 = Convert.ToBase64String(Model.ToList()[i + 2].Content3);
+                                                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                                        <img src="@imageSrc" style="height:200px;width:300px;" />
+                                                    }
+                                                    else
+                                                    {
+                                                        if (Model.ToList()[i + 2].Sport.SportName == "Fotbal")
+                                                        {
+                                                            <img src="~/Content/Images/fotbal.png" style="height:200px;width:300px;" />
+                                                        }
+                                                        else
+                                                        {
+                                                            if (Model.ToList()[i + 2].Sport.SportName == "Tenis")
+                                                            {
+                                                                <img src="~/Content/Images/tenis.png" style="height:200px;width:300px;" />
+                                                            }
+                                                            else
+                                                            {
+                                                                if (Model.ToList()[i + 2].Sport.SportName == "Bachet")
+                                                                {
+                                                                    <img src="~/Content/Images/baschet.png" style="height:200px;width:300px;" />
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="~/Content/Images/no_image-500x500.png" style="height:200px;width:300px;" />
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
-                                }
-                            }
-                        }
-                       @if (Request.IsAuthenticated)
-                    {
+                                        @if (Request.IsAuthenticated)
+                                        {
                                             <p>@Html.ActionLink("Inchiriaza", "Details", "Courts", new { id = Model.ToList()[i + 2].IDCourt }, null)</p>
                                         }
                                         else
@@ -242,10 +255,9 @@
                                             <p>@Html.ActionLink("Inchiriaza", "Login", "Account")</p>
                                         }
                                     </div>
-                                </div>
-                                            }
-                        </div>
-                                                //Aici e index-ul din Home
-                                            }
+                                </li>
+                            }
 
+                        </ul>
+                    }
 </div>
