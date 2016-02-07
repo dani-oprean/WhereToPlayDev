@@ -210,3 +210,54 @@ body input[type="submit"]:active {
     color: #3b8e00;
 } 
 
+.form_settings
+{ margin: 5px 0 0 0;}
+
+.form_settings p
+{ padding: 0 0 10px 0;}
+
+.form_settings span
+{ padding: 5px 0; 
+  float: left; 
+  width: 170px; 
+  text-align: left;}
+  
+.form_settings input, .form_settings textarea
+{ width: 252px; 
+  padding: 5px 10px;
+  background: #fff;
+  color: #000;}
+  
+
+.form_settings textarea, .form_settings select
+{ 
+  padding: 5px 10px;
+  background: #fff;
+  width: 252px;
+  overflow: auto;}
+
+.form_settings select
+{ width: 274px;}
+
+.form_settings .checkbox
+{ margin: 4px 0; 
+  padding: 0; 
+  width: 14px;
+  background: none;
+
+}
+
+.form_settings p
+{
+    width:75%;
+}
+
+.form_settings span
+{
+    width:33%;
+}
+
+#trimitecontact
+{
+    width:unset;
+}

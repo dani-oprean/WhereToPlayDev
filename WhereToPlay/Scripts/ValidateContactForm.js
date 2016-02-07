@@ -30,8 +30,10 @@
                 if ($("#eroare").length) $("#eroare").parent().children().remove("#eroare");
             }
 
-            if (!$("#eroare").length)
-                $("#emailp").append("<span id='eroare' style='float:right;'>Email address is invalid!</span>");
+            if (!$("#eroare").length) {
+                $("#emailp").append("<span id='eroare' style='color:red;font-weight:bold;float:right;'>Adresa de email este invalida!</span>");
+                $(this).attr("style", "border:2px solid red;");
+            }
         }
         else {
             //if it's valid undo what you might have done if it wasn't valid
@@ -50,7 +52,7 @@
             $(this).attr("style", "border:2px solid red;");
 
             if (!$("#eroareName").length)
-                $("#namep").append("<span id='eroareName' style='float:right;'>You must have a name!</span>");
+                $("#namep").append("<span id='eroareName' style='color:red;font-weight:bold;float:right;'>Te rog completeaza-ti numele!</span>");
         }
         else {
             //if it's valid undo what you might have done if it wasn't valid
@@ -80,12 +82,12 @@
         if (!valid) {
             $("[name='your_email']").attr("style", "border:2px solid red;");
             if (!$("#eroare").length)
-                $("#emailp").append("<span id='eroare' style='float:right;'>Email address is invalid!</span>");
+                $("#emailp").append("<span id='eroare' style='color:red;font-weight:bold;float:right;'>Adresa de email este invalida!</span>");
             return false;
         } else if (!validName) {
             $("[name='your_name']").attr("style", "border:2px solid red;");
             if (!$("#eroareName").length)
-                $("#namep").append("<span id='eroareName' style='float:right;'>You must have a name!</span>");
+                $("#namep").append("<span id='eroareName' style='color:red;font-weight:bold;float:right;'>Te rog completeaza-ti numele!</span>");
             return false;
         }
         return true;
