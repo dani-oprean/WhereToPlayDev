@@ -136,6 +136,9 @@
     </div>
 }
 
+<div id="map_canvas" style="width: 480px; height: 320px;">
+</div>  
+
 <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
@@ -165,3 +168,46 @@
         //.datepicker("setDate", new Date())
     })
 </script>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+
+   $(document).ready(function () {
+     initialize();
+   });
+   function initialize() {
+       var address=document.getElementById("cdAdresa").innerText;
+       address=address.replace("Adresa:", "");
+       address=address.replace("Str.", "");
+       address=address.replace("Nr.", "");
+       address=address.replace("Oras", "");
+       address=address.replace("Judet", "");
+
+
+
+       var geocoder = new google.maps.Geocoder();
+       var lat=0;
+       var long=0;
+       geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            lat = results[0].geometry.location.lat();
+            long = results[0].geometry.location.lng();
+        }
+
+       var mapOptions = {
+           center: new google.maps.LatLng(lat, long),
+       zoom: 17,
+       mapTypeId: google.maps.MapTypeId.ROADMAP
+       };
+     var map = new google.maps.Map(document.getElementById("map_canvas"),
+       mapOptions);
+     // create a marker
+     var latlng = new google.maps.LatLng(lat, long);
+     var marker = new google.maps.Marker({
+       position: latlng,
+       map: map,
+       title: 'My Court'
+     });
+    });
+   }
+</script>  
