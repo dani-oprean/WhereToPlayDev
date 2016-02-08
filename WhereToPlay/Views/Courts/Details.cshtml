@@ -8,141 +8,153 @@
     @Html.AntiForgeryToken()
     <div id="cdMasterPane">
         <div id="cdLeftPane">
-            <p id="cdHeader">@Html.DisplayFor(model => model.Sport.SportName) / @Html.DisplayFor(model => model.CourtName)</p>
-            <p>@Html.HiddenFor(model => model.IDCourt)</p>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <p id="cdAdresa">
-                <b>Adresa:</b>
-                Str.
-                @Html.DisplayFor(model => model.Address.AddressStreet)
-                Nr.
-                @Html.DisplayFor(model => model.Address.AddressNumber)
-                Oras
-                @Html.DisplayFor(model => model.Address.AddressCity)
-                Judet
-                @Html.DisplayFor(model => model.Address.AddressCounty)
-                <br />
+            <p id="cdHeader">
+                @Html.DisplayFor(model => model.Sport.SportName) / @Html.DisplayFor(model => model.CourtName) &nbsp;&nbsp;
+            </p>
+        <p>@Html.HiddenFor(model => model.IDCourt)</p>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <dl class="dl-horizontal">
+                <dt id="cdAdresa">Adresa:</dt>
+                <dd>Str.
+                    @Html.DisplayFor(model => model.Address.AddressStreet)
+                    Nr.
+                    @Html.DisplayFor(model => model.Address.AddressNumber)
+                    Oras
+                    @Html.DisplayFor(model => model.Address.AddressCity)
+                    Judet
+                    @Html.DisplayFor(model => model.Address.AddressCounty)
+                </dd>
                 @if (@Model.PhoneNumber != null && @Model.PhoneNumber != "")
                 {
-                    <b>Telefon: </b>
-                    @Html.DisplayFor(model => model.PhoneNumber)
+                    <dt>Telefon:</dt>
+                    <dd>@Html.DisplayFor(model => model.PhoneNumber)</dd>
                 }
-                <br />
+
                 @if (@Model.EmailAddress != null && @Model.EmailAddress != "")
                 {
-                    <b>Email: </b>
-                    @Html.DisplayFor(model => model.EmailAddress)
+                    <dt>Adresa email:</dt>
+                    <dd>@Html.DisplayFor(model => model.EmailAddress)</dd>
                 }
-            </p>
-            <dl>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Length)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Length)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Width)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Width)
-                </dd>
-
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.SessionPrice)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.SessionPrice)
-                </dd>
-
-            </dl>
-
-            <dl class="dl-horizontal">
-
-                <dt>
-                    @Html.Label("", "Selecteaza data")
-                </dt>
-
-                <dd>
-                    @Html.TextBox("selectedDate", "", new { @class = "date-picker" })
-                </dd>
-
-                <dt>
-                    @Html.Label("", "Ore disponibile")
-                </dt>
-
+                <dt>Lungime/Latime: </dt>
+                <dd>@Html.DisplayFor(model => model.Length) / @Html.DisplayFor(model => model.Width)</dd>
+                <dt><b>Pret sesiune:</b></dt>
+                <dd><b>@Html.DisplayFor(model => model.SessionPrice)</b></dd>
+                <br />
+                <dt><b>REZERVA</b></dt>
+                <dd></dd>
+                <dt>Selecteaza data:</dt>
+                <dd>@Html.TextBox("selectedDate", "", new { @class = "date-picker" })</dd>
+                <dt>Selecteaza ora:</dt>
                 <dd>
                     @Html.Partial("CourtReservationTime",
-                new WhereToPlay.Models.ViewModel.CourtReservation
-                {
-                    NZeceDoispe = false,
-                    NDoispePaispe = false,
-                    NPaispeSaispe = false,
-                    NSaispeOptspe = false,
-                    NOptspeDouazeci = false,
-                    NDouazeciDouajdoi = false
-                })
+                        new WhereToPlay.Models.ViewModel.CourtReservation
+                        {
+                            NZeceDoispe = false,
+                            NDoispePaispe = false,
+                            NPaispeSaispe = false,
+                            NSaispeOptspe = false,
+                            NOptspeDouazeci = false,
+                            NDouazeciDouajdoi = false
+                        })
                 </dd>
             </dl>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Rezerva" class="btn btn-default" />
-                </div>
-            </div>
-
-            <div>
-                <p>@Html.ActionLink("Inapoi la terenuri", "Index", "Home")</p>
-            </div>
+        <div class="form-group">
+            <input type="submit" value="Rezerva" class="btn btn-default" />
+            <br />
+            <br />
+            @Html.ActionLink("Inapoi la terenuri", "Index", "Home")
         </div>
 
+
+    </div>
+
+
+
         <div id="cdRightPane">
-            <div>
-                @{
-                    if (Model.FileName1 != null)
-                    {
-                        string imageBase64 = Convert.ToBase64String(Model.Content1);
-                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                        <img src="@imageSrc" style="height:200px;width:300px;" />
-                    }
-                }
-            </div>
-            <div>
-                @{
-                    if (Model.FileName2 != null)
-                    {
-                        string imageBase64 = Convert.ToBase64String(Model.Content2);
-                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                        <img src="@imageSrc" style="height:200px;width:300px;" />
-                    }
-                }
-            </div>
-            <div>
-                @{
-                    if (Model.FileName3 != null)
-                    {
-                        string imageBase64 = Convert.ToBase64String(Model.Content3);
-                        string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
-                        <img src="@imageSrc" style="height:200px;width:300px;" />
-                    }
-                }
+
+            <div class="image-area clearfix">
+                <div class="main-image">
+                    <div>
+                        @{
+                            if (Model.FileName1 != null)
+                            {
+                                string imageBase64 = Convert.ToBase64String(Model.Content1);
+                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                <img src="@imageSrc" style="height:300px;width:400px;" />
+                            }
+                        }
+                    </div>
+                    <div>
+                        @{
+                            if (Model.FileName2 != null)
+                            {
+                                string imageBase64 = Convert.ToBase64String(Model.Content2);
+                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                <img src="@imageSrc" style="height:300px;width:400px;" />
+                            }
+                        }
+                    </div>
+                    <div>
+                        @{
+                            if (Model.FileName3 != null)
+                            {
+                                string imageBase64 = Convert.ToBase64String(Model.Content3);
+                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                <img src="@imageSrc" style="height:300px;width:400px;" />
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="sub-image">
+                    <div>
+                        @{
+                            if (Model.FileName1 != null)
+                            {
+                                string imageBase64 = Convert.ToBase64String(Model.Content1);
+                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                <img src="@imageSrc" style="height:60px;width:80px;" />
+                            }
+                        }
+                    </div>
+                    <div>
+                        @{
+                            if (Model.FileName2 != null)
+                            {
+                                string imageBase64 = Convert.ToBase64String(Model.Content2);
+                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                <img src="@imageSrc" style="height:60px;width:80px;" />
+                            }
+                        }
+                    </div>
+                    <div>
+                        @{
+                            if (Model.FileName3 != null)
+                            {
+                                string imageBase64 = Convert.ToBase64String(Model.Content3);
+                                string imageSrc = string.Format("data:image/jpeg;base64,{0}", imageBase64);
+                                <img src="@imageSrc" style="height:60px;width:80px;" />
+                            }
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 }
-
-<div id="map_canvas" style="width: 480px; height: 320px;">
+<hr/>
+<div id="map_canvas" style="max-width: 640px; height: 320px;">
 </div>  
 
 <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+@* ///////////////////*@
+@* datepicker scripts *@
+@* ///////////////////*@
+
 <script>
     $(function () {
         $('.date-picker').datepicker({
@@ -168,6 +180,10 @@
         //.datepicker("setDate", new Date())
     })
 </script>
+
+@* ////////////////////*@
+@* google maps scripts *@
+@* ////////////////////*@
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
@@ -211,3 +227,33 @@
     });
    }
 </script>  
+
+@* ///////////////////// *@
+@* image gallery scripts *@
+@* ///////////////////// *@
+
+<script src="~/Scripts/jquery.simple.thumbchanger.js"></script>
+<script>
+			$('.image-area').thumbchanger({
+				mainImageArea: '.main-image',
+				subImageArea:  '.sub-image',
+				animateTime:   100,
+				easing:        'easeOutCubic',
+				trigger:       'click',
+			});
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>

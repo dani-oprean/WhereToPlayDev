@@ -592,7 +592,7 @@ ol ol {
 }
 
 dl {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 dt,
@@ -601,7 +601,7 @@ dd {
 }
 
 dt {
-  font-weight: bold;
+  font-weight: normal;
 }
 
 dd {
@@ -611,15 +611,15 @@ dd {
 @media (min-width: 768px) {
   .dl-horizontal dt {
     float: left;
-    width: 160px;
+    width: 120px;
     overflow: hidden;
     clear: left;
-    text-align: right;
+    text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
   .dl-horizontal dd {
-    margin-left: 180px;
+    margin-left: 140px;
   }
   .dl-horizontal dd:before,
   .dl-horizontal dd:after {
@@ -1654,7 +1654,7 @@ legend {
 label {
   display: inline-block;
   margin-bottom: 5px;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 input[type="search"] {

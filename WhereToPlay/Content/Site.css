@@ -292,14 +292,10 @@ body input[type="submit"]:active {
     text-transform:uppercase;
 }
 
-#cdAdresa
-{
-    margin-top:20px;
-}
-
 #cdLeftPane
 {
 float:left;
+width:50%;
 }
 
 #cdRightPane
@@ -310,3 +306,69 @@ float:left;
 {
     overflow:hidden;
 }
+#cdListLeft
+{
+    list-style:none;
+    display:inline-block;
+    padding-left:10px;
+}
+
+#cdListRight
+{
+    list-style:none;
+    display:inline-block;
+    padding-left:10px;
+}
+
+/*image gallery from the court details page*/
+.clearfix { zoom: 1; }
+
+.clearfix:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.image-area {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.main-image {
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  margin: 0 0 15px 0;
+}
+
+.main-image div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  -moz-opacity: 0;
+  opacity: 0;
+  z-index: -1;
+}
+
+.sub-image { margin: 0 -15px 0 0; }
+
+.sub-image div {
+  float: left;
+  margin: 0 15px 0 0;
+  cursor: pointer;
+  text-align: center;
+}
+
+.sub-image img { margin: 0 0 3px 0; }
+
+.sub-image div.active img { }
+
+/*google maps*/
+#map_canvas
+{
+    max-width: 640px;
+    max-height: 320px;
+    margin:auto;
+} 

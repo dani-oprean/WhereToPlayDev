@@ -1,7 +1,7 @@
 ﻿@model WhereToPlay.Models.ViewModel.CourtReservation
 
 <div id="timesList">
-    <ul class="nav navbar-nav">
+    <ul id="cdListLeft">
         <li>
             @if (!Model.NZeceDoispe)
             {
@@ -23,6 +23,8 @@
                 @Html.EditorFor(model => model.NPaispeSaispe)
             }
         </li>
+    </ul>
+    <ul id="cdListRight">
         <li>
             @if (!Model.NSaispeOptspe)
             {
