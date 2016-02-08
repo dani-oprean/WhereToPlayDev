@@ -14,8 +14,8 @@
         <p>@Html.HiddenFor(model => model.IDCourt)</p>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <dl class="dl-horizontal">
-                <dt id="cdAdresa">Adresa:</dt>
-                <dd>Str.
+                <dt>Adresa:</dt>
+                <dd id="cdAdresa">Str.
                     @Html.DisplayFor(model => model.Address.AddressStreet)
                     Nr.
                     @Html.DisplayFor(model => model.Address.AddressNumber)
