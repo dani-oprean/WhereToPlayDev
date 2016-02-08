@@ -121,7 +121,7 @@ namespace WhereToPlay.Controllers
                     byte[] tempFile = new byte[Content1.ContentLength];
                     Content1.InputStream.Read(tempFile, 0, Content1.ContentLength);
                     myCourt.Content1 = tempFile;
-                    myCourt.FileName1 = Content1.FileName;
+                    myCourt.FileName1 = Content1.FileName;      
                 }
 
 
@@ -160,6 +160,33 @@ namespace WhereToPlay.Controllers
                 myCourt.User = db.Users.Where(u => u.IDUser == myCourt.CreateUserID).FirstOrDefault();
                 myCourt.User.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == myCourt.User.UserGroupID).FirstOrDefault();
                 myCourt.User.UserPasswordConfirm = myCourt.User.UserPassword;
+                if (Content1.ContentLength > 1048576)
+                {
+                    ViewBag.AddressID = new SelectList(db.Addresses, "IDAddress", "AddressStreet");
+                    ViewBag.SportID = new SelectList(db.Sports, "IDSport", "SportName");
+                    ViewBag.CreateUserID = new SelectList(db.Users, "IDUser", "UserName");
+                    ModelState.AddModelError("", "Poza 1 trebuia sa aiba maxim 1MB");
+                    return View("Create", court);
+                }
+
+                if (Content2.ContentLength > 1048576)
+                {
+                    ViewBag.AddressID = new SelectList(db.Addresses, "IDAddress", "AddressStreet");
+                    ViewBag.SportID = new SelectList(db.Sports, "IDSport", "SportName");
+                    ViewBag.CreateUserID = new SelectList(db.Users, "IDUser", "UserName");
+                    ModelState.AddModelError("", "Poza 2 trebuia sa aiba maxim 1MB");
+                    return View("Create", court);
+                }
+
+                if (Content3.ContentLength > 1048576)
+                {
+                    ViewBag.AddressID = new SelectList(db.Addresses, "IDAddress", "AddressStreet");
+                    ViewBag.SportID = new SelectList(db.Sports, "IDSport", "SportName");
+                    ViewBag.CreateUserID = new SelectList(db.Users, "IDUser", "UserName");
+                    ModelState.AddModelError("", "Poza 3 trebuia sa aiba maxim 1MB");
+                    return View("Create", court);
+                }
+
 
                 try
                 {
