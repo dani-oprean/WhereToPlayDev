@@ -36,10 +36,12 @@ namespace WhereToPlay.Models.DB
         public int AddressID { get; set; }
         public virtual Address Address { get; set; }
 
+        [Required(ErrorMessage = "Campul lungime este necesar")]
         [Range(0, 300, ErrorMessage = "Campul Lungime trebuie sa fie intre 0 si 300")]
         [Display(Name = "Lungime")]
         public int Length { get; set; }
 
+        [Required(ErrorMessage = "Campul latime este necesar")]
         [Range(0, 300, ErrorMessage = "Campul Latime trebuie sa fie intre 0 si 300")]
         [Display(Name = "Latime")]
         public int Width { get; set; }
@@ -49,8 +51,9 @@ namespace WhereToPlay.Models.DB
         public string PhoneNumber { get; set; }
 
         [StringLength(50)]
+        [Required(ErrorMessage = "Campul Adresa email este necesar!")]
         [Display(Name = "Adresa email")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "Acest camp trebuie sa aiba forma unei adrese de email!")]
+        [EmailAddress(ErrorMessage = "Acest camp trebuie sa aiba forma unei adrese de email!")]
         public string EmailAddress { get; set; }
 
         [ForeignKey("User")]
@@ -58,7 +61,8 @@ namespace WhereToPlay.Models.DB
         public int CreateUserID { get; set; }
         public virtual User User { get; set; }
 
-        [Required(ErrorMessage = "Campul Pret/Sesiune trebuie completat!")]
+        [Required(ErrorMessage = "Campul Pret Sesiune trebuie completat!")]
+        [Range(0, 1000, ErrorMessage = "Pretul pe sesiune trebuie sa fie intre 0 si 1000")]
         [Display(Name = "Pret/Sesiune")]
         public int SessionPrice { get; set; }
 

@@ -208,6 +208,10 @@
     <Compile Include="Migrations\201601300827167_imagini.Designer.cs">
       <DependentUpon>201601300827167_imagini.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602091617477_MandatoryCourtEmail.cs" />
+    <Compile Include="Migrations\201602091617477_MandatoryCourtEmail.Designer.cs">
+      <DependentUpon>201602091617477_MandatoryCourtEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB\Address.cs" />
     <Compile Include="Models\DB\Court.cs" />
@@ -264,6 +268,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601300827167_imagini.resx">
       <DependentUpon>201601300827167_imagini.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602091617477_MandatoryCourtEmail.resx">
+      <DependentUpon>201602091617477_MandatoryCourtEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
