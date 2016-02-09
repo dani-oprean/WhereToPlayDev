@@ -26,7 +26,12 @@ namespace WhereToPlay.Controllers
             }
             else
             {
-                return View(db.Courts.Where(e => e.Hidden == false).Where(s => s.Sport.SportName == id).Where(c => c.CourtName.Contains(terenCautat)).ToList());
+                var courts = db.Courts.Where(e => e.Hidden == false).Where(s => s.Sport.SportName == id).Where(c => c.CourtName.Contains(terenCautat)).ToList();
+                if (courts.Count==0)
+                {
+                    ModelState.AddModelError(string.Empty, "Ne pare rau, nu am gasit nici un teren!");
+                }
+                return View(courts);
             }
         }
 
@@ -45,6 +50,12 @@ namespace WhereToPlay.Controllers
             return View();
         }
 
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult ContactUs(string your_name,string your_email,string your_enquiry)
         {
 
@@ -54,7 +65,7 @@ namespace WhereToPlay.Controllers
                 string mesajBody = your_enquiry + ". Ma puteti contacta la adresa de email: " + your_email;
                 Utilities.EmailSend("online.programare@gmail.com", subject, mesajBody);
             }
-            return View();
+            return View("Index", db.Courts.Where(e => e.Hidden == false).ToList());
         }
     }
 }

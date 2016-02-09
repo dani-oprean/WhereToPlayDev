@@ -33,7 +33,12 @@ namespace WhereToPlay.Controllers
                 }
                 else
                 {
-                    return View(courts.Where(c => c.CourtName.Contains(terenCautat)).ToList());
+                    var courtsFilter = courts.Where(c => c.CourtName.Contains(terenCautat)).ToList();
+                    if (courtsFilter.Count == 0)
+                    {
+                        ModelState.AddModelError(string.Empty, "Ne pare rau, nu am gasit nici un teren!");
+                    }
+                    return View(courtsFilter);
                 }
             }
 
@@ -52,7 +57,12 @@ namespace WhereToPlay.Controllers
                 }
                 else
                 {
-                    return View(courts.Where(c => c.CourtName.Contains(terenCautat)).ToList());
+                    var courtsFilter = courts.Where(c => c.CourtName.Contains(terenCautat)).ToList();
+                    if (courtsFilter.Count == 0)
+                    {
+                        ModelState.AddModelError(string.Empty, "Ne pare rau, nu am gasit nici un teren!");
+                    }
+                    return View(courtsFilter);
                 }
                
             }
