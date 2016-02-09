@@ -108,6 +108,11 @@ namespace WhereToPlay.Controllers
                     }
                 suser.UserEmail = user.UserEmail;
                 suser.UserFullName = user.UserFullName;
+                if(user.UserPassword.Length>20)
+                {
+                    ModelState.AddModelError("UserPassword", "Campul Parola trebuie sa aiba maxim 20 de caractere!");
+                    return View("Register", user);
+                }
                 suser.UserPassword = crypto.Compute(user.UserPassword);
                 suser.UserPasswordConfirm = suser.UserPassword;
                 suser.UserPasswordSalt = crypto.Salt;
@@ -183,6 +188,11 @@ namespace WhereToPlay.Controllers
             if (user.PasswordChange!="" && user.PasswordChange != null)
             {
                 var crypto = new SimpleCrypto.PBKDF2();
+                if (user.PasswordChange.Length > 20)
+                {
+                    ModelState.AddModelError("PasswordChange", "Campul Parola trebuie sa aiba maxim 20 de caractere!");
+                    return View("Edit", user);
+                }
                 editedUser.UserPassword = crypto.Compute(user.PasswordChange);
                 editedUser.UserPasswordConfirm = editedUser.UserPassword;
                 editedUser.UserPasswordSalt = crypto.Salt;
