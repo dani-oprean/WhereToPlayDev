@@ -1,4 +1,5 @@
 ﻿@{ViewBag.Title = "Mi-am uitat parola";}
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <form method="post" id="formulmeu">
     <div class="form_settings">
         <p id="emailp"><span>Adresa de Email  </span><input class="contact" type="text" name="adresademail" value="" /></p>

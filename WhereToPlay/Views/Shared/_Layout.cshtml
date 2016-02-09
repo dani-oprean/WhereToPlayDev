@@ -48,8 +48,8 @@
                             default:
                                 break;
                         }
+                        <li> @Html.ActionLink("Rezervarile Mele", "RezervarileMele", "Courts") </li>
                         <li> @Html.ActionLink("Contacteaza-ne", "ContactUs", "Home") </li>
-                        <li> @Html.ActionLink("Despre Noi", "DespreNoi", "Home") </li>
                         <li> @Html.ActionLink(HttpContext.Current.User.Identity.Name, "Edit", "Account") </li>
                         <li> @Html.ActionLink("Log Out", "Logout", "Account") </li>
                     }

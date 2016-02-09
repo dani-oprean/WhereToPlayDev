@@ -249,6 +249,7 @@
     <Content Include="Views\Home\ContactUs.cshtml" />
     <Content Include="Views\Courts\ReservationConfirmation.cshtml" />
     <Content Include="Views\Courts\Rezervari.cshtml" />
+    <Content Include="Views\Courts\RezervarileMele.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
