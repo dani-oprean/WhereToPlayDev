@@ -64,6 +64,7 @@ namespace WhereToPlay.Controllers
                 string subject = "Ati primit un mesaj de la " + your_name;
                 string mesajBody = your_enquiry + ". Ma puteti contacta la adresa de email: " + your_email;
                 Utilities.EmailSend("online.programare@gmail.com", subject, mesajBody);
+                ViewBag.ContactSuccess = "Mesajul a fost trimis cu succes!";
             }
             return View("Index", db.Courts.Where(e => e.Hidden == false).ToList());
         }
