@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using WhereToPlay.Models;
@@ -249,16 +250,50 @@ namespace WhereToPlay.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IDCourt,CourtName,SportID,AddressID,Length,Width,PhoneNumber,EmailAddress,CreateUserID,SessionPrice")] Court court)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(court).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+
+            Court editedCourt = db.Courts.Where(u => u.IDCourt == court.IDCourt).FirstOrDefault();
+
             ViewBag.AddressID = new SelectList(db.Addresses, "IDAddress", "AddressStreet", court.AddressID);
             ViewBag.SportID = new SelectList(db.Sports, "IDSport", "SportName", court.SportID);
             ViewBag.CreateUserID = new SelectList(db.Users, "IDUser", "UserName", court.CreateUserID);
-            return View(court);
+
+            editedCourt.CourtName = court.CourtName;
+            editedCourt.Length = court.Length;
+            editedCourt.Width = court.Width;
+            if (court.PhoneNumber != null)
+                if (IsPhoneNumber(court.PhoneNumber))
+                {
+                    editedCourt.PhoneNumber = court.PhoneNumber;
+                }
+                else
+                {
+                    ModelState.AddModelError("PhoneNumber", "Campul Numar de telefon trebuie sa respecte formatul unui numar de telefon!");
+                    return View("Edit", court);
+                }
+            editedCourt.EmailAddress = court.EmailAddress;
+            editedCourt.SessionPrice = court.SessionPrice;
+
+             try
+            {
+                if (db.Entry(editedCourt).State == EntityState.Modified)
+                {
+                    db.SaveChanges();
+                }
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException er)
+            {
+                foreach (var validationErrors in er.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+
+                    }
+                }
+                return View("Edit", court);
+            }
+
+            return RedirectToAction("Index","Courts");
         }
 
         // GET: Courts/Delete/5
@@ -563,6 +598,12 @@ namespace WhereToPlay.Controllers
                 allowed = false;
             }
             return allowed;
+        }
+
+        [NonAction]
+        public static bool IsPhoneNumber(string number)
+        {
+            return Regex.Match(number, @"^[0-9]+$").Success;
         }
 
         //[NonAction]
