@@ -1,14 +1,10 @@
 ﻿@{ViewBag.Title = "Mi-am uitat parola";}
-@using (Html.BeginForm("ForgotPass", "Account", FormMethod.Post))
-{
- <div>
-    @Html.Label("Adresa de email:") 
-    @Html.TextBox("adresademail")
-     <div class="form-group">
-         <div class="col-md-offset-2 col-md-10">
-             <input type="submit" value="Reseteaza Parola" class="btn btn-default" />
-         </div>
-     </div>
- </div>
-}
+<form method="post" id="formulmeu">
+    <div class="form_settings">
+        <p id="emailp"><span>Adresa de Email  </span><input class="contact" type="text" name="adresademail" value="" /></p>
+        <input type="submit" value="Reseteaza Parola" class="submit" />
+    </div>
+</form>
+    <script src="~/Scripts/jquery-2.2.0.js"></script>
+    <script src="~/Scripts/ValidateForgotPassForm.js"></script>
 
