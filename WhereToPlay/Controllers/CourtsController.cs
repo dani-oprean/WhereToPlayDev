@@ -112,7 +112,17 @@ namespace WhereToPlay.Controllers
                 myCourt.CourtName = court.CourtName;
                 myCourt.Length = court.Length;
                 myCourt.Width = court.Width;
-                myCourt.PhoneNumber = court.PhoneNumber;
+
+                if (court.PhoneNumber != null)
+                    if (IsPhoneNumber(court.PhoneNumber))
+                    {
+                        myCourt.PhoneNumber = court.PhoneNumber;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("PhoneNumber", "Campul Numar telefon trebuie sa respecte formatul unui numar de telefon!");
+                        return View("Create", court);
+                    }
                 myCourt.EmailAddress = court.EmailAddress;
                 myCourt.CreateUserID = court.CreateUserID;
                 myCourt.SessionPrice = court.SessionPrice;
@@ -161,31 +171,41 @@ namespace WhereToPlay.Controllers
                 myCourt.User = db.Users.Where(u => u.IDUser == myCourt.CreateUserID).FirstOrDefault();
                 myCourt.User.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == myCourt.User.UserGroupID).FirstOrDefault();
                 myCourt.User.UserPasswordConfirm = myCourt.User.UserPassword;
-                if (Content1.ContentLength > 1048576)
+
+                if (Content1 != null && Content1.ContentLength > 0)
                 {
-                    ViewBag.AddressID = new SelectList(db.Addresses, "IDAddress", "AddressStreet");
-                    ViewBag.SportID = new SelectList(db.Sports, "IDSport", "SportName");
-                    ViewBag.CreateUserID = new SelectList(db.Users, "IDUser", "UserName");
-                    ModelState.AddModelError("", "Poza 1 trebuia sa aiba maxim 1MB");
-                    return View("Create", court);
+                    if (Content1.ContentLength > 1048576)
+                    {
+                        ViewBag.AddressID = new SelectList(db.Addresses, "IDAddress", "AddressStreet");
+                        ViewBag.SportID = new SelectList(db.Sports, "IDSport", "SportName");
+                        ViewBag.CreateUserID = new SelectList(db.Users, "IDUser", "UserName");
+                        ModelState.AddModelError("", "Poza 1 trebuia sa aiba maxim 1MB");
+                        return View("Create", court);
+                    }
                 }
 
-                if (Content2.ContentLength > 1048576)
+                if (Content2 != null && Content2.ContentLength > 0)
                 {
-                    ViewBag.AddressID = new SelectList(db.Addresses, "IDAddress", "AddressStreet");
-                    ViewBag.SportID = new SelectList(db.Sports, "IDSport", "SportName");
-                    ViewBag.CreateUserID = new SelectList(db.Users, "IDUser", "UserName");
-                    ModelState.AddModelError("", "Poza 2 trebuia sa aiba maxim 1MB");
-                    return View("Create", court);
+                    if (Content2.ContentLength > 1048576)
+                    {
+                        ViewBag.AddressID = new SelectList(db.Addresses, "IDAddress", "AddressStreet");
+                        ViewBag.SportID = new SelectList(db.Sports, "IDSport", "SportName");
+                        ViewBag.CreateUserID = new SelectList(db.Users, "IDUser", "UserName");
+                        ModelState.AddModelError("", "Poza 2 trebuia sa aiba maxim 1MB");
+                        return View("Create", court);
+                    }
                 }
 
-                if (Content3.ContentLength > 1048576)
+                if (Content3 != null && Content3.ContentLength > 0)
                 {
-                    ViewBag.AddressID = new SelectList(db.Addresses, "IDAddress", "AddressStreet");
-                    ViewBag.SportID = new SelectList(db.Sports, "IDSport", "SportName");
-                    ViewBag.CreateUserID = new SelectList(db.Users, "IDUser", "UserName");
-                    ModelState.AddModelError("", "Poza 3 trebuia sa aiba maxim 1MB");
-                    return View("Create", court);
+                    if (Content3.ContentLength > 1048576)
+                    {
+                        ViewBag.AddressID = new SelectList(db.Addresses, "IDAddress", "AddressStreet");
+                        ViewBag.SportID = new SelectList(db.Sports, "IDSport", "SportName");
+                        ViewBag.CreateUserID = new SelectList(db.Users, "IDUser", "UserName");
+                        ModelState.AddModelError("", "Poza 3 trebuia sa aiba maxim 1MB");
+                        return View("Create", court);
+                    }
                 }
 
 
@@ -267,7 +287,7 @@ namespace WhereToPlay.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("PhoneNumber", "Campul Numar de telefon trebuie sa respecte formatul unui numar de telefon!");
+                    ModelState.AddModelError("PhoneNumber", "Campul Numar telefon trebuie sa respecte formatul unui numar de telefon!");
                     return View("Edit", court);
                 }
             editedCourt.EmailAddress = court.EmailAddress;
