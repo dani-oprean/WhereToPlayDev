@@ -1,0 +1,23 @@
+﻿@model IEnumerable<WhereToPlay.Models.DB.Reservation>
+@{ViewBag.Title = "Rezervari";}
+
+<div class="divTable">
+    <div id="divTableRowHeader">
+        <div class="divTableCell"><p>Denumire teren</p></div>
+        <div class="divTableCell"><p>Interval</p></div>
+        <div class="divTableCell"><p>@Html.DisplayNameFor(model => model.User.UserName)</p></div>
+        <div class="divTableCell"><p>@Html.DisplayNameFor(model => model.ReservationDate)</p></div>
+
+    </div>
+    <br />
+
+    @foreach (var item in Model)
+    {
+        <div class="divTableRow">
+            <div class="divTableCell"><p>@Html.DisplayFor(modelItem => item.Court.CourtName)</p></div>
+            <div class="divTableCell"><p>@Html.DisplayFor(modelItem => item.ReservationTime.Hours)</p></div>
+            <div class="divTableCell"><p>@Html.DisplayFor(modelItem => item.User.UserName)</p></div>
+            <div class="divTableCell"><p>@item.ReservationDate.ToString("dd MM yyyy")</p></div>
+        </div>
+    }
+</div>

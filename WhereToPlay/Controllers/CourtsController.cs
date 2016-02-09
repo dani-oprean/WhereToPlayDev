@@ -60,6 +60,18 @@ namespace WhereToPlay.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult Rezervari()
+        {
+            if (Request.IsAuthenticated)
+            {
+                var courts = db.Reservations.Where(r => r.User.UserName==HttpContext.User.Identity.Name && r.ReservationDate>=DateTime.Now).ToList();
+                //.Include(c => c.Address).Include(c => c.Sport).Include(c => c.User)
+                return View(courts.ToList());  
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
 
         // GET: Courts/Details/5
         public ActionResult Details(int? id)
