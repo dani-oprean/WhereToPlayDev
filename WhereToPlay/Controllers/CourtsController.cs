@@ -64,9 +64,21 @@ namespace WhereToPlay.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                var courts = db.Reservations.Where(r => r.User.UserName==HttpContext.User.Identity.Name && r.ReservationDate>=DateTime.Now).ToList();
+                var courts = db.Reservations.Where(r => r.Court.User.UserName==HttpContext.User.Identity.Name && r.ReservationDate>=DateTime.Now).ToList();
                 //.Include(c => c.Address).Include(c => c.Sport).Include(c => c.User)
                 return View(courts.ToList());  
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult RezervarileMele()
+        {
+            if (Request.IsAuthenticated)
+            {
+                var courts = db.Reservations.Where(r => r.User.UserName == HttpContext.User.Identity.Name && r.ReservationDate >= DateTime.Now).ToList();
+                //.Include(c => c.Address).Include(c => c.Sport).Include(c => c.User)
+                return View(courts.ToList());
             }
 
             return RedirectToAction("Index", "Home");
