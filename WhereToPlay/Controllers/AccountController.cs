@@ -390,27 +390,32 @@ namespace WhereToPlay.Controllers
                 usr.UserPasswordSalt = crypto.Salt;
 
                 usr.UserGroup = db.UserGroups.Where(u => u.IDUserGroup == usr.UserGroupID).FirstOrDefault();
-                Utilities.EmailSend(adresademail, "Schimbare parola WhereToPLay", "Salut, noua ta parola pentru userul "+usr.UserName+" este: "+ newPass);
-                Utilities.SmsSend(usr.UserPhone, "Salut, noua ta parola pentru userul " + usr.UserName + " este: " + newPass);
-            }
 
-            try
-            {
-               db.SaveChanges(); 
-            }
-            catch (System.Data.Entity.Validation.DbEntityValidationException er)
-            {
-                foreach (var validationErrors in er.EntityValidationErrors)
+                try
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
+                    db.SaveChanges();
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException er)
+                {
+                    foreach (var validationErrors in er.EntityValidationErrors)
                     {
-                        ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
-
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+                        }
                     }
                 }
-            }
 
-            return View();
+                Utilities.EmailSend(adresademail, "Schimbare parola WhereToPLay", "Salut, noua ta parola pentru userul "+usr.UserName+" este: "+ newPass);
+                Utilities.SmsSend(usr.UserPhone, "Salut, noua ta parola pentru userul " + usr.UserName + " este: " + newPass);
+                ModelState.AddModelError("", "Un mail/sms cu noua parola v-a fost trimis pe adresa de email "+ adresademail);
+                return View("Login");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Adresa de email nu a fost gasita!");
+                return View();
+            }
         }
 
         [NonAction]
