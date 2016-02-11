@@ -4,8 +4,9 @@
 <div class="divTable">
     <div id="divTableRowHeader">
         <div class="divTableCell"><p>Denumire teren</p></div>
-        <div class="divTableCell"><p>Interval</p></div>
+        <div class="divTableCell"><p>Sport</p></div>
         <div class="divTableCell"><p>@Html.DisplayNameFor(model => model.User.UserName)</p></div>
+        <div class="divTableCell"><p>Interval</p></div>
         <div class="divTableCell"><p>Data</p></div>
 
     </div>
@@ -14,9 +15,10 @@
     @foreach (var item in Model)
     {
         <div class="divTableRow">
-            <div class="divTableCell"><p>@Html.DisplayFor(modelItem => item.Court.CourtName)</p></div>
-            <div class="divTableCell"><p>@Html.DisplayFor(modelItem => item.ReservationTime.Hours)</p></div>
+            <div class="divTableCell"><p>@Html.ActionLink(item.Court.CourtName, "Details", "Courts", new { id = item.CourtID }, null)</p></div>
+            <div class="divTableCell"><p>@Html.DisplayFor(modelItem => item.Court.Sport.SportName)</p></div>
             <div class="divTableCell"><p>@Html.DisplayFor(modelItem => item.User.UserName)</p></div>
+            <div class="divTableCell"><p>@Html.DisplayFor(modelItem => item.ReservationTime.Hours)</p></div>
             <div class="divTableCell"><p>@item.ReservationDate.ToString("dd MM yyyy")</p></div>
         </div>
     }
