@@ -305,21 +305,27 @@ namespace WhereToPlay.Controllers
         [HttpPost]
         public ActionResult Login(User usr)
         {
-
             if (usr.UserName == null || usr.UserPassword == null)
             {
-               // ModelState.AddModelError("", "USerul si parola sunt obligatorii!");
+                ModelState.AddModelError("", "Utilizator si parola sunt obligatorii!");
             }
             else
             {
-                if (ValidateLogin(usr.UserName, usr.UserPassword))
+                byte val = ValidateLogin(usr.UserName, usr.UserPassword);
+                switch(val)
                 {
-                    FormsAuthentication.SetAuthCookie(usr.UserName, false);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Userul sau parola sunt gresite!");
+                    case 0:
+                        ModelState.AddModelError("", "Utilizator sau parola sunt gresite!");
+                        break;
+                    case 1:
+                        ModelState.AddModelError("", "Utilizator este inactiv! Va rugam contactati administratorul in pagina Contacteaza-ne.");
+                        break;
+                    case 2:
+                        ModelState.AddModelError("", "Utilizator nu exista in baza de date dar puteti sa il creati!");
+                        break;
+                    case 3:
+                        FormsAuthentication.SetAuthCookie(usr.UserName, false);
+                        return RedirectToAction("Index", "Home");
                 }
             }
             return View(usr);
@@ -332,21 +338,24 @@ namespace WhereToPlay.Controllers
         }
 
         [NonAction]
-        public bool ValidateLogin(string usrName, string pass)
+        public byte ValidateLogin(string usrName, string pass)
         {
             var crypto = new SimpleCrypto.PBKDF2();
             var usr = db.Users.Where(e => e.UserName == usrName).FirstOrDefault();
-            bool isValid = false;
+            byte isValid = 0;
 
-            if( usr != null && usr.Hidden==false)
+            if(usr!=null && !usr.Hidden)
             { 
-                if (usr!=null)
+                if (usr.UserPassword == crypto.Compute(pass, usr.UserPasswordSalt))
                 {
-                    if (usr.UserPassword == crypto.Compute(pass, usr.UserPasswordSalt))
-                    {
-                        isValid = true;
-                    }
+                    isValid = 3;
                 }
+            }
+            else
+            {
+                if (usr == null) isValid = 2;
+                else
+                    if(usr.Hidden) isValid = 1;
             }
             return isValid;
         }
