@@ -90,7 +90,7 @@ namespace WhereToPlay.Controllers
 
                 User suser = new User();
                 User vusr = db.Users.Where(u=>u.UserName == user.UserName).FirstOrDefault();
-                if(vusr!=null)
+                if(vusr != null)
                 {
                     ModelState.AddModelError("UserName", "Acest nume de utilizator exista deja. Va rog alegeti altul!");
                     return View("Register", user);
@@ -106,6 +106,12 @@ namespace WhereToPlay.Controllers
                         ModelState.AddModelError("UserPhone", "Campul Numar de telefon trebuie sa respecte formatul unui numar de telefon!");
                         return View("Register", user);
                     }
+                User vemail = db.Users.Where(u => u.UserEmail == user.UserEmail).FirstOrDefault();
+                if (vemail != null)
+                {
+                    ModelState.AddModelError("UserEmail", "Aceasta adresa de email este deja utilizata. Va rog alegeti alta!");
+                    return View("Register", user);
+                }
                 suser.UserEmail = user.UserEmail;
                 suser.UserFullName = user.UserFullName;
                 if(user.UserPassword.Length>20)
